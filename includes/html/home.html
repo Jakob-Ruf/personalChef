@@ -1,1 +1,55 @@
-<div> HOME </div>
+<!-- Definieren das der Inhalt gscrollt werden darf -->
+<div class="scrollable">
+	<div class="scrollable-content section">
+
+		<!-- Beginn des Eingabeforms mit definierter Funktion -->
+		<form role="form" ng-submit='check_input()'>
+			<fieldset>
+				<div class="home_search">
+
+					<!-- Button für Kamerafunktion -->
+					<a id="home_input_pic" ng-click="take_picture()"><i class="fa fa-camera fa-2x"></i></a>
+					<!-- Eingabefeld für Zutaten oder Rezepte -->
+					<input type="text" ng-model="home_input" id="home_input" placeholder="Zutat/Rezept eingeben...">
+					<!-- Button zum Starten der Suche -->
+					<a id="home_search_btn" ng-click="do_search()"><i class="fa fa-search fa-2x"></i></a>
+
+
+				</div>
+			</fieldset>
+		</form>
+
+		<!-- Einfügen der Rezepthighlights -->
+		<div class="home_r" ng-repeat="rezept in rezeptListe">
+			<h1>{{rezept.title}}</h1>
+			<div class="rec_content">
+				<div class="rec_pic">
+					<img ng-src="{{rezept.image}}">
+				</div>
+
+				<div class="rec_name">
+					<h4> {{rezept.name}} </h4>
+				</div>
+				<div class="rec_incr">
+					<i class="fa fa-info fa-2x"></i>
+				</div>
+
+				<div class="rec_time">
+					<i class="fa fa-clock-o"></i> {{rezept.time}} min
+				</div>
+
+				<!-- Anzeigen des Ratings -->
+				<div class="rec_rating">
+
+					<!-- Abfrage wieviele Sterne aktiv sein sollen -->
+					<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 1)" ></i>
+					<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 2)" ></i>
+					<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 3)" ></i>
+					<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 4)" ></i>
+					<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 5)" ></i>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
