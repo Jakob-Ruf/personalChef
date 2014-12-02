@@ -1,0 +1,36 @@
+<!-- Definieren das der Inhalt gscrollt werden darf -->
+<div class="scrollable">
+	<div class="scrollable-content section">
+
+		<!-- Beginn des Eingabeforms mit definierter Funktion -->
+		<form role="form" ng-submit='check_input()'>
+			<fieldset>
+				<div class="fridge_form">
+
+					<!-- Eingabefeld für Zutaten -->
+					<input type="text" ng-model="fridge_input" id="fridge_input" placeholder="Zutat hinzufügen...">
+					<!-- Button zum Hinzufügen -->
+					<a id="input_add_btn" ng-click="add_item()"><i class="fa fa-plus fa-2x"></i></a>
+				</div>
+			</fieldset>
+		</form>
+
+		<div class="fridge">
+			<div class="fridge_item" ng-repeat="item in fridge | orderBy:'name'">
+				<div class="fridge_item_name">
+					{{item.name}}
+				</div>
+				<div class="fridge_item_modify">
+					<a href="" class="fridge_item_minus"><i class="fa fa-minus"></i></a>
+					<div class="fridge_item_count">{{item.count}}</div>
+					<div class="fridge_item_unit">{{item.unit}}</div>
+					<a href="" class="fridge_item_plus"><i class="fa fa-plus"></i></a>
+					<a href="" class="fridge_item_remove"><i class="fa fa-times"></i></a>
+				</div>
+			</div>
+			
+		</div>
+
+	
+	</div>
+</div>
