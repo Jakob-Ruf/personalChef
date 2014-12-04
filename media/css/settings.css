@@ -1,0 +1,68 @@
+/*--- Gerüst der Settings ---*/
+
+.settings
+{
+    font-size: 20px;
+    background-color: white;
+    
+}
+
+
+.setting-element
+{
+    border-top: solid thin grey;
+    background-color: white;
+    font-size: 18px;
+}
+
+.element-top
+{
+    border-bottom: solid thin grey;
+    background-color: #E0E0E0;
+    font-size: 18px;
+}
+
+.element
+{
+    margin:10px;
+    background-color: white;
+    font-size: 15px;
+    border-bottom: solid thin grey;
+    vertical-align: middle;
+    
+}
+
+/*--- Farbauswahlaufbau ---*/
+
+
+.colorOption
+{
+	background-color: white;
+    
+}
+
+.colorWindow
+{
+    height:10px;
+    width:25%;
+    float:left;
+    border-left: solid thin black;
+    border-top: solid thin black;
+    border-bottom: solid thin black;
+    border-right: solid thin black;
+    
+}
+
+#black{background-color: black;}
+#green{background-color: lightgreen;}
+#pink{background-color: pink;}
+#grey{background-color: grey;}
+#red{background-color:red;}
+#blue{background-color: lightblue;}
+#orange{background-color: orange;}
+#yellow{background-color: yellow;}
+
+#content{border-bottom: dotted thin grey; }
+#last{}
+#solidborder{border-bottom: solid thin grey;}
+#left{float: left;}
