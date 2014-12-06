@@ -1,17 +1,37 @@
 <link rel="stylesheet" type="text/css" href="media/css/settings.css" />
 <script type="text/javascript" src="includes/settings_content.js"></script>
+<script>function changeColor(value){
+    var items = document.getElementsByTagName("*");
+    for (var i = items.length; i--;){
+        if(items[i].style.color){
+            items[i].style.color = value;
+        };      
+        if(items[i].style.backgroundColor){
+            items[i].style.backgroundColor = value;
+        };
+    };
+}</script>
 
 <div class="settings">
     <br />
     <div class="setting-element">
         <div class="element-top">Allgemeines</div>
-        <div class="element">Brennwerteinheit</div>
-        <div class="element">Verwendete Portionsanzahl</div>
+        <div class="element">
+            Brennwerteinheit
+            <select name="unitofcalorificvalue" id="unitofcalorificvalue">
+                <option value="kcal" selected="selected">kcal</option>
+                <option value="joule">Joule</option>
+            </select>
+        </div>
+        <div class="element">
+            Verwendete Portionsanzahl 
+            <input type="number" value="1" min="1" />
+        </div>
     </div>
     <br>
     <div class="setting-element">
         <div class="element-top">Profileinstellungen</div>
-        <div class="element">Profilinformationen anpasssen</div>
+        <div class="element">Profilinformationen anpassen</div>
         <div class="element">Bild ändern</div>
     </div>
     <br>
@@ -45,7 +65,13 @@
                 </div>
             </div>
         </div>
-        <div class="element">Schriftgröße
+        <div class="element">
+            Schriftgröße
+            <select name="fontsize" id="fontsize">
+                <option value="small">Klein</option>
+                <option value="medium">Normal</option>
+                <option value="big">Groß</option>
+            </select>
         </div>
     </div>
     <br>

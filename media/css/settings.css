@@ -1,5 +1,10 @@
 /*--- Gerüst der Settings ---*/
 
+.settings input, .settings select
+{
+    float: right;
+}
+
 .settings
 {
     font-size: 20px;
