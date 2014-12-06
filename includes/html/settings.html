@@ -5,8 +5,17 @@
     <br />
     <div class="setting-element">
         <div class="element-top">Allgemeines</div>
-        <div class="element">Brennwerteinheit</div>
-        <div class="element">Verwendete Portionsanzahl</div>
+        <div class="element">
+            Brennwerteinheit
+            <select name="" id="">
+                <option value="kcal">kcal</option>
+                <option value="Joule">Joule</option>
+            </select>
+        </div>
+        <div class="element">
+            Verwendete Portionsanzahl
+            <input type="number" value="1" min="1">
+        </div>
     </div>
     <br>
     <div class="setting-element">
@@ -45,7 +54,13 @@
                 </div>
             </div>
         </div>
-        <div class="element">Schriftgr&ouml;&szlig;e
+        <div class="element">
+            Schriftgr&ouml;&szlig;e
+            <select name="fontsize" id="fontsize">
+                <option value="small">Klein</option>
+                <option value="medium">Normal</option>
+                <option value="large">Groß</option>
+            </select>
         </div>
     </div>
     <br>
