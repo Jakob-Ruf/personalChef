@@ -30,7 +30,7 @@
 				<div class="rec_name">
 					<h4> {{rezept.name}} </h4>
 				</div>
-				<div class="rec_incr">
+				<div class="rec_incr" ng-click="openHomeOverlay($index)">
 					<i class="fa fa-info fa-2x"></i>
 				</div>
 
@@ -50,6 +50,38 @@
 
 				</div>
 			</div>
+
+			<div class="overlay" ng-class="overlayHomeId($index)" ng-click="closeHomeOverlay($index)">
+				<div class="overlay_content" ng-click="">
+					<div class="overlay_rec_name">
+						{{rezept.name}}
+					</div>
+					<div class="overlay_rec_ingr">
+						Zutaten:
+						<ul>
+							<li ng-repeat="rec_ingr in rezept.ingredients">
+								<div class="overlay_rec_ingredient">{{rec_ingr.name}}</div>
+							</li>
+						</ul>
+
+					</div>
+					<div class="overlay_rec_stats">
+						<div class="overlay_likes">
+							<i class="fa fa-heart fa-2x"></i> {{rezept.likes}}
+						</div>
+
+						<div class="overlay_rec_rating">
+							<!-- Abfrage wieviele Sterne aktiv sein sollen -->
+							<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 1)" ></i>
+							<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 2)" ></i>
+							<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 3)" ></i>
+							<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 4)" ></i>
+							<i class="fa fa-star fa-2x" ng-class="ratingIsActive($index, 5)" ></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>
