@@ -4,7 +4,6 @@
 		'ngRoute',
 		'ngTouch',
 		'ngResource',
-		'ngDialog',
 		'mobile-angular-ui'
 		]);
 
@@ -18,7 +17,7 @@
 		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
 	});
 
-	app.controller('rezeptController', function($scope, ngDialog)
+	app.controller('rezeptController', function($scope)
 	{
 
 
