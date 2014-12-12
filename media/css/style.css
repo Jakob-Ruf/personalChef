@@ -44,20 +44,20 @@ body
 /*--- Anpassung Menü ---*/
 .list-group-item.active
 {
-	background-color: #d35400;
-	border-color: #d35400;
+	background-color: rgba(192, 57, 43,1.0);
+	border-color: rgba(192, 57, 43,1.0);
 }
 
 .list-group-item.active:focus
 {
-	background-color: #d35400;
-	border-color: #d35400;
+	background-color: rgb(214,85,72);
+	border-color: rgb(214,85,72);
 }
 
 .list-group-item.active:hover
 {
-	background-color: #e98b39;
-	border-color: #e98b39;
+	background-color: rgb(214,85,72);
+	border-color: rgb(214,85,72);
 }
 
 .list-group-item:first-of-type {
@@ -78,6 +78,12 @@ body
 	bottom:-1px;
 	width:100%;
 }
+
+.sidebar-left 
+{
+	background-color: rgba(123, 3, 2, 1);
+}
+
 
 /*----------------------*/
 /*--- Anpassung Home ---*/
