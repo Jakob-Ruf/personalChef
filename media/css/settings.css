@@ -2,15 +2,11 @@
 
 .settings
 {
-    font-size: 20px;
+    font-size: 1.25em;
     /*background-color: #ccc;*/
+    background-color: #f0f0f0;
     height: 100%;
-    margin-top: -9px; 
-}
-
-.settings input, .settings select
-{
-    float: right;
+    margin-top: -20px;
 }
 
 
@@ -18,31 +14,40 @@
 {
     border-radius: 3px;
     background-color: #fcfcfc;
-    font-size: 18px;
-    box-shadow: 0 5px 5px #777;
-    margin-left: 10px;
-    margin-right: 10px;
+    font-size: 1em;
+    /*box-shadow: 0 0.213em 0.213em #777;*/
+    /*margin-left: 4%;*/
     margin-top: 0px;
-    padding-bottom: 20px;
+    /* margin-bottom: 4%; */
+    /*padding-bottom: 0.4em;*/
+    width:100%;
 }
+
 
 .element-top
 {
     border-radius: 3px;
     background-color: #f0f0f0;
-    font-size: 18px;
-    padding-left: 10px;
+    font-size: 1em;
+    padding-left: 3%;
 }
 
 .element
 {
-    margin: 10px;
-    font-size: 15px;
-    vertical-align: middle;    
+    margin: 4%;
+    font-size: 0.8em;
+    vertical-align: middle;
+    padding-bottom: 0.75em;
+    border-bottom: solid 0.1em #f0f0f0;
+}
+
+.element-part
+{
+    width: 49%;
+    display: inline-block;
 }
 
 /*--- Farbauswahlaufbau ---*/
-
 .colorOption
 {
     overflow: hidden;
@@ -50,25 +55,8 @@
 
 .colorWindow
 {
-    height: 80px;
-    width: calc(25% - 4px);
-    float: left;
-    margin: 2px;
-    cursor: pointer;
-    padding: 5px;
-}
 
-.colorWindow:hover
-{
-    background-color: rgba(0,0,0,0);
 }
-
-.colorWindowInner
-{
-    height: 100%;
-    width: 100%;
-}
-
 
 /* colors according to 
 http://www.google.com/design/spec/style/color.html#color-color-palette 
@@ -106,7 +94,5 @@ http://www.google.com/design/spec/style/color.html#color-color-palette
     background-color: #FFEB3B;
 }
 
-#content{border-bottom: dotted thin grey; }
-#last{}
-#solidborder{border-bottom: solid thin grey;}
-#left{float: left;}
+#right{text-align: right}
+#click{cursor: pointer}
