@@ -4,6 +4,7 @@
 		'ngRoute',
 		'ngTouch',
 		'ngResource',
+		'rezeptServices',
 		'mobile-angular-ui'
 		]);
 
@@ -17,12 +18,13 @@
 		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
 	});
 
-	app.controller('rezeptController', function($scope)
+	app.controller('rezeptController', function($scope, Users)
 	{
 
+		$scope.rezeptListe = Users.query();
+		var user_list = $scope.users;
 
-
-		$scope.rezeptListe = [
+		/*$scope.rezeptListe = [
 		{ 
 			title: 	"Rezept des Tages", 
 			name: 	"Spaghetti", 
@@ -58,7 +60,7 @@
 					unit: "gr"	
 				}]
 		}
-		];
+		];*/
 		var rezeptList = $scope.rezeptListe;
 
 		$scope.fridge = [
@@ -73,6 +75,12 @@
 		$scope.getTimes=function(n)
 		{
 			return new Array(n);
+		};
+
+		$scope.log=function(n)
+		{
+			console.log(user_list);
+			console.log(rezeptList);
 		};
 
 		$scope.overlayHomeId = function(value)
