@@ -15,14 +15,59 @@
 		$routeProvider.when('/user', {templateUrl: 'includes/html/user.html', reloadOnSearch: false});
 		$routeProvider.when('/fridge', {templateUrl: 'includes/html/fridge.html', reloadOnSearch: false});
 		$routeProvider.when('/rezepte', {templateUrl: 'includes/html/rezept.html', reloadOnSearch: false});
+		$routeProvider.when('/addRezept', {templateUrl: 'includes/html/addRecipe.html', reloadOnSearch: false});
 		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
 	});
 
-	app.controller('rezeptController', function($scope, Users)
+	app.controller('newRecipeController', function($scope)
 	{
+		this.newRec = {
+			_id: '',
+			time: "",
+			description: "",
+			difficulty: "",
+			user: "",
+			image: "",
+			ingredients: []
+		};
+		console.log(this.newRec);
+		this.newIng = {};
 
-		$scope.rezeptListe = Users.query();
-		var user_list = $scope.users;
+		/*
+		Ingredient array muss am Anfang initialisert werden, damit es befüllt werden kann....
+		*/
+
+		this.addIngredient = function()
+		{
+			this.newRec.ingredients.push(this.newIng);
+      		this.newIng = {};
+		};
+
+		$scope.newRecipeName = function()
+		{
+			/* Anzeige des Eingegeben und des neuen Inputs - Ausblenden des alten Inputfeldes */
+			document.getElementById("new_rec_name").style.display = "block";
+			document.getElementById("add_r_name_input").style.display = "none";
+			document.getElementById("new_r_ingredient").style.display = "block";
+			document.getElementById("add_r_ingredient_input").style.display = "block";
+		};
+
+		$scope.newRecipeNameEdit = function()
+		{
+			/* Wiederanzeigen des Inputfeldes - Ausblenden des Eingegeben und des neuen Inputs */
+			document.getElementById("new_rec_name").style.display = "none";
+			document.getElementById("add_r_name_input").style.display = "block";
+			document.getElementById("new_r_ingredient").style.display = "none";
+			document.getElementById("add_r_ingredient_input").style.display = "none";
+		};
+	});
+
+app.controller('rezeptController', function($scope, Users)
+{
+
+	$scope.rezeptListe = Users.query();
+	var user_list = $scope.users;
+
 
 		/*$scope.rezeptListe = [
 		{ 
@@ -114,25 +159,27 @@
 			};
 		};
 
-				 $scope.openHomeInfo = function (value) 
-		 {
-		 	if (value == 0) 
-		 	{
-
-		        ngDialog.open(
-		        { 
-	        		template: 'includes/html/home_overlay.html'
-	        	});
-	        	console.log(rezeptList[value].name);
-	        	/*document.getElementById("home_overlay_header").innerHTML = rezeptList[value].name;*/
 
 
-	        	/*console.log(document.getElementById("home_overlay_header"));*/
-		 	}
-		 		var element = document.getElementById("home_overlay_header");
-		 		console.log(element);
-				element.innerHTML = "New Header";
-	    };
+		$scope.openHomeInfo = function (value) 
+		{
+			if (value == 0) 
+			{
+
+				ngDialog.open(
+				{ 
+					template: 'includes/html/home_overlay.html'
+				});
+				console.log(rezeptList[value].name);
+				/*document.getElementById("home_overlay_header").innerHTML = rezeptList[value].name;*/
+
+
+				/*console.log(document.getElementById("home_overlay_header"));*/
+			}
+			var element = document.getElementById("home_overlay_header");
+			console.log(element);
+			element.innerHTML = "New Header";
+		};
 	});
 
 })();

@@ -657,6 +657,187 @@ body
 	padding-right: 15px;
 }
 
+/*-------------------------*/
+/*--- Rezept hinzufügen ---*/
+/*-------------------------*/
+
+#add-rec-content
+{
+	padding: 0;
+}
+
+.rec_input_div
+{
+	height: 40px;
+	width: 100%;
+	position: relative;
+	padding: 10px;
+	padding-right: 15px;
+	padding-left: 15px;
+
+}
+
+#new_rec_name
+{
+	display: none;
+}
+
+#add_r_ingredient_input
+{
+	display: none;
+}
+#rec_input_full
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	padding-left: 5px;
+	margin: 0;
+	border: solid 1px rgba(50,50,50,0.7);
+	height: 40px;
+	width: 100%;
+	font-size:1.5em;
+	border-radius: 5px;
+}
+
+#rec_input_half
+{
+	position: absolute;
+	top: 50px;
+	left: 0;
+	padding: 0;
+	padding-left: 5px;
+	margin: 0;
+	border: solid 1px rgba(50,50,50,0.7);
+	height: 40px;
+	width:calc( 65% - 10px);
+	font-size:1.5em;
+	border-radius: 5px;
+}
+
+#rec_input_half2
+{
+	position: absolute;
+	top: 50px;
+	right: 40px;
+	padding: 0;
+	padding-left: 5px;
+	margin: 0;
+	border: solid 1px rgba(50,50,50,0.7);
+	border-right: none;
+	height: 40px;
+	width:calc( 35% - 40px );
+	font-size:1.5em;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+#rec_input
+{
+	position: absolute;
+	top: 50px;
+	left: 0;
+	padding: 0;
+	padding-left: 5px;
+	margin: 0;
+	border: solid 1px rgba(50,50,50,0.7);
+	border-right: none;
+	height: 40px;
+	width:calc( 100% - 40px );
+	font-size:1.5em;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+#rec_submit
+{
+	top:50px;
+	display: block;
+	width:40px;
+	height: 40px;
+	padding: 7px;
+	padding-top: 7px;
+	padding-left: 9px;
+	background-color: rgba(231, 76, 60,1.0);
+	position:absolute;
+	right:0px;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	border-right:1px solid rgba(50,50,50,0.7);
+	border-top:1px solid rgba(50,50,50,0.7);
+	border-bottom: 1px solid rgba(50,50,50,0.7);
+}
+
+#new_rec_ingredients
+{
+	
+}
+
+#new_r_ingredient
+{
+	display: none;
+}
+
+#new_rec_pic
+{
+	position: relative;
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	background-color: grey;
+	height: 30%;
+	max-height: 30%;
+	border-bottom: 5px solid green;
+	background-color: rgba(50,50,50,0.5);
+}
+
+#new_rec_pic #new_rec_time
+{
+	position: absolute;
+	top: 5px;
+	padding: 5px;
+	color: rgba(236, 240, 241,1.0);
+	z-index: 3;
+}
+
+#new_rec_pic #new_rec_time
+{
+	position: absolute;
+	top: 0;
+	font-size: 1.7em;
+	padding-right: 5px;
+	display: block;
+	text-align: right;
+	width: 100%;
+	background-color: rgba(30,30,30,0.3);
+	border-top: solid 1px gray;
+	color: rgba(236, 240, 241,1.0);
+}
+
+#new_rec_pic #new_rec_title
+{
+	position: absolute;
+	bottom: 5px;
+	padding: 5px;
+	color: rgba(236, 240, 241,1.0);
+	z-index: 3;
+}
+
+#new_rec_pic #new_rec_title
+{
+	position: absolute;
+	bottom: 0;
+	font-size: 1.7em;
+	padding-right: 5px;
+	display: block;
+	width: 100%;
+	background-color: rgba(30,30,30,0.3);
+	color: rgba(236, 240, 241,1.0);
+}
+
+
+
 /*----------------------*/
 /*--- alte Anpassungen ab hier ---*/
 /*----------------------*/

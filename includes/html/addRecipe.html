@@ -1,0 +1,48 @@
+<div class="scrollable">
+	<div class="scrollable-content section" id="add-rec-content" ng-controller="newRecipeController as newRCtrl">
+
+		<!-- Vorschau für den Namen und die Zubereitungsdauer -->
+		<div class="new_rec_name" id="new_rec_name" ng-click="newRecipeNameEdit()">
+			<div id="new_rec_pic">
+				<img src="media/img/nudeln.jpg">
+				<div id="new_rec_title">{{newRCtrl.newRec._id}}</div>
+				<div id="new_rec_time"><i class="fa fa-clock-o"></i> {{newRCtrl.newRec.time}} min</div>
+			</div>
+		</div>
+		<!-- Eingabemaske für den Namen und die Zubereitungsdauer -->
+		<div class="rec_input_div" id="add_r_name_input">
+			<form class="rec_input_div" ng-submit="newRecipeName()">
+				<input id="rec_input_full" type="text" name="rec_name" ng-model="newRCtrl.newRec._id" placeholder="Rezeptnamen angeben">
+				<input id="rec_input" type="number" name="rec_time" ng-model="newRCtrl.newRec.time" placeholder="Zubereitungsdauer">
+				<a id="rec_submit" ng-click="newRecipeName()"><i class="fa fa-angle-right fa-2x"></i></a>		
+			</form>
+		</div>
+
+		<!-- Vorschau für die Zutaten -->
+		<div class="new_rec_ingredients" id="new_r_ingredient">
+			<div id="new_ingredients_head">
+				Zutaten:
+			</div>
+			<ul>
+				<li ng-repeat="ingredient in newRCtrl.newRec.ingredients">{{ingredient._id}} {{ingredient.amount}} {{ingredient.unit}}</li>
+			</ul>
+		</div>
+
+		<!-- Eingabemaske für die Zutaten -->
+		<div class="rec_input_div" id="add_r_ingredient_input">
+			<form class="rec_input_div" ng-submit="newRCtrl.addIngredient()">
+				<input id="rec_input_full" type="text" name="rec_ing" ng-model="newRCtrl.newIng._id" placeholder="Zutat hinzufügen" required>
+				<input id="rec_input_half" type="number" name="rec_ing" ng-model="newRCtrl.newIng.amount" placeholder="Menge" required>
+				<select id="rec_input_half2" ng-model="newRCtrl.newIng.unit" required>
+					<option value="g">Gramm</option>
+					<option value="ml">Mililiter</option>
+					<option value="EL">Esslöffel</option>
+					<option value="TL">Teelöffel</option>
+					<option value="St." selected="selected">Stück</option>
+				</select>
+				<a id="rec_submit" ng-click="newRCtrl.addIngredient()"><i class="fa fa-angle-right fa-2x"></i></a>		
+			</form>
+		</div>
+
+	</div>
+</div>
