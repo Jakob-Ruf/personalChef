@@ -19,7 +19,7 @@
 		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
 	});
 
-	app.controller('newRecipeController', function($scope)
+	app.controller('newRecipeController', function($scope, rec_add)
 	{
 		this.newRec = {
 			_id: '',
@@ -30,17 +30,31 @@
 			image: "",
 			ingredients: []
 		};
-		console.log(this.newRec);
-		this.newIng = {};
+		this.newIng = {
+			_id: '',
+			amount: '',
+			unit: 'St.'
+		};
 
-		/*
-		Ingredient array muss am Anfang initialisert werden, damit es befüllt werden kann....
-		*/
 
 		this.addIngredient = function()
 		{
-			this.newRec.ingredients.push(this.newIng);
-      		this.newIng = {};
+			if (this.newIng._id == "" || this.newIng.amount == "") {
+				alert("Nicht alle Werte ausgefüllt!");
+				rec_add.save(this.newRec);
+				console.log(rec_add.save);
+			}
+			else
+			{
+				this.newRec.ingredients.push(this.newIng);
+				this.newIng = {
+					_id: '',
+					amount: '',
+					unit: 'St.'
+				};
+				document.getElementById("add_r_description_input").style.display = "block";
+			}
+
 		};
 
 		$scope.newRecipeName = function()
@@ -62,124 +76,67 @@
 		};
 	});
 
-app.controller('rezeptController', function($scope, Users)
+app.controller('rezeptController', function($scope, rec_start)
 {
 
-	$scope.rezeptListe = Users.query();
+	$scope.rezeptListe = rec_start.query();
 	var user_list = $scope.users;
 
+	var rezeptList = $scope.rezeptListe;
 
-		/*$scope.rezeptListe = [
-		{ 
-			title: 	"Rezept des Tages", 
-			name: 	"Spaghetti", 
-			time: 	"20", 
-			rating: "4", 
-			likes: 	"42", 
-			image: 	"media/img/nudeln.jpg", 
-			ingredients:[
-				{
-					name: "Nudeln",
-					amount: "500",
-					unit: "gr",
-					available: true
-				},
-				{
-					name: "Salz",
-					amount: "20",
-					unit: "gr",
-					available: false
-				}
-			]},
-		{ 
-			title: "Lieblingsrezept der Community",
-			name: "Burger",
-			time: "25",
-			rating:"5",
-			likes:"24",
-			image:"media/img/burgers.jpg",
-			ingredients:[
-				{
-					name: "Rinderhack",
-					amount: "500",
-					unit: "gr"	
-				}]
+	$scope.fridge = [
+	{ name: "Eier", count: "6", unit: "st"},
+	{ name: "Zucker", count: "500", unit: "gr"},
+	{ name: "Apfel", count: "3", unit: "st"},
+	{ name: "Milch", count: "1", unit: "ml"},
+	{ name: "Mehl", count: "400", unit: "gr"},
+	{ name: "Olivenöl", count: "6", unit: "ml"}
+	];
+
+	$scope.getTimes=function(n)
+	{
+		return new Array(n);
+	};
+
+	$scope.log=function(n)
+	{
+		console.log(user_list);
+		console.log(rezeptList);
+	};
+
+	$scope.overlayHomeId = function(value)
+	{
+		return "home_overlay_" + value;
+	};
+
+	$scope.openHomeOverlay = function(value)
+	{
+		var cl = "home_overlay_" + value;
+		var elements = document.getElementsByClassName(cl);
+		elements[0].style.display = "block";
+	};
+
+	$scope.closeHomeOverlay = function(value)
+	{
+		var cl = "home_overlay_" + value;
+		var elements = document.getElementsByClassName(cl);
+		elements[0].style.display = "none";
+	};
+
+
+	/* Einfärben der nötigen Sterne */
+	$scope.ratingIsActive = function(rezeptId, starId)
+	{
+		if (starId <= rezeptList[rezeptId].ratings_average) 
+		{
+			return "r_active";
 		}
-		];*/
-		var rezeptList = $scope.rezeptListe;
-
-		$scope.fridge = [
-		{ name: "Eier", count: "6", unit: "st"},
-		{ name: "Zucker", count: "500", unit: "gr"},
-		{ name: "Apfel", count: "3", unit: "st"},
-		{ name: "Milch", count: "1", unit: "ml"},
-		{ name: "Mehl", count: "400", unit: "gr"},
-		{ name: "Olivenöl", count: "6", unit: "ml"}
-		];
-
-		$scope.getTimes=function(n)
+		else
 		{
-			return new Array(n);
+			return "r_inactive";
 		};
+	};
 
-		$scope.log=function(n)
-		{
-			console.log(user_list);
-			console.log(rezeptList);
-		};
-
-		$scope.overlayHomeId = function(value)
-		{
-			return "home_overlay_" + value;
-		};
-
-		$scope.openHomeOverlay = function(value)
-		{
-			var cl = "home_overlay_" + value;
-			var elements = document.getElementsByClassName(cl);
-			elements[0].style.display = "block";
-		};
-
-		$scope.closeHomeOverlay = function(value)
-		{
-			var cl = "home_overlay_" + value;
-			var elements = document.getElementsByClassName(cl);
-			elements[0].style.display = "none";
-		};
-
-		$scope.ratingIsActive = function(rezeptId, starId)
-		{
-			if (starId <= rezeptList[rezeptId].rating) 
-			{
-				return "r_active";
-			}
-			else
-			{
-				return "r_inactive";
-			};
-		};
-
-
-
-		$scope.openHomeInfo = function (value) 
-		{
-			if (value == 0) 
-			{
-
-				ngDialog.open(
-				{ 
-					template: 'includes/html/home_overlay.html'
-				});
-				console.log(rezeptList[value].name);
-				/*document.getElementById("home_overlay_header").innerHTML = rezeptList[value].name;*/
-
-
-				/*console.log(document.getElementById("home_overlay_header"));*/
-			}
-			var element = document.getElementById("home_overlay_header");
-			console.log(element);
-			element.innerHTML = "New Header";
-		};
-	});
+});
 
 })();

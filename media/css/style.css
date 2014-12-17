@@ -674,7 +674,6 @@ body
 	padding: 10px;
 	padding-right: 15px;
 	padding-left: 15px;
-
 }
 
 #new_rec_name
@@ -756,9 +755,7 @@ body
 	display: block;
 	width:40px;
 	height: 40px;
-	padding: 7px;
-	padding-top: 7px;
-	padding-left: 9px;
+	padding-top: 6px;
 	background-color: rgba(231, 76, 60,1.0);
 	position:absolute;
 	right:0px;
@@ -767,11 +764,7 @@ body
 	border-right:1px solid rgba(50,50,50,0.7);
 	border-top:1px solid rgba(50,50,50,0.7);
 	border-bottom: 1px solid rgba(50,50,50,0.7);
-}
-
-#new_rec_ingredients
-{
-	
+	text-align: center;
 }
 
 #new_r_ingredient
@@ -836,8 +829,72 @@ body
 	color: rgba(236, 240, 241,1.0);
 }
 
+.fa-pencil
+{
+	color: rgba(50,50,50,0.7);
+}
 
+.new_rec_ingredients
+{
+	padding: 5px;
+}
 
+#new_ingredients_head
+{
+	font-size: 1.5em;
+}
+
+.new_rec_ing_li
+{
+	font-size: 1.5em;
+}
+
+#new_rec_ing_name
+{
+	display: inline-block;
+	width: calc(80% - 5em);
+}
+
+#new_rec_ing_amount
+{
+	display: inline-block;
+	width: 2em;
+	text-align: center;
+}
+
+#new_rec_ing_unit
+{
+	display: inline-block;
+	width: 1em;
+	text-align: right;
+}
+
+#new_rec_ing_edit
+{
+	display: inline-block;
+	width: 1em;
+	text-align: center;
+	margin-left: 1em;
+}
+
+#new_rec_ing_remove
+{
+	display: inline-block;
+	text-align: right;
+	width: 1.4em;
+}
+
+#add_r_description_input
+{
+	display: none;
+	width: 100%;
+}
+
+.textarea_wrapper {
+border:1px solid #999999;
+    margin:5px 0;
+    padding:3px;
+}
 /*----------------------*/
 /*--- alte Anpassungen ab hier ---*/
 /*----------------------*/
@@ -924,7 +981,6 @@ body
 	padding-left: 0.2em;
 	margin-bottom: 20px;
 }
-
 
 #ingredients ul
 {

@@ -28,7 +28,7 @@
 				</div>
 
 				<div class="rec_name">
-					<h4> {{rezept.name}} </h4>
+					<h4> {{rezept._id}} </h4>
 				</div>
 				<div class="rec_incr" ng-click="openHomeOverlay($index)">
 					<i class="fa fa-info fa-2x"></i>
@@ -61,14 +61,14 @@
 						Zutaten:
 						<ul>
 							<li ng-repeat="rec_ingr in rezept.ingredients">
-								<div class="overlay_rec_ingredient">{{rec_ingr.name}}</div>
+								<div class="overlay_rec_ingredient">{{rec_ingr._id}}</div>
 							</li>
 						</ul>
 
 					</div>
 					<div class="overlay_rec_stats">
 						<div class="overlay_likes">
-							<i class="fa fa-heart fa-2x"></i> {{rezept.likes}}
+							<i class="fa fa-heart fa-2x"></i> {{rezept.likes_amount}}
 						</div>
 
 						<div class="overlay_rec_rating">

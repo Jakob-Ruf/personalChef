@@ -1,12 +1,12 @@
 var rezeptServices = angular.module('rezeptServices', ['ngResource']);
 
-rezeptServices.factory('Users', ['$resource',
+rezeptServices.factory('rec_start', ['$resource',
   function($resource){
-    // return $resource('http://lvh.me:3000/users/list', {}, {
-    //   query: {method:'GET', params:{}, isArray:true}
-    // });
-    // below is the ugly but working request
-    return $resource('http://78.42.34.2:546/users/list', {}, {
+    return $resource('http://personalChef.ddns.net:546/recipes/startscreen', {}, {
       query: {method:'GET', params:{}, isArray:true}
     });
   }]);
+
+rezeptServices.factory("rec_add", function($resource) {
+  return $resource("http://personalChef.ddns.net:546/recipes/add");
+})
