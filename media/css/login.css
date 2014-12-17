@@ -1,0 +1,66 @@
+html{
+	margin: 0;
+	padding: 0;
+	background: url(../img/kitch11.png) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	
+}
+body{
+	margin: 0;
+	padding: 0;
+/*			opacity: 0.4;
+	background-color: #000;*/
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 3em;
+}
+h1{
+	color: #FFF;
+	text-align: center;
+	margin: 25px;
+}
+.login_input{
+	width: 90%;
+	padding: 5px;
+	margin-left: 5%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	font-size: 1.2em;
+	background-color: transparent;
+	color: #FFF;
+	border:none;
+	border-bottom: 5px solid #999999;
+}
+
+.input_cont{
+	margin-top: 40%;
+}
+.btn_login{
+	width: 90%;
+	padding: 10px;
+	margin-left: 5%;
+	margin-top: 10%;
+	margin-bottom: 2%;
+	font-size: 1.3em;
+	color: #FFF;
+	background-color: rgba(192, 57, 43,1.0);
+	border:none;
+	font-family: 'Source Sans Pro', sans-serif;
+	border-radius: 12px 12px 12px 12px;
+	-moz-border-radius: 12px 12px 12px 12px;
+	-webkit-border-radius: 12px 12px 12px 12px;
+}
+.login_oder{
+	text-align: center;
+	color: #999999;
+	font-style: italic;
+}
+.thirdparty_logins{
+	text-align: center;
+}
+.thirdparty_logins .lgn_btn{
+	width: 90%;
+	margin-left: 5%;
+}
