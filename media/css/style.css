@@ -1,3 +1,7 @@
+/*------------------------------*/
+/*--- Allgemeine Anpassungen ---*/
+/*------------------------------*/
+
 /*--- Schriftart ---*/
 @font-face {
   font-family: "Ubuntu Light";
@@ -6,28 +10,19 @@
   src: url('../fonts/Ubuntu-L.ttf');
 }
 
-
 body
 {
 	font-family: 'Ubuntu Light', sans-serif;
 }
 
-a
+a, a:hover, a:focus
 {
 	text-decoration: none;
 }
 
-a:hover
-{
-	text-decoration: none;
-}
-
-a:focus
-{
-	text-decoration: none;
-}
-
+/*----------------------------------*/
 /*--- Navigationsleiste anpassen ---*/
+/*----------------------------------*/
 .navbar
 {
 	background-color: rgba(192, 57, 43,1.0);
@@ -98,7 +93,6 @@ a:focus
 {
 	background-color: rgba(123, 3, 2, 1);
 }
-
 
 /*----------------------*/
 /*--- Anpassung Home ---*/
@@ -975,6 +969,158 @@ a:focus
 	border-bottom: solid 1px rgba(50,50,50,0.7);
 }
 
+/*-----------------------------*/
+/*--- Anpassung Rezeptliste ---*/
+/*-----------------------------*/
+
+#recL_filter
+{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 50px;
+	border-bottom: solid 1px rgba(50,50,50,0.7);
+}
+
+#recL_filter_input
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	padding-left: 5px;
+	margin: 0;
+	border: solid 1px rgba(50,50,50,0.7);
+	height: 40px;
+	width: calc(100% - 2.2em);
+	font-size:1.5em;
+	border-radius: 5px;
+	display: none;
+}
+
+#recL_filter_input.active
+{
+	display: block;
+}
+
+#recL_filter_switch
+{
+	display: block;
+	height: 40px;
+	width: 40px;
+	position: absolute;
+	text-align: center;
+	padding-top: calc(20px - 1em);
+	top: 0;
+	right: 0;
+	background-color: rgba(231, 76, 60,1.0);
+	border-radius: 5px;
+	border: solid 1px rgba(50,50,50,0.7);
+}
+
+#recL_filter_input:active, #recL_filter_input:focus
+{
+	border: solid 1px blue;
+	border-radius: 5px;
+}
+
+.recL_rec
+{
+	display: block;
+	width: 100%;
+	height: 5em;
+	border-bottom: solid 1px rgba(20,20,20,0.4);
+	position: relative;
+}
+
+.recL_rec_name
+{
+	display: block;
+	position: absolute;
+	font-size: 1.3em;
+	left: 5px;
+	top: 5px;
+}
+
+.recL_rec_img_container
+{
+	display: block;
+	position: absolute;
+	height: 4.4em;
+	top: 0.3em;
+	width: 4.4em;
+	right: 0.15em;
+	border: solid 1px;
+	overflow: hidden;
+}
+
+.recL_rec_img
+{
+	vertical-align: middle;
+	min-height: 4.4em;
+	max-height: 4.4em;
+	max-width: 8.8em;
+	display: inline-block;
+}
+
+.recL_rec_ingredient_List
+{
+	position: absolute;
+	top: 1.9em;
+	left: 5px;
+}
+
+.recL_rec_ingredients
+{
+	font-size: 0.9em;
+	color: rgba(20,20,20,0.6);
+	display: inline-block;
+}
+
+.recL_rec_ingredients:before
+{
+	content: ", ";
+}
+
+.recL_rec_ingredients:first-child:before
+{
+	content: "";
+}
+
+.recL_rec_creator
+{
+	position: absolute;
+	text-align: right;
+	display: block;
+	bottom: 0.3em;
+	right: 12em;
+	padding-right: 0.8em;
+	border-right: 1px solid rgba(20,20,20,0.2);
+	color: rgba(20,20,20,0.6);
+}
+
+.recL_rec_rating
+{
+	position: absolute;
+	display: block;
+	bottom: 0.3em;
+	right: 5em;
+}
+
+.recL_rec_rating .fa-star
+{
+	color: rgba(231, 76, 60,1.0);
+}
+
+.recL_rec_likes
+{
+	position: absolute;
+	display: block;
+	bottom: 0.3em;
+	right: 8em;
+	padding-right: 0.8em;
+	border-right: 1px solid rgba(20,20,20,0.2);
+}
 /*----------------------*/
 /*--- alte Anpassungen ab hier ---*/
 /*----------------------*/

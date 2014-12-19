@@ -1,68 +1,183 @@
 /*--- Gerüst der Settings ---*/
 
+
 .settings
+
 {
-    font-size: 20px;
-    background-color: white;
-    
+
+    font-size: 1.25em;
+
+    /*background-color: #ccc;*/
+
+    background-color: #f0f0f0;
+
+    height: 100%;
+
+    margin-top: -20px;
+
 }
+
 
 
 .setting-element
+
 {
-    border-top: solid thin grey;
-    background-color: white;
-    font-size: 18px;
+
+    border-radius: 3px;
+
+    background-color: #fcfcfc;
+
+    font-size: 1em;
+
+    /*box-shadow: 0 0.213em 0.213em #777;*/
+
+    /*margin-left: 4%;*/
+
+    margin-top: 0px;
+
+    /* margin-bottom: 4%; */
+
+    /*padding-bottom: 0.4em;*/
+
+    width:100%;
+
 }
+
+
 
 .element-top
+
 {
-    border-bottom: solid thin grey;
-    background-color: #E0E0E0;
-    font-size: 18px;
+
+    border-radius: 3px;
+
+    background-color: #f0f0f0;
+
+    font-size: 1em;
+
+    padding-left: 3%;
+
 }
 
+
 .element
+
 {
-    margin:10px;
-    background-color: white;
-    font-size: 15px;
-    border-bottom: solid thin grey;
+
+    margin: 4%;
+
+    font-size: 0.8em;
+
     vertical-align: middle;
-    
+
+    padding-bottom: 0.75em;
+
+    border-bottom: solid 0.1em #f0f0f0;
+
 }
+
+
+.element-part
+
+{
+
+    width: 49%;
+
+    display: inline-block;
+
+}
+
 
 /*--- Farbauswahlaufbau ---*/
 
-
 .colorOption
+
 {
-	background-color: white;
-    
+
+    overflow: hidden;
+
 }
+
 
 .colorWindow
+
 {
-    height:10px;
-    width:25%;
-    float:left;
-    border-left: solid thin black;
-    border-top: solid thin black;
-    border-bottom: solid thin black;
-    border-right: solid thin black;
-    
+
+
 }
 
-#black{background-color: black;}
-#green{background-color: lightgreen;}
-#pink{background-color: pink;}
-#grey{background-color: grey;}
-#red{background-color:red;}
-#blue{background-color: lightblue;}
-#orange{background-color: orange;}
-#yellow{background-color: yellow;}
 
-#content{border-bottom: dotted thin grey; }
-#last{}
-#solidborder{border-bottom: solid thin grey;}
-#left{float: left;}
+/* colors according to 
+
+http://www.google.com/design/spec/style/color.html#color-color-palette 
+
+*/
+
+#teal
+
+{
+
+    background-color: #009688;
+
+}
+
+#green
+
+{
+
+    background-color: #4CAF50;
+
+}
+
+#pink
+
+{
+
+    background-color: #E91E63;
+
+}
+
+#purple
+
+{
+
+    background-color: #9C27B0;
+
+}
+
+#red
+
+{
+
+    background-color: #C0392B;
+
+}
+
+#blue
+
+{
+
+    background-color: #3F51B5;
+
+}
+
+#orange
+
+{
+
+    background-color: #FF9800;
+
+}
+
+#yellow
+
+{
+
+    background-color: #FFEB3B;
+
+}
+
+
+#right{text-align: right}
+
+#click{cursor: pointer}
