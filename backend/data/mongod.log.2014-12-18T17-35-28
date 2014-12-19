@@ -1,0 +1,59 @@
+Thu Dec 18 18:23:07 
+Thu Dec 18 18:23:07 warning: 32-bit servers don't have journaling enabled by default. Please use --journal if you want durability.
+Thu Dec 18 18:23:07 
+warning: some regex utf8 things will not work.  pcre build doesn't have --enable-unicode-properties
+Thu Dec 18 18:23:07 [initandlisten] MongoDB starting : pid=1314 port=27017 dbpath=/var/www/root/git/backend/data 32-bit host=raspberrypi
+Thu Dec 18 18:23:07 [initandlisten] 
+Thu Dec 18 18:23:07 [initandlisten] ** NOTE: This is a development version (2.1.1-pre-) of MongoDB.
+Thu Dec 18 18:23:07 [initandlisten] **       Not recommended for production.
+Thu Dec 18 18:23:07 [initandlisten] 
+Thu Dec 18 18:23:07 [initandlisten] ** NOTE: when using MongoDB 32 bit, you are limited to about 2 gigabytes of data
+Thu Dec 18 18:23:07 [initandlisten] **       see http://blog.mongodb.org/post/137788967/32-bit-limitations
+Thu Dec 18 18:23:07 [initandlisten] **       with --journal, the limit is lower
+Thu Dec 18 18:23:07 [initandlisten] 
+Thu Dec 18 18:23:07 [initandlisten] db version v2.1.1-pre-, pdfile version 4.5
+Thu Dec 18 18:23:07 [initandlisten] git version: 47fbbdceb21fc2b791d22db7f01792500647daa9
+Thu Dec 18 18:23:07 [initandlisten] build info: Linux raspberrypi 3.2.27+ #102 PREEMPT Sat Sep 1 01:00:50 BST 2012 armv6l BOOST_LIB_VERSION=1_49
+Thu Dec 18 18:23:07 [initandlisten] options: { dbpath: "/var/www/root/git/backend/data", fork: true, logpath: "/var/www/root/git/backend/data/mongod.log" }
+Thu Dec 18 18:23:08 [initandlisten] waiting for connections on port 27017
+Thu Dec 18 18:23:08 [websvr] admin web console waiting for connections on port 28017
+Thu Dec 18 18:23:09 [initandlisten] connection accepted from 127.0.0.1:55766 #1 (1 connection now open)
+Thu Dec 18 18:23:09 [initandlisten] connection accepted from 127.0.0.1:55767 #2 (2 connections now open)
+Thu Dec 18 18:23:09 [initandlisten] connection accepted from 127.0.0.1:55768 #3 (3 connections now open)
+Thu Dec 18 18:23:09 [initandlisten] connection accepted from 127.0.0.1:55769 #4 (4 connections now open)
+Thu Dec 18 18:23:09 [initandlisten] connection accepted from 127.0.0.1:55770 #5 (5 connections now open)
+Thu Dec 18 18:23:15 [initandlisten] connection accepted from 127.0.0.1:55771 #6 (6 connections now open)
+Thu Dec 18 18:23:55 [conn6] end connection 127.0.0.1:55771 (5 connections now open)
+Thu Dec 18 18:24:08 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Thu Dec 18 18:29:08 [clientcursormon] mem (MB) res:18 virt:121 mapped:32
+Thu Dec 18 18:29:44 [conn1] end connection 127.0.0.1:55766 (4 connections now open)
+Thu Dec 18 18:29:44 [conn2] end connection 127.0.0.1:55767 (3 connections now open)
+Thu Dec 18 18:29:44 [conn3] end connection 127.0.0.1:55768 (2 connections now open)
+Thu Dec 18 18:29:44 [conn4] end connection 127.0.0.1:55769 (1 connection now open)
+Thu Dec 18 18:29:44 [conn5] end connection 127.0.0.1:55770 (0 connections now open)
+Thu Dec 18 18:29:59 [initandlisten] connection accepted from 127.0.0.1:55792 #7 (1 connection now open)
+Thu Dec 18 18:31:00 [initandlisten] connection accepted from 127.0.0.1:55793 #8 (2 connections now open)
+Thu Dec 18 18:31:00 [conn8] end connection 127.0.0.1:55793 (1 connection now open)
+Thu Dec 18 18:31:00 [conn7] end connection 127.0.0.1:55792 (0 connections now open)
+Thu Dec 18 18:31:06 [initandlisten] connection accepted from 127.0.0.1:55794 #9 (1 connection now open)
+Thu Dec 18 18:31:26 [initandlisten] connection accepted from 127.0.0.1:55795 #10 (2 connections now open)
+Thu Dec 18 18:31:26 [conn10] end connection 127.0.0.1:55795 (1 connection now open)
+Thu Dec 18 18:31:26 [conn9] end connection 127.0.0.1:55794 (0 connections now open)
+Thu Dec 18 18:31:31 [initandlisten] connection accepted from 127.0.0.1:55796 #11 (1 connection now open)
+Thu Dec 18 18:33:30 [conn11] end connection 127.0.0.1:55796 (0 connections now open)
+Thu Dec 18 18:33:57 [initandlisten] connection accepted from 127.0.0.1:55797 #12 (1 connection now open)
+Thu Dec 18 18:34:08 [clientcursormon] mem (MB) res:18 virt:121 mapped:32
+Thu Dec 18 18:34:17 [conn12] terminating, shutdown command received
+Thu Dec 18 18:34:17 dbexit: shutdown called
+Thu Dec 18 18:34:17 [conn12] shutdown: going to close listening sockets...
+Thu Dec 18 18:34:17 [conn12] closing listening socket: 5
+Thu Dec 18 18:34:17 [conn12] closing listening socket: 6
+Thu Dec 18 18:34:17 [conn12] closing listening socket: 7
+Thu Dec 18 18:34:17 [conn12] removing socket file: /tmp/mongodb-27017.sock
+Thu Dec 18 18:34:17 [conn12] shutdown: going to flush diaglog...
+Thu Dec 18 18:34:17 [conn12] shutdown: going to close sockets...
+Thu Dec 18 18:34:17 [conn12] shutdown: waiting for fs preallocator...
+Thu Dec 18 18:34:17 [conn12] shutdown: closing all files...
+Thu Dec 18 18:34:17 [conn12] closeAllFiles() finished
+Thu Dec 18 18:34:17 [conn12] shutdown: removing fs lock...
+Thu Dec 18 18:34:17 dbexit: really exiting now

@@ -1,0 +1,121 @@
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+Sun Dec 14 2014 14:11:14 GMT+0100 (CET): Requested short ingredient list
+[90mGET /ingredients/shortlist [36m304 [90m1046ms[0m
+[90mGET /ingredients/list [32m200 [90m83ms - 196b[0m
+[90mGET /ingredients/list [32m200 [90m35ms - 196b[0m
+[90mGET /ingredients/list [36m304 [90m30ms[0m
+[90mGET /ingredients/list [32m200 [90m26ms - 196b[0m
+Sun Dec 14 2014 14:12:05 GMT+0100 (CET): Requested short ingredient list
+[90mGET /ingredients/shortlist [36m304 [90m31ms[0m
+Sun Dec 14 2014 14:13:28 GMT+0100 (CET): Requested short ingredient list
+[90mGET /ingredients/shortlist [32m200 [90m25ms - 116b[0m
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+Sun Dec 14 2014 14:16:07 GMT+0100 (CET): Requested short ingredient list
+[90mGET /ingredients/shortlist [36m304 [90m1045ms[0m
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+Sun Dec 14 2014 15:06:48 GMT+0100 (CET): Requested recipes with ingredient Apfel
+[90mGET /recipes/withIngredient/Apfel [32m200 [90m1092ms - 854b[0m
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+Sun Dec 14 2014 15:08:09 GMT+0100 (CET): Requested recipes with ingredient Apfel
+[90mGET /recipes/withIngredient/Apfel [32m200 [90m1093ms - 13b[0m
+Sun Dec 14 2014 15:16:11 GMT+0100 (CET): Requested recipes with ingredient Apfel
+[90mGET /recipes/withIngredient/Apfel [32m200 [90m67ms - 13b[0m
+Sun Dec 14 2014 15:19:54 GMT+0100 (CET): Requested recipes with ingredient Apfel
+[90mGET /recipes/withIngredient/Apfel [32m200 [90m34ms - 21b[0m
+Sun Dec 14 2014 15:20:01 GMT+0100 (CET): Requested recipes with ingredient Erdbeeren
+[90mGET /recipes/withIngredient/Erdbeeren [32m200 [90m28ms - 24b[0m
+Sun Dec 14 2014 15:20:08 GMT+0100 (CET): Requested recipes with ingredient Erdbeeren
+[90mGET /recipes/withIngredient/Erdbeeren [32m200 [90m27ms - 24b[0m
+Sun Dec 14 2014 15:26:04 GMT+0100 (CET): Requested recipes with ingredient Apfel
+[90mGET /recipes/withIngredient/Apfel [32m200 [90m29ms - 21b[0m
+Sun Dec 14 2014 15:26:08 GMT+0100 (CET): Requested recipes with ingredient Apfel
+[90mGET /recipes/withIngredient/Apfel [32m200 [90m26ms - 21b[0m
+Sun Dec 14 2014 15:26:16 GMT+0100 (CET): Requested recipes with ingredient Apfel
+[90mGET /recipes/withIngredient/Apfel [32m200 [90m26ms - 21b[0m
+Sun Dec 14 2014 15:26:23 GMT+0100 (CET): Requested short ingredient list
+[90mGET /ingredients/shortlist [32m200 [90m29ms - 116b[0m
+[90mGET /ingredients/list [32m200 [90m26ms - 196b[0m
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+[90mGET /recipes/shortlist [33m404 [90m986ms - 9b[0m
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+[90mGET /recipes/shortlist [32m200 [90m998ms - 44b[0m
+[90mGET /recipes/shortlist [32m200 [90m78ms - 44b[0m
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+Sun Dec 14 2014 19:01:00 GMT+0100 (CET): Huhu
+Users in database: Paul Pimmel 
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+Sun Dec 14 2014 19:11:01 GMT+0100 (CET): Huhu
+Users in database: Paul Pimmel, 
+Sun Dec 14 2014 19:12:05 GMT+0100 (CET): List of users requested
+[90mGET /users/list [36m304 [90m191ms[0m
+Sun Dec 14 2014 19:18:51 GMT+0100 (CET): Requested adding of user Sterling Archer
+[90mPOST /users/add [32m200 [90m167ms - 2b[0m
+Sun Dec 14 2014 19:19:20 GMT+0100 (CET): Short list of users requested
+[90mGET /users/shortlist [32m200 [90m44ms - 49b[0m
+[90mGET /favicon.ico [33m404 [90m4440ms - 1.07kb[0m
+Sun Dec 14 2014 19:20:52 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [32m200 [90m64ms - 597b[0m
+Sun Dec 14 2014 19:21:00 GMT+0100 (CET): Huhu
+Users in database: Paul Pimmel, Sterling Archer, 
+Sun Dec 14 2014 19:31:00 GMT+0100 (CET): Huhu
+Users in database: Paul Pimmel, Sterling Archer, 
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www
+

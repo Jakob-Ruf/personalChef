@@ -1,0 +1,682 @@
+Sat Dec 13 15:55:38 
+Sat Dec 13 15:55:38 warning: 32-bit servers don't have journaling enabled by default. Please use --journal if you want durability.
+Sat Dec 13 15:55:38 
+warning: some regex utf8 things will not work.  pcre build doesn't have --enable-unicode-properties
+Sat Dec 13 15:55:38 [initandlisten] MongoDB starting : pid=30141 port=27017 dbpath=/var/www/root/git/backend/data 32-bit host=raspberrypi
+Sat Dec 13 15:55:38 [initandlisten] 
+Sat Dec 13 15:55:38 [initandlisten] ** NOTE: This is a development version (2.1.1-pre-) of MongoDB.
+Sat Dec 13 15:55:38 [initandlisten] **       Not recommended for production.
+Sat Dec 13 15:55:38 [initandlisten] 
+Sat Dec 13 15:55:38 [initandlisten] ** NOTE: when using MongoDB 32 bit, you are limited to about 2 gigabytes of data
+Sat Dec 13 15:55:38 [initandlisten] **       see http://blog.mongodb.org/post/137788967/32-bit-limitations
+Sat Dec 13 15:55:38 [initandlisten] **       with --journal, the limit is lower
+Sat Dec 13 15:55:38 [initandlisten] 
+Sat Dec 13 15:55:38 [initandlisten] db version v2.1.1-pre-, pdfile version 4.5
+Sat Dec 13 15:55:38 [initandlisten] git version: 47fbbdceb21fc2b791d22db7f01792500647daa9
+Sat Dec 13 15:55:38 [initandlisten] build info: Linux raspberrypi 3.2.27+ #102 PREEMPT Sat Sep 1 01:00:50 BST 2012 armv6l BOOST_LIB_VERSION=1_49
+Sat Dec 13 15:55:38 [initandlisten] options: { dbpath: "/var/www/root/git/backend/data", fork: true, logpath: "/var/www/root/git/backend/data/mongod.log", rest: true }
+Sat Dec 13 15:55:38 [initandlisten] waiting for connections on port 27017
+Sat Dec 13 15:55:38 [websvr] admin web console waiting for connections on port 28017
+Sat Dec 13 15:56:02 [initandlisten] connection accepted from 127.0.0.1:33595 #1 (1 connection now open)
+Sat Dec 13 15:56:03 [conn1] end connection 127.0.0.1:33595 (0 connections now open)
+Sat Dec 13 15:56:12 [initandlisten] connection accepted from 127.0.0.1:33596 #2 (1 connection now open)
+Sat Dec 13 15:56:12 [conn2] end connection 127.0.0.1:33596 (0 connections now open)
+Sat Dec 13 15:56:12 [initandlisten] connection accepted from 127.0.0.1:33597 #3 (1 connection now open)
+Sat Dec 13 15:56:13 [initandlisten] connection accepted from 127.0.0.1:33598 #4 (2 connections now open)
+Sat Dec 13 15:56:13 [initandlisten] connection accepted from 127.0.0.1:33599 #5 (3 connections now open)
+Sat Dec 13 15:56:13 [initandlisten] connection accepted from 127.0.0.1:33600 #6 (4 connections now open)
+Sat Dec 13 15:56:13 [initandlisten] connection accepted from 127.0.0.1:33601 #7 (5 connections now open)
+Sat Dec 13 15:56:38 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Sat Dec 13 16:01:38 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Sat Dec 13 16:06:38 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Sat Dec 13 16:11:38 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Sat Dec 13 16:16:38 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Sat Dec 13 16:21:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 16:26:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 16:31:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 16:36:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 16:41:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 16:46:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 16:51:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 16:56:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:01:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:06:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:11:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:16:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:21:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:26:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:31:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:36:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:41:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:46:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:51:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 17:56:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:01:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:06:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:11:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:16:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:21:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:26:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:31:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:36:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:41:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:46:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:51:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 18:56:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:01:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:06:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:11:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:16:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:21:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:26:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:31:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:36:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:41:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:46:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:51:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 19:56:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:01:38 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:06:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:11:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:16:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:21:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:26:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:31:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:36:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:41:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:46:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:51:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 20:56:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:01:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:06:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:11:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:16:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:21:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:26:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:31:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:36:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:41:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:46:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:51:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 21:56:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:01:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:06:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:11:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:16:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:21:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:26:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:31:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:36:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:41:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:46:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:51:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 22:56:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:01:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:06:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:11:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:16:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:21:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:26:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:31:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:36:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:41:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:46:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:51:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sat Dec 13 23:56:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:01:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:06:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:11:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:16:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:21:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:26:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:31:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:36:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:41:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:46:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:51:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 00:56:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:01:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:06:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:11:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:16:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:21:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:26:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:31:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:36:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:41:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:46:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:51:39 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 01:56:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:01:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:06:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:11:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:16:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:21:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:26:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:31:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:36:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:41:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:46:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:51:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 02:56:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:01:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:06:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:11:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:16:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:21:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:26:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:31:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:36:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:41:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:46:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:51:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 03:56:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:01:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:06:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:11:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:16:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:21:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:26:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:31:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:36:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:41:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:46:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:51:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 04:56:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:01:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:06:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:11:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:16:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:21:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:26:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:31:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:36:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:41:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:46:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:51:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 05:56:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:01:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:06:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:11:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:16:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:21:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:26:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:31:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:36:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:41:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:46:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:51:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 06:56:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:01:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:06:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:11:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:16:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:21:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:26:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:31:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:36:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:41:40 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:46:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:51:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 07:56:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:01:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:06:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:11:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:16:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:21:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:26:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:31:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:36:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:41:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:46:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:51:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 08:56:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:01:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:06:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:11:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:16:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:21:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:26:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:31:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:36:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:41:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:46:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:51:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 09:56:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:01:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:06:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:11:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:16:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:21:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:26:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:31:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:36:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:41:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:46:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:51:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 10:56:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:01:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:06:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:11:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:16:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:21:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:26:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:31:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:36:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:41:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:46:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:51:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 11:56:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:01:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:06:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:11:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:16:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:21:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:26:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:31:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:36:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:41:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:46:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:51:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 12:56:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:01:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:06:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:11:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:16:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:21:41 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:26:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:31:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:36:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:41:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:46:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:51:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 13:56:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:00:00 [conn3] end connection 127.0.0.1:33597 (4 connections now open)
+Sun Dec 14 14:00:00 [conn4] end connection 127.0.0.1:33598 (3 connections now open)
+Sun Dec 14 14:00:00 [conn5] end connection 127.0.0.1:33599 (2 connections now open)
+Sun Dec 14 14:00:00 [conn6] end connection 127.0.0.1:33600 (1 connection now open)
+Sun Dec 14 14:00:00 [conn7] end connection 127.0.0.1:33601 (0 connections now open)
+Sun Dec 14 14:01:25 [initandlisten] connection accepted from 127.0.0.1:33622 #8 (1 connection now open)
+Sun Dec 14 14:01:25 [conn8] end connection 127.0.0.1:33622 (0 connections now open)
+Sun Dec 14 14:01:25 [initandlisten] connection accepted from 127.0.0.1:33623 #9 (1 connection now open)
+Sun Dec 14 14:01:25 [initandlisten] connection accepted from 127.0.0.1:33624 #10 (2 connections now open)
+Sun Dec 14 14:01:25 [initandlisten] connection accepted from 127.0.0.1:33625 #11 (3 connections now open)
+Sun Dec 14 14:01:26 [initandlisten] connection accepted from 127.0.0.1:33626 #12 (4 connections now open)
+Sun Dec 14 14:01:26 [initandlisten] connection accepted from 127.0.0.1:33627 #13 (5 connections now open)
+Sun Dec 14 14:01:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:06:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:09:00 [conn9] end connection 127.0.0.1:33623 (4 connections now open)
+Sun Dec 14 14:09:00 [conn10] end connection 127.0.0.1:33624 (3 connections now open)
+Sun Dec 14 14:09:00 [conn11] end connection 127.0.0.1:33625 (2 connections now open)
+Sun Dec 14 14:09:00 [conn12] end connection 127.0.0.1:33626 (1 connection now open)
+Sun Dec 14 14:09:00 [conn13] end connection 127.0.0.1:33627 (0 connections now open)
+Sun Dec 14 14:09:39 [initandlisten] connection accepted from 127.0.0.1:33628 #14 (1 connection now open)
+Sun Dec 14 14:09:39 [conn14] end connection 127.0.0.1:33628 (0 connections now open)
+Sun Dec 14 14:09:39 [initandlisten] connection accepted from 127.0.0.1:33629 #15 (1 connection now open)
+Sun Dec 14 14:09:39 [initandlisten] connection accepted from 127.0.0.1:33630 #16 (2 connections now open)
+Sun Dec 14 14:09:39 [initandlisten] connection accepted from 127.0.0.1:33631 #17 (3 connections now open)
+Sun Dec 14 14:09:39 [initandlisten] connection accepted from 127.0.0.1:33632 #18 (4 connections now open)
+Sun Dec 14 14:09:39 [initandlisten] connection accepted from 127.0.0.1:33633 #19 (5 connections now open)
+Sun Dec 14 14:10:34 [conn15] end connection 127.0.0.1:33629 (4 connections now open)
+Sun Dec 14 14:10:34 [conn16] end connection 127.0.0.1:33630 (3 connections now open)
+Sun Dec 14 14:10:34 [conn17] end connection 127.0.0.1:33631 (2 connections now open)
+Sun Dec 14 14:10:34 [conn18] end connection 127.0.0.1:33632 (1 connection now open)
+Sun Dec 14 14:10:34 [conn19] end connection 127.0.0.1:33633 (0 connections now open)
+Sun Dec 14 14:11:15 [initandlisten] connection accepted from 127.0.0.1:33634 #20 (1 connection now open)
+Sun Dec 14 14:11:15 [conn20] end connection 127.0.0.1:33634 (0 connections now open)
+Sun Dec 14 14:11:15 [initandlisten] connection accepted from 127.0.0.1:33635 #21 (1 connection now open)
+Sun Dec 14 14:11:15 [initandlisten] connection accepted from 127.0.0.1:33636 #22 (2 connections now open)
+Sun Dec 14 14:11:15 [initandlisten] connection accepted from 127.0.0.1:33637 #23 (3 connections now open)
+Sun Dec 14 14:11:15 [initandlisten] connection accepted from 127.0.0.1:33638 #24 (4 connections now open)
+Sun Dec 14 14:11:15 [initandlisten] connection accepted from 127.0.0.1:33639 #25 (5 connections now open)
+Sun Dec 14 14:11:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:15:27 [conn21] end connection 127.0.0.1:33635 (4 connections now open)
+Sun Dec 14 14:15:27 [conn22] end connection 127.0.0.1:33636 (3 connections now open)
+Sun Dec 14 14:15:27 [conn23] end connection 127.0.0.1:33637 (2 connections now open)
+Sun Dec 14 14:15:27 [conn24] end connection 127.0.0.1:33638 (1 connection now open)
+Sun Dec 14 14:15:27 [conn25] end connection 127.0.0.1:33639 (0 connections now open)
+Sun Dec 14 14:16:07 [initandlisten] connection accepted from 127.0.0.1:33640 #26 (1 connection now open)
+Sun Dec 14 14:16:07 [conn26] end connection 127.0.0.1:33640 (0 connections now open)
+Sun Dec 14 14:16:08 [initandlisten] connection accepted from 127.0.0.1:33641 #27 (1 connection now open)
+Sun Dec 14 14:16:08 [initandlisten] connection accepted from 127.0.0.1:33642 #28 (2 connections now open)
+Sun Dec 14 14:16:08 [initandlisten] connection accepted from 127.0.0.1:33643 #29 (3 connections now open)
+Sun Dec 14 14:16:08 [initandlisten] connection accepted from 127.0.0.1:33644 #30 (4 connections now open)
+Sun Dec 14 14:16:08 [initandlisten] connection accepted from 127.0.0.1:33645 #31 (5 connections now open)
+Sun Dec 14 14:16:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:17:24 [conn27] end connection 127.0.0.1:33641 (4 connections now open)
+Sun Dec 14 14:17:24 [conn28] end connection 127.0.0.1:33642 (3 connections now open)
+Sun Dec 14 14:17:24 [conn29] end connection 127.0.0.1:33643 (2 connections now open)
+Sun Dec 14 14:17:24 [conn30] end connection 127.0.0.1:33644 (1 connection now open)
+Sun Dec 14 14:17:24 [conn31] end connection 127.0.0.1:33645 (0 connections now open)
+Sun Dec 14 14:21:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:26:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:31:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:36:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:41:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:46:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:51:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:56:03 [initandlisten] connection accepted from 127.0.0.1:33646 #32 (1 connection now open)
+Sun Dec 14 14:56:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 14:57:51 [conn32] end connection 127.0.0.1:33646 (0 connections now open)
+Sun Dec 14 14:57:53 [initandlisten] connection accepted from 127.0.0.1:33647 #33 (1 connection now open)
+Sun Dec 14 15:01:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 15:06:42 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Sun Dec 14 15:06:49 [initandlisten] connection accepted from 127.0.0.1:33648 #34 (2 connections now open)
+Sun Dec 14 15:06:49 [conn34] end connection 127.0.0.1:33648 (1 connection now open)
+Sun Dec 14 15:06:49 [initandlisten] connection accepted from 127.0.0.1:33649 #35 (2 connections now open)
+Sun Dec 14 15:06:49 [initandlisten] connection accepted from 127.0.0.1:33650 #36 (3 connections now open)
+Sun Dec 14 15:06:49 [initandlisten] connection accepted from 127.0.0.1:33651 #37 (4 connections now open)
+Sun Dec 14 15:06:49 [initandlisten] connection accepted from 127.0.0.1:33652 #38 (5 connections now open)
+Sun Dec 14 15:06:49 [initandlisten] connection accepted from 127.0.0.1:33653 #39 (6 connections now open)
+Sun Dec 14 15:07:11 [conn35] end connection 127.0.0.1:33649 (5 connections now open)
+Sun Dec 14 15:07:11 [conn36] end connection 127.0.0.1:33650 (4 connections now open)
+Sun Dec 14 15:07:11 [conn37] end connection 127.0.0.1:33651 (3 connections now open)
+Sun Dec 14 15:07:11 [conn38] end connection 127.0.0.1:33652 (2 connections now open)
+Sun Dec 14 15:07:11 [conn39] end connection 127.0.0.1:33653 (1 connection now open)
+Sun Dec 14 15:08:09 [initandlisten] connection accepted from 127.0.0.1:33654 #40 (2 connections now open)
+Sun Dec 14 15:08:10 [conn40] end connection 127.0.0.1:33654 (1 connection now open)
+Sun Dec 14 15:08:10 [initandlisten] connection accepted from 127.0.0.1:33655 #41 (2 connections now open)
+Sun Dec 14 15:08:10 [initandlisten] connection accepted from 127.0.0.1:33656 #42 (3 connections now open)
+Sun Dec 14 15:08:10 [initandlisten] connection accepted from 127.0.0.1:33657 #43 (4 connections now open)
+Sun Dec 14 15:08:10 [initandlisten] connection accepted from 127.0.0.1:33658 #44 (5 connections now open)
+Sun Dec 14 15:08:10 [initandlisten] connection accepted from 127.0.0.1:33659 #45 (6 connections now open)
+Sun Dec 14 15:11:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:16:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:21:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:26:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:31:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:36:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:38:27 [conn41] end connection 127.0.0.1:33655 (5 connections now open)
+Sun Dec 14 15:38:27 [conn42] end connection 127.0.0.1:33656 (4 connections now open)
+Sun Dec 14 15:38:27 [conn43] end connection 127.0.0.1:33657 (3 connections now open)
+Sun Dec 14 15:38:27 [conn44] end connection 127.0.0.1:33658 (2 connections now open)
+Sun Dec 14 15:38:27 [conn45] end connection 127.0.0.1:33659 (1 connection now open)
+Sun Dec 14 15:39:46 [initandlisten] connection accepted from 127.0.0.1:33660 #46 (2 connections now open)
+Sun Dec 14 15:39:47 [conn46] end connection 127.0.0.1:33660 (1 connection now open)
+Sun Dec 14 15:39:47 [initandlisten] connection accepted from 127.0.0.1:33661 #47 (2 connections now open)
+Sun Dec 14 15:39:47 [initandlisten] connection accepted from 127.0.0.1:33662 #48 (3 connections now open)
+Sun Dec 14 15:39:47 [initandlisten] connection accepted from 127.0.0.1:33663 #49 (4 connections now open)
+Sun Dec 14 15:39:47 [initandlisten] connection accepted from 127.0.0.1:33664 #50 (5 connections now open)
+Sun Dec 14 15:39:47 [initandlisten] connection accepted from 127.0.0.1:33665 #51 (6 connections now open)
+Sun Dec 14 15:40:48 [conn47] end connection 127.0.0.1:33661 (5 connections now open)
+Sun Dec 14 15:40:48 [conn48] end connection 127.0.0.1:33662 (4 connections now open)
+Sun Dec 14 15:40:48 [conn49] end connection 127.0.0.1:33663 (3 connections now open)
+Sun Dec 14 15:40:48 [conn50] end connection 127.0.0.1:33664 (2 connections now open)
+Sun Dec 14 15:40:48 [conn51] end connection 127.0.0.1:33665 (1 connection now open)
+Sun Dec 14 15:41:15 [initandlisten] connection accepted from 127.0.0.1:33666 #52 (2 connections now open)
+Sun Dec 14 15:41:15 [conn52] end connection 127.0.0.1:33666 (1 connection now open)
+Sun Dec 14 15:41:15 [initandlisten] connection accepted from 127.0.0.1:33667 #53 (2 connections now open)
+Sun Dec 14 15:41:15 [initandlisten] connection accepted from 127.0.0.1:33668 #54 (3 connections now open)
+Sun Dec 14 15:41:15 [initandlisten] connection accepted from 127.0.0.1:33669 #55 (4 connections now open)
+Sun Dec 14 15:41:15 [initandlisten] connection accepted from 127.0.0.1:33670 #56 (5 connections now open)
+Sun Dec 14 15:41:15 [initandlisten] connection accepted from 127.0.0.1:33671 #57 (6 connections now open)
+Sun Dec 14 15:41:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:42:17 [conn53] end connection 127.0.0.1:33667 (5 connections now open)
+Sun Dec 14 15:42:17 [conn54] end connection 127.0.0.1:33668 (4 connections now open)
+Sun Dec 14 15:42:17 [conn55] end connection 127.0.0.1:33669 (3 connections now open)
+Sun Dec 14 15:42:17 [conn56] end connection 127.0.0.1:33670 (2 connections now open)
+Sun Dec 14 15:42:17 [conn57] end connection 127.0.0.1:33671 (1 connection now open)
+Sun Dec 14 15:46:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:51:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 15:56:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:01:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:06:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:11:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:16:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:21:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:26:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:31:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:36:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:41:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:46:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:51:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 16:56:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:01:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:06:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:11:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:16:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:21:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:26:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:31:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:36:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:41:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:46:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:51:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 17:56:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:01:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:06:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:07:21 [conn33] end connection 127.0.0.1:33647 (0 connections now open)
+Sun Dec 14 18:11:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:16:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:21:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:26:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:31:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:36:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:41:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:46:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:51:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 18:56:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:01:00 [initandlisten] connection accepted from 127.0.0.1:33672 #58 (1 connection now open)
+Sun Dec 14 19:01:00 [conn58] end connection 127.0.0.1:33672 (0 connections now open)
+Sun Dec 14 19:01:00 [initandlisten] connection accepted from 127.0.0.1:33673 #59 (1 connection now open)
+Sun Dec 14 19:01:00 [initandlisten] connection accepted from 127.0.0.1:33674 #60 (2 connections now open)
+Sun Dec 14 19:01:00 [initandlisten] connection accepted from 127.0.0.1:33675 #61 (3 connections now open)
+Sun Dec 14 19:01:00 [initandlisten] connection accepted from 127.0.0.1:33676 #62 (4 connections now open)
+Sun Dec 14 19:01:00 [initandlisten] connection accepted from 127.0.0.1:33677 #63 (5 connections now open)
+Sun Dec 14 19:01:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:03:16 [conn59] end connection 127.0.0.1:33673 (4 connections now open)
+Sun Dec 14 19:03:16 [conn60] end connection 127.0.0.1:33674 (3 connections now open)
+Sun Dec 14 19:03:16 [conn61] end connection 127.0.0.1:33675 (2 connections now open)
+Sun Dec 14 19:03:16 [conn62] end connection 127.0.0.1:33676 (1 connection now open)
+Sun Dec 14 19:03:16 [conn63] end connection 127.0.0.1:33677 (0 connections now open)
+Sun Dec 14 19:06:42 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:11:01 [initandlisten] connection accepted from 127.0.0.1:33679 #64 (1 connection now open)
+Sun Dec 14 19:11:01 [conn64] end connection 127.0.0.1:33679 (0 connections now open)
+Sun Dec 14 19:11:01 [initandlisten] connection accepted from 127.0.0.1:33680 #65 (1 connection now open)
+Sun Dec 14 19:11:01 [initandlisten] connection accepted from 127.0.0.1:33681 #66 (2 connections now open)
+Sun Dec 14 19:11:01 [initandlisten] connection accepted from 127.0.0.1:33682 #67 (3 connections now open)
+Sun Dec 14 19:11:01 [initandlisten] connection accepted from 127.0.0.1:33683 #68 (4 connections now open)
+Sun Dec 14 19:11:01 [initandlisten] connection accepted from 127.0.0.1:33684 #69 (5 connections now open)
+Sun Dec 14 19:11:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:16:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:21:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:26:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:31:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:35:59 [conn65] end connection 127.0.0.1:33680 (4 connections now open)
+Sun Dec 14 19:35:59 [conn66] end connection 127.0.0.1:33681 (3 connections now open)
+Sun Dec 14 19:35:59 [conn67] end connection 127.0.0.1:33682 (2 connections now open)
+Sun Dec 14 19:35:59 [conn68] end connection 127.0.0.1:33683 (1 connection now open)
+Sun Dec 14 19:35:59 [conn69] end connection 127.0.0.1:33684 (0 connections now open)
+Sun Dec 14 19:36:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:40:12 [initandlisten] connection accepted from 127.0.0.1:33686 #70 (1 connection now open)
+Sun Dec 14 19:40:12 [conn70] end connection 127.0.0.1:33686 (0 connections now open)
+Sun Dec 14 19:40:12 [initandlisten] connection accepted from 127.0.0.1:33687 #71 (1 connection now open)
+Sun Dec 14 19:40:12 [initandlisten] connection accepted from 127.0.0.1:33688 #72 (2 connections now open)
+Sun Dec 14 19:40:12 [initandlisten] connection accepted from 127.0.0.1:33689 #73 (3 connections now open)
+Sun Dec 14 19:40:12 [initandlisten] connection accepted from 127.0.0.1:33690 #74 (4 connections now open)
+Sun Dec 14 19:40:12 [initandlisten] connection accepted from 127.0.0.1:33691 #75 (5 connections now open)
+Sun Dec 14 19:41:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:42:11 [conn71] end connection 127.0.0.1:33687 (4 connections now open)
+Sun Dec 14 19:42:11 [conn72] end connection 127.0.0.1:33688 (3 connections now open)
+Sun Dec 14 19:42:11 [conn73] end connection 127.0.0.1:33689 (2 connections now open)
+Sun Dec 14 19:42:11 [conn74] end connection 127.0.0.1:33690 (1 connection now open)
+Sun Dec 14 19:42:11 [conn75] end connection 127.0.0.1:33691 (0 connections now open)
+Sun Dec 14 19:42:27 [initandlisten] connection accepted from 127.0.0.1:33692 #76 (1 connection now open)
+Sun Dec 14 19:42:27 [conn76] end connection 127.0.0.1:33692 (0 connections now open)
+Sun Dec 14 19:42:27 [initandlisten] connection accepted from 127.0.0.1:33693 #77 (1 connection now open)
+Sun Dec 14 19:42:27 [initandlisten] connection accepted from 127.0.0.1:33694 #78 (2 connections now open)
+Sun Dec 14 19:42:27 [initandlisten] connection accepted from 127.0.0.1:33695 #79 (3 connections now open)
+Sun Dec 14 19:42:27 [initandlisten] connection accepted from 127.0.0.1:33696 #80 (4 connections now open)
+Sun Dec 14 19:42:28 [initandlisten] connection accepted from 127.0.0.1:33697 #81 (5 connections now open)
+Sun Dec 14 19:43:27 [conn77] end connection 127.0.0.1:33693 (4 connections now open)
+Sun Dec 14 19:43:27 [conn78] end connection 127.0.0.1:33694 (3 connections now open)
+Sun Dec 14 19:43:27 [conn79] end connection 127.0.0.1:33695 (2 connections now open)
+Sun Dec 14 19:43:27 [conn80] end connection 127.0.0.1:33696 (1 connection now open)
+Sun Dec 14 19:43:27 [conn81] end connection 127.0.0.1:33697 (0 connections now open)
+Sun Dec 14 19:46:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:50:33 [initandlisten] connection accepted from 127.0.0.1:33698 #82 (1 connection now open)
+Sun Dec 14 19:50:33 [conn82] end connection 127.0.0.1:33698 (0 connections now open)
+Sun Dec 14 19:50:33 [initandlisten] connection accepted from 127.0.0.1:33699 #83 (1 connection now open)
+Sun Dec 14 19:50:33 [initandlisten] connection accepted from 127.0.0.1:33700 #84 (2 connections now open)
+Sun Dec 14 19:50:33 [initandlisten] connection accepted from 127.0.0.1:33701 #85 (3 connections now open)
+Sun Dec 14 19:50:33 [initandlisten] connection accepted from 127.0.0.1:33702 #86 (4 connections now open)
+Sun Dec 14 19:50:33 [initandlisten] connection accepted from 127.0.0.1:33703 #87 (5 connections now open)
+Sun Dec 14 19:51:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 19:52:49 [conn83] end connection 127.0.0.1:33699 (4 connections now open)
+Sun Dec 14 19:52:49 [conn84] end connection 127.0.0.1:33700 (3 connections now open)
+Sun Dec 14 19:52:49 [conn85] end connection 127.0.0.1:33701 (2 connections now open)
+Sun Dec 14 19:52:49 [conn86] end connection 127.0.0.1:33702 (1 connection now open)
+Sun Dec 14 19:52:49 [conn87] end connection 127.0.0.1:33703 (0 connections now open)
+Sun Dec 14 19:56:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:01:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:06:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:11:00 [initandlisten] connection accepted from 127.0.0.1:33704 #88 (1 connection now open)
+Sun Dec 14 20:11:01 [conn88] end connection 127.0.0.1:33704 (0 connections now open)
+Sun Dec 14 20:11:01 [initandlisten] connection accepted from 127.0.0.1:33705 #89 (1 connection now open)
+Sun Dec 14 20:11:01 [initandlisten] connection accepted from 127.0.0.1:33706 #90 (2 connections now open)
+Sun Dec 14 20:11:01 [initandlisten] connection accepted from 127.0.0.1:33707 #91 (3 connections now open)
+Sun Dec 14 20:11:01 [initandlisten] connection accepted from 127.0.0.1:33708 #92 (4 connections now open)
+Sun Dec 14 20:11:01 [initandlisten] connection accepted from 127.0.0.1:33709 #93 (5 connections now open)
+Sun Dec 14 20:11:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:11:52 [conn89] end connection 127.0.0.1:33705 (4 connections now open)
+Sun Dec 14 20:11:52 [conn90] end connection 127.0.0.1:33706 (3 connections now open)
+Sun Dec 14 20:11:52 [conn91] end connection 127.0.0.1:33707 (2 connections now open)
+Sun Dec 14 20:11:52 [conn92] end connection 127.0.0.1:33708 (1 connection now open)
+Sun Dec 14 20:11:52 [conn93] end connection 127.0.0.1:33709 (0 connections now open)
+Sun Dec 14 20:13:00 [initandlisten] connection accepted from 127.0.0.1:33710 #94 (1 connection now open)
+Sun Dec 14 20:13:00 [conn94] end connection 127.0.0.1:33710 (0 connections now open)
+Sun Dec 14 20:13:00 [initandlisten] connection accepted from 127.0.0.1:33711 #95 (1 connection now open)
+Sun Dec 14 20:13:00 [initandlisten] connection accepted from 127.0.0.1:33712 #96 (2 connections now open)
+Sun Dec 14 20:13:00 [initandlisten] connection accepted from 127.0.0.1:33713 #97 (3 connections now open)
+Sun Dec 14 20:13:00 [initandlisten] connection accepted from 127.0.0.1:33714 #98 (4 connections now open)
+Sun Dec 14 20:13:00 [initandlisten] connection accepted from 127.0.0.1:33715 #99 (5 connections now open)
+Sun Dec 14 20:16:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:21:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:26:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:31:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:33:47 [conn95] end connection 127.0.0.1:33711 (4 connections now open)
+Sun Dec 14 20:33:47 [conn96] end connection 127.0.0.1:33712 (3 connections now open)
+Sun Dec 14 20:33:47 [conn97] end connection 127.0.0.1:33713 (2 connections now open)
+Sun Dec 14 20:33:47 [conn98] end connection 127.0.0.1:33714 (1 connection now open)
+Sun Dec 14 20:33:47 [conn99] end connection 127.0.0.1:33715 (0 connections now open)
+Sun Dec 14 20:34:11 [initandlisten] connection accepted from 127.0.0.1:33716 #100 (1 connection now open)
+Sun Dec 14 20:34:11 [conn100] end connection 127.0.0.1:33716 (0 connections now open)
+Sun Dec 14 20:34:11 [initandlisten] connection accepted from 127.0.0.1:33717 #101 (1 connection now open)
+Sun Dec 14 20:34:11 [initandlisten] connection accepted from 127.0.0.1:33718 #102 (2 connections now open)
+Sun Dec 14 20:34:11 [initandlisten] connection accepted from 127.0.0.1:33719 #103 (3 connections now open)
+Sun Dec 14 20:34:11 [initandlisten] connection accepted from 127.0.0.1:33720 #104 (4 connections now open)
+Sun Dec 14 20:34:12 [initandlisten] connection accepted from 127.0.0.1:33721 #105 (5 connections now open)
+Sun Dec 14 20:34:41 [conn101] end connection 127.0.0.1:33717 (4 connections now open)
+Sun Dec 14 20:34:41 [conn102] end connection 127.0.0.1:33718 (3 connections now open)
+Sun Dec 14 20:34:41 [conn103] end connection 127.0.0.1:33719 (2 connections now open)
+Sun Dec 14 20:34:41 [conn104] end connection 127.0.0.1:33720 (1 connection now open)
+Sun Dec 14 20:34:41 [conn105] end connection 127.0.0.1:33721 (0 connections now open)
+Sun Dec 14 20:36:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:41:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:46:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:51:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:53:49 [initandlisten] connection accepted from 127.0.0.1:33722 #106 (1 connection now open)
+Sun Dec 14 20:53:49 [conn106] end connection 127.0.0.1:33722 (0 connections now open)
+Sun Dec 14 20:53:49 [initandlisten] connection accepted from 127.0.0.1:33723 #107 (1 connection now open)
+Sun Dec 14 20:53:49 [initandlisten] connection accepted from 127.0.0.1:33724 #108 (2 connections now open)
+Sun Dec 14 20:53:49 [initandlisten] connection accepted from 127.0.0.1:33725 #109 (3 connections now open)
+Sun Dec 14 20:53:49 [initandlisten] connection accepted from 127.0.0.1:33726 #110 (4 connections now open)
+Sun Dec 14 20:53:49 [initandlisten] connection accepted from 127.0.0.1:33727 #111 (5 connections now open)
+Sun Dec 14 20:55:37 [conn107] end connection 127.0.0.1:33723 (4 connections now open)
+Sun Dec 14 20:55:37 [conn108] end connection 127.0.0.1:33724 (3 connections now open)
+Sun Dec 14 20:55:37 [conn109] end connection 127.0.0.1:33725 (2 connections now open)
+Sun Dec 14 20:55:37 [conn110] end connection 127.0.0.1:33726 (1 connection now open)
+Sun Dec 14 20:55:37 [conn111] end connection 127.0.0.1:33727 (0 connections now open)
+Sun Dec 14 20:55:53 [initandlisten] connection accepted from 127.0.0.1:33728 #112 (1 connection now open)
+Sun Dec 14 20:55:54 [conn112] end connection 127.0.0.1:33728 (0 connections now open)
+Sun Dec 14 20:55:54 [initandlisten] connection accepted from 127.0.0.1:33729 #113 (1 connection now open)
+Sun Dec 14 20:55:54 [initandlisten] connection accepted from 127.0.0.1:33730 #114 (2 connections now open)
+Sun Dec 14 20:55:54 [initandlisten] connection accepted from 127.0.0.1:33731 #115 (3 connections now open)
+Sun Dec 14 20:55:54 [initandlisten] connection accepted from 127.0.0.1:33732 #116 (4 connections now open)
+Sun Dec 14 20:55:54 [initandlisten] connection accepted from 127.0.0.1:33733 #117 (5 connections now open)
+Sun Dec 14 20:56:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 20:58:45 [conn113] end connection 127.0.0.1:33729 (4 connections now open)
+Sun Dec 14 20:58:45 [conn114] end connection 127.0.0.1:33730 (3 connections now open)
+Sun Dec 14 20:58:45 [conn115] end connection 127.0.0.1:33731 (2 connections now open)
+Sun Dec 14 20:58:45 [conn116] end connection 127.0.0.1:33732 (1 connection now open)
+Sun Dec 14 20:58:45 [conn117] end connection 127.0.0.1:33733 (0 connections now open)
+Sun Dec 14 20:59:06 [initandlisten] connection accepted from 127.0.0.1:33734 #118 (1 connection now open)
+Sun Dec 14 20:59:06 [conn118] end connection 127.0.0.1:33734 (0 connections now open)
+Sun Dec 14 20:59:06 [initandlisten] connection accepted from 127.0.0.1:33735 #119 (1 connection now open)
+Sun Dec 14 20:59:06 [initandlisten] connection accepted from 127.0.0.1:33736 #120 (2 connections now open)
+Sun Dec 14 20:59:06 [initandlisten] connection accepted from 127.0.0.1:33737 #121 (3 connections now open)
+Sun Dec 14 20:59:06 [initandlisten] connection accepted from 127.0.0.1:33738 #122 (4 connections now open)
+Sun Dec 14 20:59:06 [initandlisten] connection accepted from 127.0.0.1:33739 #123 (5 connections now open)
+Sun Dec 14 21:00:53 [conn119] end connection 127.0.0.1:33735 (4 connections now open)
+Sun Dec 14 21:00:53 [conn120] end connection 127.0.0.1:33736 (3 connections now open)
+Sun Dec 14 21:00:53 [conn121] end connection 127.0.0.1:33737 (2 connections now open)
+Sun Dec 14 21:00:53 [conn122] end connection 127.0.0.1:33738 (1 connection now open)
+Sun Dec 14 21:00:53 [conn123] end connection 127.0.0.1:33739 (0 connections now open)
+Sun Dec 14 21:01:30 [initandlisten] connection accepted from 127.0.0.1:33740 #124 (1 connection now open)
+Sun Dec 14 21:01:30 [conn124] end connection 127.0.0.1:33740 (0 connections now open)
+Sun Dec 14 21:01:30 [initandlisten] connection accepted from 127.0.0.1:33741 #125 (1 connection now open)
+Sun Dec 14 21:01:30 [initandlisten] connection accepted from 127.0.0.1:33742 #126 (2 connections now open)
+Sun Dec 14 21:01:30 [initandlisten] connection accepted from 127.0.0.1:33743 #127 (3 connections now open)
+Sun Dec 14 21:01:30 [initandlisten] connection accepted from 127.0.0.1:33744 #128 (4 connections now open)
+Sun Dec 14 21:01:30 [initandlisten] connection accepted from 127.0.0.1:33745 #129 (5 connections now open)
+Sun Dec 14 21:01:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 21:05:33 [conn125] end connection 127.0.0.1:33741 (4 connections now open)
+Sun Dec 14 21:05:33 [conn126] end connection 127.0.0.1:33742 (3 connections now open)
+Sun Dec 14 21:05:33 [conn127] end connection 127.0.0.1:33743 (2 connections now open)
+Sun Dec 14 21:05:33 [conn128] end connection 127.0.0.1:33744 (1 connection now open)
+Sun Dec 14 21:05:33 [conn129] end connection 127.0.0.1:33745 (0 connections now open)
+Sun Dec 14 21:06:07 [initandlisten] connection accepted from 127.0.0.1:33746 #130 (1 connection now open)
+Sun Dec 14 21:06:07 [conn130] end connection 127.0.0.1:33746 (0 connections now open)
+Sun Dec 14 21:06:07 [initandlisten] connection accepted from 127.0.0.1:33747 #131 (1 connection now open)
+Sun Dec 14 21:06:07 [initandlisten] connection accepted from 127.0.0.1:33748 #132 (2 connections now open)
+Sun Dec 14 21:06:07 [initandlisten] connection accepted from 127.0.0.1:33749 #133 (3 connections now open)
+Sun Dec 14 21:06:07 [initandlisten] connection accepted from 127.0.0.1:33750 #134 (4 connections now open)
+Sun Dec 14 21:06:07 [initandlisten] connection accepted from 127.0.0.1:33751 #135 (5 connections now open)
+Sun Dec 14 21:06:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 21:08:45 [conn131] end connection 127.0.0.1:33747 (4 connections now open)
+Sun Dec 14 21:08:45 [conn132] end connection 127.0.0.1:33748 (3 connections now open)
+Sun Dec 14 21:08:45 [conn133] end connection 127.0.0.1:33749 (2 connections now open)
+Sun Dec 14 21:08:45 [conn135] end connection 127.0.0.1:33751 (1 connection now open)
+Sun Dec 14 21:08:45 [conn134] end connection 127.0.0.1:33750 (1 connection now open)
+Sun Dec 14 21:09:33 [initandlisten] connection accepted from 127.0.0.1:33752 #136 (1 connection now open)
+Sun Dec 14 21:09:33 [conn136] end connection 127.0.0.1:33752 (0 connections now open)
+Sun Dec 14 21:09:33 [initandlisten] connection accepted from 127.0.0.1:33753 #137 (1 connection now open)
+Sun Dec 14 21:09:33 [initandlisten] connection accepted from 127.0.0.1:33754 #138 (2 connections now open)
+Sun Dec 14 21:09:33 [initandlisten] connection accepted from 127.0.0.1:33755 #139 (3 connections now open)
+Sun Dec 14 21:09:33 [initandlisten] connection accepted from 127.0.0.1:33756 #140 (4 connections now open)
+Sun Dec 14 21:09:33 [initandlisten] connection accepted from 127.0.0.1:33757 #141 (5 connections now open)
+Sun Dec 14 21:11:04 [conn137] end connection 127.0.0.1:33753 (4 connections now open)
+Sun Dec 14 21:11:04 [conn138] end connection 127.0.0.1:33754 (3 connections now open)
+Sun Dec 14 21:11:04 [conn139] end connection 127.0.0.1:33755 (2 connections now open)
+Sun Dec 14 21:11:04 [conn140] end connection 127.0.0.1:33756 (1 connection now open)
+Sun Dec 14 21:11:04 [conn141] end connection 127.0.0.1:33757 (0 connections now open)
+Sun Dec 14 21:11:43 [clientcursormon] mem (MB) res:32 virt:121 mapped:32
+Sun Dec 14 21:12:26 [initandlisten] connection accepted from 127.0.0.1:33758 #142 (1 connection now open)
+Sun Dec 14 21:12:26 [conn142] end connection 127.0.0.1:33758 (0 connections now open)
+Sun Dec 14 21:12:26 [initandlisten] connection accepted from 127.0.0.1:33759 #143 (1 connection now open)
+Sun Dec 14 21:12:26 [initandlisten] connection accepted from 127.0.0.1:33760 #144 (2 connections now open)
+Sun Dec 14 21:12:26 [initandlisten] connection accepted from 127.0.0.1:33761 #145 (3 connections now open)
+Sun Dec 14 21:12:26 [initandlisten] connection accepted from 127.0.0.1:33762 #146 (4 connections now open)
+Sun Dec 14 21:12:26 [initandlisten] connection accepted from 127.0.0.1:33763 #147 (5 connections now open)
+Sun Dec 14 21:13:59 [initandlisten] connection accepted from 127.0.0.1:33764 #148 (6 connections now open)
+Sun Dec 14 21:15:46 [conn143] end connection 127.0.0.1:33759 (5 connections now open)
+Sun Dec 14 21:15:46 [conn144] end connection 127.0.0.1:33760 (4 connections now open)
+Sun Dec 14 21:15:46 [conn145] end connection 127.0.0.1:33761 (3 connections now open)
+Sun Dec 14 21:15:46 [conn146] end connection 127.0.0.1:33762 (2 connections now open)
+Sun Dec 14 21:15:46 [conn147] end connection 127.0.0.1:33763 (1 connection now open)
+Sun Dec 14 21:15:47 [conn148] end connection 127.0.0.1:33764 (0 connections now open)
+Sun Dec 14 21:16:01 got signal 15 (Terminated), will terminate after current cmd ends
+Sun Dec 14 21:16:01 [interruptThread] now exiting
+Sun Dec 14 21:16:01 dbexit: 
+Sun Dec 14 21:16:01 [interruptThread] shutdown: going to close listening sockets...
+Sun Dec 14 21:16:01 [interruptThread] closing listening socket: 5
+Sun Dec 14 21:16:01 [interruptThread] closing listening socket: 6
+Sun Dec 14 21:16:01 [interruptThread] closing listening socket: 7
+Sun Dec 14 21:16:01 [interruptThread] removing socket file: /tmp/mongodb-27017.sock
+Sun Dec 14 21:16:01 [interruptThread] shutdown: going to flush diaglog...
+Sun Dec 14 21:16:01 [interruptThread] shutdown: going to close sockets...
+Sun Dec 14 21:16:01 [interruptThread] shutdown: waiting for fs preallocator...
+Sun Dec 14 21:16:01 [interruptThread] shutdown: closing all files...
+Sun Dec 14 21:16:01 [interruptThread] closeAllFiles() finished
+Sun Dec 14 21:16:01 [interruptThread] shutdown: removing fs lock...
+Sun Dec 14 21:16:01 dbexit: really exiting now
