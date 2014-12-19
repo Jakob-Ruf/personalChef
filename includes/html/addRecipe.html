@@ -4,34 +4,41 @@
 		<!-- Vorschau für den Namen und die Zubereitungsdauer -->
 		<div class="new_rec_name" id="new_rec_name" ng-click="newRecipeNameEdit()">
 			<div id="new_rec_pic">
+				<!-- TODO: Default Rezeptbild einfügen -->
 				<img src="media/img/nudeln.jpg">
 				<div id="new_rec_title">{{newRCtrl.newRec._id}}</div>
 				<div id="new_rec_time"><i class="fa fa-clock-o"></i> {{newRCtrl.newRec.time}} min</div>
 			</div>
 		</div>
+
 		<!-- Eingabemaske für den Namen und die Zubereitungsdauer -->
 		<div class="rec_input_div" id="add_r_name_input">
-			<form class="rec_input_div" ng-submit="newRecipeName()">
-				<input id="rec_input_full" type="text" name="rec_name" ng-model="newRCtrl.newRec._id" placeholder="Rezeptnamen angeben" required>
-				<input id="rec_input_half" type="number" name="rec_time" ng-model="newRCtrl.newRec.time" placeholder="Zubereitungsdauer" required>
-				<select id="rec_input_half2" ng-model="newRCtrl.newRec.difficulty" required>
+			<form ng-submit="newRecipeName(newRCtrl.newRec.difficulty)">
+				<input id="rec_input_full" type="text" name="rec_name" ng-model="newRCtrl.newRec._id" placeholder="Rezeptnamen angeben" required tabindex="1">
+				<input id="rec_input_half" type="number" name="rec_time" ng-model="newRCtrl.newRec.time" placeholder="Dauer in min." required tabindex="2">
+				<select id="rec_input_half2" ng-model="newRCtrl.newRec.difficulty" tabindex="3">
 					<option value="1">Leicht</option>
 					<option value="2">Mittel</option>
 					<option value="3">Schwer</option>
 				</select>
-				<a id="rec_submit" ng-click="newRecipeName()"><i class="fa fa-angle-right fa-2x"></i></a>		
+				<button type="submit" id="rec_submit" tabindex="4">
+					<i class="fa fa-angle-right fa-2x"></i>
+				</button>
 			</form>
 		</div>
 
 		<!-- Vorschau für die Zutaten -->
 		<div class="new_rec_ingredients" id="new_r_ingredient">
-			<div id="new_ingredients_head">
+			<div id="new_ingredients_head" ng-click="newRecipeName(newRCtrl.newRec.difficulty)">
 				Zutaten:
 			</div>
 			<ul>
-				<li class="new_rec_ing_li" ng-repeat="ingredient in newRCtrl.newRec.ingredients">
+				<li class="new_rec_ing_li" ng-repeat="ingredient in newRCtrl.newRec.ingredients" ng-click="newRCtrl.edit($index)">
 					<div id="new_rec_ing_name">
 						{{ingredient._id}}
+					</div>
+					<div id="new_rec_ing_edit">
+						<i class="fa fa-pencil"></i>
 					</div>
 					<div id="new_rec_ing_amount">
 						{{ingredient.amount}}
@@ -39,10 +46,7 @@
 					<div id="new_rec_ing_unit">
 						{{ingredient.unit}}
 					</div>
-					<div id="new_rec_ing_edit">
-						<i class="fa fa-pencil"></i>
-					</div>
-					<div id="new_rec_ing_remove">
+					<div id="new_rec_ing_remove" ng-click="newRCtrl.remove($index)">
 						<i class="fa fa-times"></i>
 					</div>
 				</li>
@@ -51,26 +55,47 @@
 
 		<!-- Eingabemaske für die Zutaten -->
 		<div class="rec_input_div" id="add_r_ingredient_input">
-			<form class="rec_input_div" ng-submit="newRCtrl.addIngredient()">
+			<form ng-submit="newRCtrl.addIngredient()">
 				<input id="rec_input_full" type="text" name="rec_ing" ng-model="newRCtrl.newIng._id" placeholder="Zutat hinzufügen" required>
 				<input id="rec_input_half" type="number" name="rec_ing" ng-model="newRCtrl.newIng.amount" placeholder="Menge" required>
-				<select id="rec_input_half2" ng-model="newRCtrl.newIng.unit" required>
+				<select id="rec_input_half2" ng-model="newRCtrl.newIng.unit">
 					<option value="g">Gramm</option>
 					<option value="ml">Mililiter</option>
 					<option value="EL">Esslöffel</option>
 					<option value="TL">Teelöffel</option>
 					<option value="St.">Stück</option>
 				</select>
-				<a id="rec_submit" ng-click="newRCtrl.addIngredient()"><i class="fa fa-angle-right fa-2x"></i></a>		
+				<button type="submit" id="rec_submit">
+					<i class="fa fa-plus fa-2x"></i>
+				</button>
 			</form>
+			<a class="rec_input_full_btn" id="rec_input_to_desc" href="" ng-click="newRCtrl.newRecipeDescription()">weiter zur Rezeptbeschreibung</a>
+		</div>
+
+		<div class="new_rec_description" id="new_r_description" ng-click="newRCtrl.newRecipeDescription()">
+			<div id="new_description_head">
+				Zubereitung:
+			</div>
+			<div id="new_description_body">
+				{{newRCtrl.newRec.description}}
+			</div>
+			<a class="rec_input_full_btn" href="" ng-click="newRCtrl.newRecipeSend()">Rezept abschicken</a>
 		</div>
 
 		<!-- Texteingabe der Beschreibung -->
 		<div class="rec_input_div" id="add_r_description_input">
+			<div id="new_description_head">
+				Zubereitung:
+			</div>
 			<form ng-submit="newRCtrl.showFinal()">
-				<div id="textarea_wrapper"><textarea id="add_r_description_input" placeholder="Zubereitung" ng-model="newRCtrl.newRec.description"></textarea></div>
+				<div id="textarea_wrapper"><textarea id="add_r_description_input_area" placeholder="Zubereitung" ng-model="newRCtrl.newRec.description" required></textarea></div>
+				<button type="submit" id="final_submit">
+					Rezept abschließen
+				</button>
 			</form>
 		</div>
+
+		<!-- TODO: Bild hochladen -->
 
 	</div>
 </div>

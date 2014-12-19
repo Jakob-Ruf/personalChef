@@ -17,6 +17,7 @@
 		$routeProvider.when('/rezepte', {templateUrl: 'includes/html/rezept.html', reloadOnSearch: false});
 		$routeProvider.when('/addRezept', {templateUrl: 'includes/html/addRecipe.html', reloadOnSearch: false});
 		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
+		$routeProvider.when('/impressum', {templateUrl: 'includes/html/impressum.html', reloadOnSearch: false});
 	});
 
 	app.controller('newRecipeController', function($scope, rec_add)
@@ -25,7 +26,7 @@
 			_id: '',
 			time: "",
 			description: "",
-			difficulty: "",
+			difficulty: 1,
 			user: "",
 			image: "",
 			ingredients: []
@@ -39,12 +40,52 @@
 
 		this.addIngredient = function()
 		{
-			if (this.newIng._id == "" || this.newIng.amount == "") {
-				alert("Nicht alle Werte ausgefüllt!");
-				rec_add.save(this.newRec);
-				console.log(rec_add.save);
-			}
-			else
+
+			this.newRec.ingredients.push(this.newIng);
+			this.newIng = {
+				_id: '',
+				amount: '',
+				unit: 'St.'
+			};
+
+		};
+
+		this.showFinal = function()
+		{
+			/* Anzeigen von Namen, Zutaten und Textarea */
+			document.getElementById("new_rec_name").style.display = "block";
+			document.getElementById("new_r_ingredient").style.display = "block";
+			document.getElementById("new_r_description").style.display = "block";
+			/* Ausblenden der Inputfelder */
+			document.getElementById("add_r_ingredient_input").style.display = "none";
+			document.getElementById("add_r_name_input").style.display = "none";
+			document.getElementById("add_r_description_input").style.display = "none";
+		};
+
+		this.newRecipeSend = function()
+		{
+			rec_add.save(this.newRec);
+			window.location = "#/"
+		};
+
+		this.remove = function(i)
+		{
+			this.newRec.ingredients.splice(i, 1);
+		};
+
+		this.edit = function(i)
+		{
+			document.getElementById("add_r_description_input").style.display = "none";
+			document.getElementById("new_r_ingredient").style.display = "block";
+			document.getElementById("add_r_ingredient_input").style.display = "block";
+			document.getElementById("new_r_description").style.display = "none";
+			this.newIng = this.newRec.ingredients[i];
+			this.newRec.ingredients.splice(i, 1);
+		};
+
+		this.newRecipeDescription = function()
+		{
+			if (this.newIng._id != "" && this.newIng.amount != "") 
 			{
 				this.newRec.ingredients.push(this.newIng);
 				this.newIng = {
@@ -52,27 +93,53 @@
 					amount: '',
 					unit: 'St.'
 				};
-				document.getElementById("add_r_description_input").style.display = "block";
-			}
-
+			};
+			/* Anzeigen von Namen, Zutaten und Textarea */
+			document.getElementById("new_rec_name").style.display = "block";
+			document.getElementById("new_r_ingredient").style.display = "block";
+			document.getElementById("add_r_description_input").style.display = "block";
+			/* Ausblenden der Inputfelder */
+			document.getElementById("add_r_ingredient_input").style.display = "none";
+			document.getElementById("add_r_name_input").style.display = "none";
+			document.getElementById("new_r_description").style.display = "none";
 		};
 
-		$scope.newRecipeName = function()
+		$scope.newRecipeName = function(difficulty)
 		{
-			/* Anzeige des Eingegeben und des neuen Inputs - Ausblenden des alten Inputfeldes */
+			/* Anzeigen von Namen und Zutaten */
 			document.getElementById("new_rec_name").style.display = "block";
-			document.getElementById("add_r_name_input").style.display = "none";
 			document.getElementById("new_r_ingredient").style.display = "block";
 			document.getElementById("add_r_ingredient_input").style.display = "block";
+			/* Ausblenden der Inputfelder */
+			document.getElementById("add_r_name_input").style.display = "none";
+			document.getElementById("add_r_description_input").style.display = "none";
+			document.getElementById("new_r_description").style.display = "none";
+
+			/* Schwierigkeit farbig darstellen */
+			if (difficulty == 1) 
+			{
+				document.getElementById("new_rec_pic").style.borderBottom= "5px solid green";
+			}
+			else if (difficulty == 2) 
+			{
+				document.getElementById("new_rec_pic").style.borderBottom = "5px solid #ff8c00";
+			}
+			else if (difficulty == 3) 
+			{
+				document.getElementById("new_rec_pic").style.borderBottom = "5px solid rgba(192, 57, 43,1.0)";
+			}
 		};
 
 		$scope.newRecipeNameEdit = function()
 		{
-			/* Wiederanzeigen des Inputfeldes - Ausblenden des Eingegeben und des neuen Inputs */
-			document.getElementById("new_rec_name").style.display = "none";
+			/* Anzeigen von Nameninput */
 			document.getElementById("add_r_name_input").style.display = "block";
+			/* Ausblenden des Restes */
+			document.getElementById("new_rec_name").style.display = "none";
 			document.getElementById("new_r_ingredient").style.display = "none";
 			document.getElementById("add_r_ingredient_input").style.display = "none";
+			document.getElementById("add_r_description_input").style.display = "none";
+			document.getElementById("new_r_description").style.display = "none";
 		};
 	});
 
