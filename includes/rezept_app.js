@@ -14,7 +14,7 @@
 		$routeProvider.when('/', {templateUrl: 'includes/html/home.html', reloadOnSearch: false});
 		$routeProvider.when('/user', {templateUrl: 'includes/html/user.html', reloadOnSearch: false});
 		$routeProvider.when('/fridge', {templateUrl: 'includes/html/fridge.html', reloadOnSearch: false});
-		$routeProvider.when('/rezepte', {templateUrl: 'includes/html/rezept.html', reloadOnSearch: false});
+		$routeProvider.when('/rezepte', {templateUrl: 'includes/html/rezeptListe.html', reloadOnSearch: false});
 		$routeProvider.when('/addRezept', {templateUrl: 'includes/html/addRecipe.html', reloadOnSearch: false});
 		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
 		$routeProvider.when('/impressum', {templateUrl: 'includes/html/impressum.html', reloadOnSearch: false});
@@ -27,7 +27,7 @@
 			time: "",
 			description: "",
 			difficulty: 1,
-			user: "",
+			creator: "",
 			image: "",
 			ingredients: []
 		};
@@ -40,7 +40,6 @@
 
 		this.addIngredient = function()
 		{
-
 			this.newRec.ingredients.push(this.newIng);
 			this.newIng = {
 				_id: '',
@@ -85,6 +84,7 @@
 
 		this.newRecipeDescription = function()
 		{
+			/* Pushen der aktuellen Zutat, falls sie ausgefüllt ist, aber nicht gespeichert wurde */
 			if (this.newIng._id != "" && this.newIng.amount != "") 
 			{
 				this.newRec.ingredients.push(this.newIng);
@@ -143,33 +143,9 @@
 		};
 	});
 
-app.controller('rezeptController', function($scope, rec_start)
+app.controller('homeController', function($scope, rec_start)
 {
-
-	$scope.rezeptListe = rec_start.query();
-	var user_list = $scope.users;
-
-	var rezeptList = $scope.rezeptListe;
-
-	$scope.fridge = [
-	{ name: "Eier", count: "6", unit: "st"},
-	{ name: "Zucker", count: "500", unit: "gr"},
-	{ name: "Apfel", count: "3", unit: "st"},
-	{ name: "Milch", count: "1", unit: "ml"},
-	{ name: "Mehl", count: "400", unit: "gr"},
-	{ name: "Olivenöl", count: "6", unit: "ml"}
-	];
-
-	$scope.getTimes=function(n)
-	{
-		return new Array(n);
-	};
-
-	$scope.log=function(n)
-	{
-		console.log(user_list);
-		console.log(rezeptList);
-	};
+	$scope.rezepteHome = rec_start.query();
 
 	$scope.overlayHomeId = function(value)
 	{
@@ -189,12 +165,65 @@ app.controller('rezeptController', function($scope, rec_start)
 		var elements = document.getElementsByClassName(cl);
 		elements[0].style.display = "none";
 	};
+});
 
+app.controller('rezeptListController', function($scope, rec_list){
+	this.switchState = 0;
+	this.rezeptListe = rec_list.query();
+
+	this.switch = function()
+	{
+		if (this.switchState == 1)
+		{
+			this.switchState = 0;
+		}
+		else
+		{
+			this.switchState = 1;
+		}
+	};
+
+	this.switchInput = function(i)
+	{
+		if (this.switchState == i) 
+		{
+			return "active";
+		}
+		else
+		{
+			return "";
+		}
+	}
+	console.log(this.rezeptListe);
+});
+
+app.controller('generalController', function($scope)
+{
+	$scope.fridge = [
+	{ name: "Eier", count: "6", unit: "st"},
+	{ name: "Zucker", count: "500", unit: "gr"},
+	{ name: "Apfel", count: "3", unit: "st"},
+	{ name: "Milch", count: "1", unit: "ml"},
+	{ name: "Mehl", count: "400", unit: "gr"},
+	{ name: "Olivenöl", count: "6", unit: "ml"}
+	];
+
+	$scope.getTimes=function(n)
+	{
+		return new Array(n);
+	};
+
+	/* @todo: Löschen... */
+	$scope.log=function(n)
+	{
+		console.log(user_list);
+		console.log(rezepte_Home);
+	};
 
 	/* Einfärben der nötigen Sterne */
-	$scope.ratingIsActive = function(rezeptId, starId)
+	$scope.ratingIsActive = function(starId, rezept)
 	{
-		if (starId <= rezeptList[rezeptId].ratings_average) 
+		if (starId <= rezept.ratings_average) 
 		{
 			return "r_active";
 		}
