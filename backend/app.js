@@ -5,6 +5,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var schedule = require('node-schedule');
+var busboy = require('connect-busboy');
 
 // database connection
 var mongo = require('mongoskin');
@@ -18,12 +19,12 @@ var ingredients = require('./routes/ingredients');
 
 // javascript functions to be used inside this app
 var tools = require('./javascript/tools');
-// var scheduling = require('./javascript/scheduleJobs');
+var images = require('./javascript/images');
 
 
 // uncomment this line to run the app in the background as a daemon
 // only for productive purposes
-require('daemon')();
+ require('daemon')();
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 
+app.use(busboy());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -86,24 +88,27 @@ app.use(function(err, req, res, next) {
 
 // scripts to execute once when starting the server
 console.log(Date().toString() + ": Server successfully started");
-tools.updateStartScreen(db);
+images.imageManip();
 tools.updateRatingsAndLikes(db);
+tools.checkForDiscrepancies(db);
+tools.updateStartScreen(db);
 
 
 
 // scripts to execute multiple times
 
-// execute eevery 1st minute of every hour
-// var rule = new schedule.RecurrenceRule();
-// rule.minute = 1;
-// schedule.scheduleJob(rule, function(){
-//     tools.updateStartScreen(db);
-//     tools.updateRatingsAndLikes(db);
-// });
+// execute every 1st minute of every hour
+var rule = new schedule.RecurrenceRule();
+rule.hour = 0;
+rule.minute = 1;
+schedule.scheduleJob(rule, function(){
+    tools.updateStartScreen(db);
+});
 
-setInterval(tools.updateRatingsAndLikes, 600000, db);
-setInterval(tools.updateStartScreen, 600000, db);
-console.log(Date().toString() +": Daily jobs scheduled");
+// setInterval(tools.updateRatingsAndLikes, 600000, db);
+// setInterval(tools.updateStartScreen, 600000, db);
+// setInterval(tools.checkForDiscrepancies, 600000, db);
+// console.log(Date().toString() +": Daily jobs scheduled");
 
 
 

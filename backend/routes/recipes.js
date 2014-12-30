@@ -1,5 +1,14 @@
 var express = require('express');
+var busboy = require('connect-busboy');
+var fs = require('fs');
 var router = express.Router();
+var images = require('../javascript/images');
+
+router.post('/upload', function (req, res){
+    console.log(req.body);
+    console.log(req.params);
+    images.imageUpload(req, res, "recipe");
+});
 
 // Method for getting list of recipes
 // responds with 500 if error with request
@@ -7,7 +16,7 @@ var router = express.Router();
 // responds with JSON-Array if recipes found
 router.get('/list', function (req, res) {
     var db = req.db;
-    db.collection('recipes').find({},{"_id":1,"comments":1,"creator":1,"description":1,"difficulty":1,"image":1,"ingredients":1,"likes_amount":1, "ratings_average":1, "popularity":1}).toArray(function (err, items) {
+    db.collection('recipes').find({},{"_id":1,"comments":1,"creator":1,"description":1,"difficulty":1,"image":1,"imageThumb":1,"ingredients":1,"likes_amount":1, "ratings_average":1, "popularity":1}).toArray(function (err, items) {
         if (err === null){
             if( items.length == 0){
                 res.send(404);
@@ -116,6 +125,7 @@ router.get('/withIngredient/:iid', function (req, res){
                         if (items.length == 0){
                             res.send(404);
                         } else {
+                            res.header("Content-Type: application/json; charset=utf-8");
                             res.json(items);
                         };
                     } else {
@@ -159,63 +169,41 @@ router.get('/:rid', function (req, res) {
 });
 
 
-
-// router.options('/add', function (req, res){
-//     var db = req.db;
-//     console.log(req.body);
-//     console.log(Date().toString() + ": Requested adding of recipe " + req.body._id);
-//     db.collection('recipes').find({"_id": req.body._id}).toArray(function (err, items) {
-//         if (err === null){
-//             if (items.length == 0){
-//                 db.collection('recipes').insert(req.body, function (err, result){
-//                     if (err === null){
-//                         res.send(200);
-//                     } else {
-//                         res.send(500);
-//                     }
-//                 });
-//             } else {
-//                 res.send(409);
-//             };
-//         } else {
-//             res.send(500);
-//         };
-//     });
-// });
-
-
 router.post('/add', function (req, res){
     var db = req.db;
     var dummyUrl = ""
-    // console.log(req.body);
     console.log(Date().toString() + ": Requested adding of recipe " + req.body._id);
-    db.collection('recipes').find({"_id": req.body._id}).toArray(function (err, items) {
-        if (err === null){
-            if (items.length == 0){
-                db.collection('recipes').insert(req.body, function (err, result){
-                    if (err === null){
-                    	db.collection('recipes').update({"_id": req.body._id},{$set:{"image":"backend/imgs/recipes/dummy.jpg"}}, function (err, result){
-                    		if (err === null){
-                    			if (result == 0){
-                    				res.send(200);
-                    			} else {
-                    				res.send(404);
-                    			};
-                    		} else {
-                    			res.send(500);
-                    		}
-                    	});
-                    } else {
-                        res.send(500);
-                    }
-                });
+    if ( req.body._id === null){
+        res.send(400);
+    } else {
+        db.collection('recipes').find({"_id": req.body._id}).toArray(function (err, items) {
+            if (err === null){
+                if (items.length == 0){
+                    db.collection('recipes').insert(req.body, function (err, result){
+                        if (err === null){
+                            db.collection('recipes').update({"_id": req.body._id},{$set:{"image":"backend/imgs/recipes/dummy.jpg"}}, function (err, result){
+                                if (err === null){
+                                    if (result == 0){
+                                        res.send(200);
+                                    } else {
+                                        res.send(404);
+                                    };
+                                } else {
+                                    res.send(500);
+                                }
+                            });
+                        } else {
+                            res.send(500);
+                        }
+                    });
+                } else {
+                    res.send(409);
+                };
             } else {
-                res.send(409);
+                res.send(500);
             };
-        } else {
-            res.send(500);
-        };
-    });
+        });
+    };
 });
 
 
@@ -264,6 +252,8 @@ router.post('/rate', function (req, res){
                                                     // console.log(req.body.user + " used rate. It was not very effective");
                                                     res.send(500);
                                                 } else {
+                                                	// calculate the new popularity score for this recipe
+                                                	tools.calculate(db, req.body.recipe);
                                                     // rating successful
                                                     // console.log(req.body.user + " used rate. It was very effective.");
                                                     res.send(200);
@@ -296,46 +286,42 @@ router.post('/rate', function (req, res){
 
 router.post('/like', function (req, res){
 	var db = req.db;
-    db.collection('recipes').update({"_id": req.body.recipe}, {$push: {'likes': {'_id': req.body.user}}}, function (err, result){
+    // check if user exists
+    db.collection('users').find({'_id': req.body.user},{'_id':1}).toArray( function ( err, items){
         if (err === null){
-        	if (result == 0){
-        		res.send(404);
-        	} else {
-			    db.collection('users').update({"_id": req.body.user}, {$push: {'likes': {"_id": req.body.recipe}}}, function (err, result){
-			        if (err === null){
-			        	if (result == 0){
-			        		res.send(404);
-			        	} else {
-			            	res.send(200);
-			        	}
-			        } else {
-			            res.send(500);
-			        };
-			    });
-        	}
+            if (items.length == 0){
+                res.send(404);
+            } else {
+                // inject like into recipe
+                db.collection('recipes').update({"_id": req.body.recipe}, {$push: {'likes': {'_id': req.body.user}}}, function (err, result){
+                    if (err === null){
+                        if (result == 0){
+                            res.send(404);
+                        } else {
+                            // insert like into user
+                            db.collection('users').update({"_id": req.body.user}, {$push: {'likes': {"_id": req.body.recipe}}}, function (err, result){
+                                if (err === null){
+                                    if (result == 0){
+                                        res.send(404);
+                                    } else {
+										tools.calculate(db, req.body.recipe);
+                                        res.send(200);
+                                    }
+                                } else {
+                                    res.send(500);
+                                };
+                            });
+                        };
+                    } else {
+                        res.send(500);
+                    };
+                });
+            };
         } else {
-            res.send(500);
+            console.log(err);
         };
     });
 });
 
-
-
-
-
-// router.get('/api/:aid/:akey/:rid', function(req, res){
-// 	var db = req.db;
-// 	db.collection('api').find({"_id": req.params.aid}).toArray(function (err, items){
-// 		var db_apikey = items[0].apikey;
-//  		var p_apikey = req.params.akey;
-//         if (db_apikey == p_apikey){
-//             db.collection('recipes').find({"_id": req.params.rid}).toArray(function (err2, items2){
-//                 res.json(items2);
-//             });
-//         } else {
-//             res.send("Unauthorized access. This incident will be reported.");
-//         }
-// 	});
-// });
 
 module.exports = router;

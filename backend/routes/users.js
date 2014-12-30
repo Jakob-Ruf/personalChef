@@ -1,14 +1,26 @@
 var express = require('express');
 var router = express.Router();
 var mailer = require("nodemailer");
+var images = require('../javascript/images');
 
 
 // Verfügbare calls:
 // http://78.42.34.2/knowhow.php?tab=6
 
+router.post('/upload', function (req, res){
+    console.log(req.body);
+    console.log(req.params);
+    images.imageUpload(req, res, "user");
+});
 
-router.post('/test', function (req, res){
-
+router.get('/test', function (req, res){
+    var db = req.db;
+    db.collection('recipes').find({},{'popularity':1},{
+        limit: 3,
+        sort: {'popularity': -1}
+    }).toArray( function (err, items){
+        res.json(items);
+    });
 });
 
 
@@ -92,6 +104,7 @@ router.post('/user', function (req, res){
                         if (items.length == 0){
                             res.send(404);
                         } else {
+                            res.header("Content-Type: application/json; charset=utf-8");
                             res.json(items[0]);
                         };
                     } else {
@@ -105,6 +118,7 @@ router.post('/user', function (req, res){
                         if (items.length == 0){
                             res.send(404);
                         } else {
+                            res.header("Content-Type: application/json; charset=utf-8");
                             res.json(items[0]);
                         };
                     } else {
@@ -612,6 +626,7 @@ router.post('/fridgeRecipes', function (req, res){
                                     returnVal.push(recipes[i]);
                                 };
                             };
+                            res.header("Content-Type: application/json; charset=utf-8");
                             res.json(returnVal);
                         };
                     } else {

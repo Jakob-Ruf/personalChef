@@ -2,115 +2,73 @@
 > backend@0.0.1 start /var/www/root/git/backend
 > node ./bin/www
 
+Thu Dec 25 2014 16:01:29 GMT+0100 (CET): Server successfully started
+Thu Dec 25 2014 16:03:05 GMT+0100 (CET): Incoming recipe image upload
+Thu Dec 25 2014 16:03:05 GMT+0100 (CET): Writing file bbbbb.jpg
+Thu Dec 25 2014 16:03:07 GMT+0100 (CET): Writing file bbbbb.jpg
+Thu Dec 25 2014 16:03:08 GMT+0100 (CET): Finished writing file of bbbbb.jpg
+[90mPOST /recipes/upload [32m200 [90m3591ms - 2b[0m
+Thu Dec 25 2014 16:14:06 GMT+0100 (CET): Incoming recipe image upload
+Thu Dec 25 2014 16:14:06 GMT+0100 (CET): Writing file bbbbb.jpg
+Thu Dec 25 2014 16:14:08 GMT+0100 (CET): Writing file bbbbb.jpg
+Thu Dec 25 2014 16:14:13 GMT+0100 (CET): Finished writing file of bbbbb.jpg
+[90mPOST /recipes/upload [32m200 [90m6519ms - 2b[0m
+Thu Dec 25 2014 16:15:38 GMT+0100 (CET): Incoming user image upload
+Thu Dec 25 2014 16:15:38 GMT+0100 (CET): Writing file bbbbb.jpg
+Thu Dec 25 2014 16:15:40 GMT+0100 (CET): Finished writing file of bbbbb.jpg
+[90mPOST /users/upload [32m200 [90m2325ms - 2b[0m
+Thu Dec 25 2014 17:48:00 GMT+0100 (CET): Incoming recipe image upload
+Thu Dec 25 2014 17:48:00 GMT+0100 (CET): Writing file Pa5do.jpg
+Thu Dec 25 2014 17:48:00 GMT+0100 (CET): Finished writing file of Pa5do.jpg
+[90mPOST /recipes/upload [32m200 [90m43ms - 2b[0m
 
 > backend@0.0.1 start /var/www/root/git/backend
 > node ./bin/www
 
+Thu Dec 25 2014 17:49:36 GMT+0100 (CET): Server successfully started
+{}
+Thu Dec 25 2014 17:49:42 GMT+0100 (CET): Incoming recipe image upload
+Thu Dec 25 2014 17:49:42 GMT+0100 (CET): Writing file 6b1255d2cb06adc4d0b48adf1d90e847.png
+Thu Dec 25 2014 17:49:42 GMT+0100 (CET): Finished writing file of 6b1255d2cb06adc4d0b48adf1d90e847.png
+[90mPOST /recipes/upload [32m200 [90m392ms - 2b[0m
 
 > backend@0.0.1 start /var/www/root/git/backend
 > node ./bin/www
 
+Thu Dec 25 2014 17:57:12 GMT+0100 (CET): Server successfully started
+{}
+Thu Dec 25 2014 17:58:04 GMT+0100 (CET): Incoming user image upload
+Thu Dec 25 2014 17:58:04 GMT+0100 (CET): Writing file 6b1255d2cb06adc4d0b48adf1d90e847.png
+Thu Dec 25 2014 17:58:04 GMT+0100 (CET): Finished writing file of 6b1255d2cb06adc4d0b48adf1d90e847.png
+[90mPOST /users/upload [32m200 [90m378ms - 2b[0m
 
 > backend@0.0.1 start /var/www/root/git/backend
 > node ./bin/www
 
+Thu Dec 25 2014 18:03:25 GMT+0100 (CET): Server successfully started
+{}
+{}
+Thu Dec 25 2014 18:04:23 GMT+0100 (CET): Incoming user image upload
+Thu Dec 25 2014 18:04:24 GMT+0100 (CET): Writing file Pa5do.jpg
+Thu Dec 25 2014 18:04:24 GMT+0100 (CET): Finished writing file of Pa5do.jpg
+[90mPOST /users/upload [32m200 [90m392ms - 2b[0m
+{}
+{}
+Thu Dec 25 2014 18:07:33 GMT+0100 (CET): Incoming user image upload
+Thu Dec 25 2014 18:07:33 GMT+0100 (CET): Writing file 6b1255d2cb06adc4d0b48adf1d90e847.png
+Thu Dec 25 2014 18:07:33 GMT+0100 (CET): Finished writing file of 6b1255d2cb06adc4d0b48adf1d90e847.png
+[90mPOST /users/upload [32m200 [90m86ms - 2b[0m
+{}
+{}
+Thu Dec 25 2014 18:07:37 GMT+0100 (CET): Incoming recipe image upload
+Thu Dec 25 2014 18:07:37 GMT+0100 (CET): Writing file 6b1255d2cb06adc4d0b48adf1d90e847.png
+Thu Dec 25 2014 18:07:37 GMT+0100 (CET): Finished writing file of 6b1255d2cb06adc4d0b48adf1d90e847.png
+[90mPOST /recipes/upload [32m200 [90m68ms - 2b[0m
 
 > backend@0.0.1 start /var/www/root/git/backend
 > node ./bin/www
 
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-Sun Dec 14 2014 14:11:14 GMT+0100 (CET): Requested short ingredient list
-[90mGET /ingredients/shortlist [36m304 [90m1046ms[0m
-[90mGET /ingredients/list [32m200 [90m83ms - 196b[0m
-[90mGET /ingredients/list [32m200 [90m35ms - 196b[0m
-[90mGET /ingredients/list [36m304 [90m30ms[0m
-[90mGET /ingredients/list [32m200 [90m26ms - 196b[0m
-Sun Dec 14 2014 14:12:05 GMT+0100 (CET): Requested short ingredient list
-[90mGET /ingredients/shortlist [36m304 [90m31ms[0m
-Sun Dec 14 2014 14:13:28 GMT+0100 (CET): Requested short ingredient list
-[90mGET /ingredients/shortlist [32m200 [90m25ms - 116b[0m
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-Sun Dec 14 2014 14:16:07 GMT+0100 (CET): Requested short ingredient list
-[90mGET /ingredients/shortlist [36m304 [90m1045ms[0m
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-Sun Dec 14 2014 15:06:48 GMT+0100 (CET): Requested recipes with ingredient Apfel
-[90mGET /recipes/withIngredient/Apfel [32m200 [90m1092ms - 854b[0m
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-Sun Dec 14 2014 15:08:09 GMT+0100 (CET): Requested recipes with ingredient Apfel
-[90mGET /recipes/withIngredient/Apfel [32m200 [90m1093ms - 13b[0m
-Sun Dec 14 2014 15:16:11 GMT+0100 (CET): Requested recipes with ingredient Apfel
-[90mGET /recipes/withIngredient/Apfel [32m200 [90m67ms - 13b[0m
-Sun Dec 14 2014 15:19:54 GMT+0100 (CET): Requested recipes with ingredient Apfel
-[90mGET /recipes/withIngredient/Apfel [32m200 [90m34ms - 21b[0m
-Sun Dec 14 2014 15:20:01 GMT+0100 (CET): Requested recipes with ingredient Erdbeeren
-[90mGET /recipes/withIngredient/Erdbeeren [32m200 [90m28ms - 24b[0m
-Sun Dec 14 2014 15:20:08 GMT+0100 (CET): Requested recipes with ingredient Erdbeeren
-[90mGET /recipes/withIngredient/Erdbeeren [32m200 [90m27ms - 24b[0m
-Sun Dec 14 2014 15:26:04 GMT+0100 (CET): Requested recipes with ingredient Apfel
-[90mGET /recipes/withIngredient/Apfel [32m200 [90m29ms - 21b[0m
-Sun Dec 14 2014 15:26:08 GMT+0100 (CET): Requested recipes with ingredient Apfel
-[90mGET /recipes/withIngredient/Apfel [32m200 [90m26ms - 21b[0m
-Sun Dec 14 2014 15:26:16 GMT+0100 (CET): Requested recipes with ingredient Apfel
-[90mGET /recipes/withIngredient/Apfel [32m200 [90m26ms - 21b[0m
-Sun Dec 14 2014 15:26:23 GMT+0100 (CET): Requested short ingredient list
-[90mGET /ingredients/shortlist [32m200 [90m29ms - 116b[0m
-[90mGET /ingredients/list [32m200 [90m26ms - 196b[0m
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-[90mGET /recipes/shortlist [33m404 [90m986ms - 9b[0m
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-[90mGET /recipes/shortlist [32m200 [90m998ms - 44b[0m
-[90mGET /recipes/shortlist [32m200 [90m78ms - 44b[0m
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-Sun Dec 14 2014 19:01:00 GMT+0100 (CET): Huhu
-Users in database: Paul Pimmel 
-
-> backend@0.0.1 start /var/www/root/git/backend
-> node ./bin/www
-
-Sun Dec 14 2014 19:11:01 GMT+0100 (CET): Huhu
-Users in database: Paul Pimmel, 
-Sun Dec 14 2014 19:12:05 GMT+0100 (CET): List of users requested
-[90mGET /users/list [36m304 [90m191ms[0m
-Sun Dec 14 2014 19:18:51 GMT+0100 (CET): Requested adding of user Sterling Archer
-[90mPOST /users/add [32m200 [90m167ms - 2b[0m
-Sun Dec 14 2014 19:19:20 GMT+0100 (CET): Short list of users requested
-[90mGET /users/shortlist [32m200 [90m44ms - 49b[0m
-[90mGET /favicon.ico [33m404 [90m4440ms - 1.07kb[0m
-Sun Dec 14 2014 19:20:52 GMT+0100 (CET): Request of user Sterling Archer
-[90mGET /users/Sterling%20Archer [32m200 [90m64ms - 597b[0m
-Sun Dec 14 2014 19:21:00 GMT+0100 (CET): Huhu
-Users in database: Paul Pimmel, Sterling Archer, 
-Sun Dec 14 2014 19:31:00 GMT+0100 (CET): Huhu
-Users in database: Paul Pimmel, Sterling Archer, 
+Thu Dec 25 2014 19:09:45 GMT+0100 (CET): Server successfully started
 
 > backend@0.0.1 start /var/www/root/git/backend
 > node ./bin/www
