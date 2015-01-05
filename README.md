@@ -25,6 +25,6 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Kontakt zu den Programmierern ###
 
-* Repositori Owner: @jakobruf
+* Repository Owner: @jakobruf
 
-* Projektteam: @cujasch, @dmller, @Lucas_Schlemm 
+* Projektteam: @cujasch, @dmller, @Lucas_Schlemm
