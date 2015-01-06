@@ -3,34 +3,42 @@
 	<div class="scrollable-content section">
 
 		<!-- Beginn des Eingabeforms mit definierter Funktion -->
-		<form role="form" ng-submit='check_input()'>
+		<form role="form" ng-submit='fridgeCtrl.add()'>
 			<fieldset>
 				<div class="fridge_form">
 
 					<!-- Eingabefeld für Zutaten -->
-					<input type="text" ng-model="fridge_input" id="fridge_input" placeholder="Zutat hinzufügen...">
+					<input type="text" ng-model="fridge_input_text._id" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete()" ng-blur="fridgeCtrl.switch_autocomplete()" autocomplete="off" required>
+					<input type="number"  ng-model="fridge_input_text.amount" id="fridge_input_amount" placeholder="Menge" autocomplete="off" required>
+					<input type="text" id="fridge_input_unit" disabled="true" required>
 					<!-- Button zum Hinzufügen -->
-					<a id="input_add_btn" ng-click="add_item()"><i class="fa fa-plus fa-2x"></i></a>
+					<button id="input_add_btn" type="submit"><i class="fa fa-plus fa-2x"></i></button>
+					<ul id="fridge_autocomplete_list">
+						<div class="fridge_autocomplete_item" ng-repeat="ing in fridgeCtrl.ingredientList | filter:fridge_input_text " ng-click="fridgeCtrl.select($index)">
+						<div class="fridge_autocomplete_item_name">{{ing._id}}</div>
+						<div class="fridge_autocomplete_item_unit">{{ing.unit}}</div>
+						</div>
+					</ul>
 				</div>
 			</fieldset>
 		</form>
 
 		<div class="fridge">
-			<div class="fridge_item" ng-repeat="item in fridge | orderBy:'name'">
-				<div class="fridge_item_name">
-					{{item.name}}
+			<div class="fridge_item" ng-repeat="item in fridgeCtrl.fridge.fridge">
+				<div class="fridge_item_name" ng-click="fridgeCtrl.edit($index)">
+					{{item._id}}
 				</div>
 				<div class="fridge_item_modify">
-					<a href="" class="fridge_item_minus"><i class="fa fa-minus"></i></a>
-					<div class="fridge_item_count">{{item.count}}</div>
-					<div class="fridge_item_unit">{{item.unit}}</div>
-					<a href="" class="fridge_item_plus"><i class="fa fa-plus"></i></a>
-					<a href="" class="fridge_item_remove"><i class="fa fa-times"></i></a>
+					<a class="fridge_item_minus" ng-click="fridgeCtrl.minus($index)"><i class="fa fa-minus"></i></a>
+					<div class="fridge_item_count" ng-click="fridgeCtrl.edit($index)">{{item.amount}}</div>
+					<div class="fridge_item_unit" ng-click="fridgeCtrl.edit($index)">{{item.unit}}</div>
+					<a class="fridge_item_plus" ng-click="fridgeCtrl.plus($index)"><i class="fa fa-plus"></i></a>
+					<a class="fridge_item_remove" ng-click="fridgeCtrl.remove($index)"><i class="fa fa-times"></i></a>
 				</div>
 			</div>
 			
 		</div>
 
-	
+
 	</div>
 </div>

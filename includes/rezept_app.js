@@ -12,110 +12,225 @@
 	app.config(function($routeProvider, $locationProvider) 
 	{
 		$routeProvider.when('/', {templateUrl: 'includes/html/home.html', reloadOnSearch: false});
-		$routeProvider.when('/user', {templateUrl: 'includes/html/user.html', reloadOnSearch: false});
-		$routeProvider.when('/fridge', {templateUrl: 'includes/html/fridge.html', reloadOnSearch: false});
+		$routeProvider.when('/user', {templateUrl: 'includes/html/user.html', controller: 'userController as userCtrl', reloadOnSearch: false});
+		$routeProvider.when('/fridge', {templateUrl: 'includes/html/fridge.html', controller: 'fridgeController as fridgeCtrl', reloadOnSearch: false});
 		$routeProvider.when('/rezepte', {templateUrl: 'includes/html/rezeptListe.html', reloadOnSearch: false});
 		$routeProvider.when('/addRezept', {templateUrl: 'includes/html/addRecipe.html', reloadOnSearch: false});
 		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
 		$routeProvider.when('/impressum', {templateUrl: 'includes/html/impressum.html', reloadOnSearch: false});
-		$routeProvider.when('/rezept/:_id', {templateUrl: 'includes/html/rezept.html', controller: 'rezeptController'});
+		$routeProvider.when('/rezept/:_id', {templateUrl: 'includes/html/rezept.html', controller: 'rezeptController as recCtrl'});
 		/* Umleitung auf die Startseite, falls keiner der definierten Parameter getroffen wurde */
 		$routeProvider.otherwise({redirectTo: '/'});
 	})
 
-app.controller('rezeptController', function($scope, $routeParams, $resource) 
+app.controller('rezeptController', ['$routeParams','rec_get',function($routeParams, rec_get) 
 {
-	var Recipes = $resource('http://personalchef.ddns.net:546/recipes/:recipeID', {recipeID:'@id'});
-	$scope.recipe = Recipes.get({recipeID:$routeParams._id});
-	this.recipe = $scope.recipe;
+	this.recipe = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
+	{
+		/*Umleitung, falls Fehlermeldung*/
+		window.location = '#/';
+	});
+}])
 
-	console.log($scope.recipe);
-		if (this.recipe._id === "404")
+app.controller('fridgeController', ['fridge_get','fridge_put','ingredient_list', function(fridge_get, fridge_put,ingredient_list){
+	/* Abrufen der möglichen Zutaten */
+	this.ingredientList = ingredient_list.query();
+	/* Switch zur Anzeige von Autocomplete */
+	var autoSwitch = 0;
+	this.fridge = fridge_get.get({id: 'Paul Pimmel'},function(){/*Success*/},function()
+	{
+		/*TODO Weiterleitung auf eine Fehlerseite*/
+		console.log("buh")
+	});
+	
+	this.editItem = {
+		_id: 'Paul Pimmel',
+		ingredient: '',
+		amount: ''
+	};
+
+	this.refreshData = function(times)
+	{
+		for (var i = 0; i < times; i++) 
 		{
-			alert("a");
-			window.location = '#/a';
+			this.fridge = fridge_get.get({id: 'Paul Pimmel'},function(){/*Success*/},function()
+		{
+			/*TODO Weiterleitung auf eine Fehlerseite*/
+			console.log("buh")
+		})
 		}
-})
+	}
+
+	var clearInput = function()
+	{
+		document.getElementById('fridge_input').value = "";
+		document.getElementById('fridge_input_amount').value = "";
+		document.getElementById('fridge_input_unit').value = "";
+	}
+
+	this.add = function()
+	{
+		this.editItem.ingredient = document.getElementById('fridge_input').value
+		this.editItem.amount = document.getElementById('fridge_input_amount').value;
+		fridge_put.save({headers: {'Content-Type':'application/json; charset=utf-8'}},this.editItem);
+		clearInput();
+		/* Neuladen der Daten, damit die Anzeige aktuell ist */
+		this.refreshData(3);
+	}
+
+	this.select = function(i)
+	{
+		document.getElementById('fridge_input').value = this.ingredientList[i]._id;
+		document.getElementById('fridge_input_unit').value = this.ingredientList[i].unit;
+	}
+
+	this.edit = function(i)
+	{
+		document.getElementById('fridge_input').value = this.fridge.fridge[i]._id;
+		document.getElementById('fridge_input_unit').value = this.fridge.fridge[i].unit;
+		document.getElementById('fridge_input_amount').value = this.fridge.fridge[i].amount;
+	}
+
+	this.switch_autocomplete = function()
+	{
+		if (autoSwitch == 0) 
+		{
+			document.getElementById('fridge_autocomplete_list').style.display = 'block';
+			autoSwitch = 1;
+		}
+		else
+		{
+			document.getElementById('fridge_autocomplete_list').style.display = 'none';
+			autoSwitch = 0;
+		}
+	}
+	/* Vorräte reduzieren */
+	this.minus = function(i)
+	{
+		this.editItem.ingredient = this.fridge.fridge[i]._id;
+		/* Unterscheidung zwsichen Stück und gr/ml */
+		if (this.fridge.fridge[i].unit == 'St') 
+		{
+			this.editItem.amount = parseInt(this.fridge.fridge[i].amount) - 1;
+		} 
+		else if (this.fridge.fridge[i].unit == 'g' || 'ml') 
+		{
+			this.editItem.amount = parseInt(this.fridge.fridge[i].amount) - 100;
+		}
+		fridge_put.save({headers: {'Content-Type':'application/json; charset=utf-8'}},this.editItem);
+		this.fridge.fridge[i].amount = this.editItem.amount;
+		clearInput();
+	}
+
+	/* Vorräte erhöhen */
+	this.plus = function(i)
+	{
+		this.editItem.ingredient = this.fridge.fridge[i]._id;
+		/* Unterscheidung zwsichen Stück und gr/ml */
+		if (this.fridge.fridge[i].unit == 'St') 
+		{
+			this.editItem.amount = parseInt(this.fridge.fridge[i].amount) + 1;
+		} 
+		else if (this.fridge.fridge[i].unit == 'g' || 'ml') 
+		{
+			this.editItem.amount = parseInt(this.fridge.fridge[i].amount) + 100;
+		}
+		fridge_put.save({headers: {'Content-Type':'application/json; charset=utf-8'}},this.editItem);
+		this.fridge.fridge[i].amount = this.editItem.amount;
+		clearInput();
+	}
+
+	/* Vorrat entfernen */
+	this.remove = function(i)
+	{
+		this.editItem.ingredient = this.fridge.fridge[i]._id;
+		this.editItem.amount = 0;
+		fridge_put.save({headers: {'Content-Type':'application/json; charset=utf-8'}},this.editItem);
+		this.ingredientList = ingredient_list.query();
+		this.refreshData(2);
+		clearInput();
+	}
+}])
 
 app.controller('userController', ['$scope', function($scope){
 	this.user = {
-        _id: 'Sterling Archer',
-        badges: [
-            {
-                _id: '123123',
-                date_earned: {
-                    day: '12',
-                    month: '12',
-                    year: '2014'
-                }
-            },
-            {
-                _id: '1231111',
-                date_earned: {
-                    day: '12',
-                    month: '12',
-                    year: '2014'
-                }
-            }
-        ],
-        favorites: [
-            {
-                _id: 'Spritzgeb\u00e4ck'
-            },
-            {
-                _id: 'Spaghetti Bolognese'
-            }
-        ],
-        fridge: [
-            {
-                _id: 'Bier',
-                amount: '123',
-                unit: 'ml'
-            },
-            {
-                _id: 'Zwiebel',
-                amount: '12',
-                unit: 'St'
-            },
-            {
-                _id: 'Apfel',
-                amount: '123',
-                unit: 'St'
-            }
-        ],
-        friends: [
-            {
-                _id: 'Paul Pimmel',
-                status: 'mutual'
-            }
-        ],
-        likes: [
-            {
-                _id: 'Spritzgeb\u00e4ck'
-            }
-        ],
-        profile: {
-            date_birthday: {
-                day: '24',
-                month: '12',
-                year: '1912'
-            },
-            date_joined: {
-                day: '24',
-                month: '12',
-                year: '2014'
-            },
-            email: 'archer_s@isis.com',
-            password: 'ocelotsrule123'
-        },
-        recipes: [
-            {
-                _id: 'Spaghetti Bolognese',
-                likes_amount: '0',
-                ratings_average: '0'
-            }
-        ]
-    }
+		_id: 'Sterling Archer',
+		badges: [
+		{
+			_id: '123123',
+			date_earned: {
+				day: '12',
+				month: '12',
+				year: '2014'
+			}
+		},
+		{
+			_id: '1231111',
+			date_earned: {
+				day: '12',
+				month: '12',
+				year: '2014'
+			}
+		}
+		],
+		favorites: [
+		{
+			_id: 'Spritzgeb\u00e4ck'
+		},
+		{
+			_id: 'Spaghetti Bolognese'
+		}
+		],
+		fridge: [
+		{
+			_id: 'Bier',
+			amount: '123',
+			unit: 'ml'
+		},
+		{
+			_id: 'Zwiebel',
+			amount: '12',
+			unit: 'St'
+		},
+		{
+			_id: 'Apfel',
+			amount: '123',
+			unit: 'St'
+		}
+		],
+		friends: [
+		{
+			_id: 'Paul Pimmel',
+			status: 'mutual'
+		}
+		],
+		likes: [
+		{
+			_id: 'Spritzgeb\u00e4ck'
+		}
+		],
+		profile: {
+			date_birthday: {
+				day: '24',
+				month: '12',
+				year: '1912'
+			},
+			date_joined: {
+				day: '24',
+				month: '12',
+				year: '2014'
+			},
+			email: 'archer_s@isis.com',
+			password: 'ocelotsrule123'
+		},
+		recipes: [
+		{
+			_id: 'Spaghetti Bolognese',
+			likes_amount: '0',
+			ratings_average: '0'
+		}
+		]
+	}
 
 	this.own_redirect = function(i)
 	{
@@ -287,6 +402,7 @@ app.controller('homeController', function($scope, rec_start)
 app.controller('rezeptListController', function($scope, rec_list){
 	this.switchState = 0;
 	this.rezeptListe = rec_list.query();
+	console.log(this.rezeptListe);
 
 	this.switch = function()
 	{
