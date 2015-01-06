@@ -23,11 +23,11 @@
 		<div class="home_r" ng-repeat="rezept in rezepteHome">
 			<h1>{{rezept.title}}</h1>
 			<div class="rec_content">
-				<div class="rec_pic">
+				<div class="rec_pic" ng-click="homeCtrl.redirect($index)">
 					<img ng-src="{{rezept.image}}">
 				</div>
 
-				<div class="rec_name">
+				<div class="rec_name" ng-click="homeCtrl.redirect($index)">
 					<h4> {{rezept._id}} </h4>
 				</div>
 				<div class="rec_incr" ng-click="openHomeOverlay($index)">
@@ -53,9 +53,9 @@
 
 			<!-- Definieren der Overlays -->
 			<div class="overlay" ng-class="overlayHomeId($index)" ng-click="closeHomeOverlay($index)">
-				<div class="overlay_content" ng-click="">
+				<div class="overlay_content" ng-click="homeCtrl.redirect($index, $event)">
 					<div class="overlay_rec_name">
-						{{rezept.name}}
+						{{rezept._id}}
 					</div>
 					<div class="overlay_rec_ingr">
 						Zutaten:

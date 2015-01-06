@@ -5,10 +5,10 @@
 			<input id="recL_filter_input" ng-model="rec_searchText.ingredients" placeholder="Zutaten durchsuchen" ng-class="rezeptLCtrl.switchInput(1)">
 			<a ng-click="rezeptLCtrl.switch(); rec_searchText._id = ''; rec_searchText.ingredients = '';" id="recL_filter_switch" href><i class="fa fa-refresh fa-2x"></i></a>
 		</div>
-		<div class="recL_rec" ng-repeat="rezept in rezeptLCtrl.rezeptListe | filter:rec_searchText">
+		<div class="recL_rec" ng-repeat="rezept in rezeptLCtrl.rezeptListe | filter:rec_searchText" ng-click="rezeptLCtrl.redirect($index)">
 			<div class="recL_rec_name">{{rezept._id}}</div>
 			<div class="recL_rec_ingredient_List">
-				<div class="recL_rec_ingredients" ng-repeat="ingr in rezept.ingredients">{{ingr._id}}</div>
+				<div class="recL_rec_ingredients" ng-repeat="ingr in rezept.ingredients | limitTo:4">{{ingr._id}}</div>
 			</div>
 			<div class="recL_rec_creator">{{rezept.creator}}</div>
 			<div class="recL_rec_rating">
@@ -18,7 +18,7 @@
 				{{rezept.likes_amount}} <i class="fa fa-heart"></i>
 			</div>
 			<div class="recL_rec_img_container">
-				<img class="recL_rec_img" ng-src="{{rezept.image}}">
+				<img class="recL_rec_img" ng-src="{{rezept.imageThumb}}">
 			</div>
 		</div>
 	</div>

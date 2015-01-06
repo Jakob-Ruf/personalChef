@@ -18,27 +18,183 @@
 		$routeProvider.when('/addRezept', {templateUrl: 'includes/html/addRecipe.html', reloadOnSearch: false});
 		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
 		$routeProvider.when('/impressum', {templateUrl: 'includes/html/impressum.html', reloadOnSearch: false});
-	});
+		$routeProvider.when('/rezept/:_id', {templateUrl: 'includes/html/rezept.html', controller: 'rezeptController'});
+		/* Umleitung auf die Startseite, falls keiner der definierten Parameter getroffen wurde */
+		$routeProvider.otherwise({redirectTo: '/'});
+	})
 
-	app.controller('newRecipeController', function($scope, rec_add)
+app.controller('rezeptController', function($scope, $routeParams, $resource) 
+{
+	var Recipes = $resource('http://personalchef.ddns.net:546/recipes/:recipeID', {recipeID:'@id'});
+	$scope.recipe = Recipes.get({recipeID:$routeParams._id});
+	this.recipe = $scope.recipe;
+
+	console.log($scope.recipe);
+		if (this.recipe._id === "404")
+		{
+			alert("a");
+			window.location = '#/a';
+		}
+})
+
+app.controller('userController', ['$scope', function($scope){
+	this.user = {
+        _id: 'Sterling Archer',
+        badges: [
+            {
+                _id: '123123',
+                date_earned: {
+                    day: '12',
+                    month: '12',
+                    year: '2014'
+                }
+            },
+            {
+                _id: '1231111',
+                date_earned: {
+                    day: '12',
+                    month: '12',
+                    year: '2014'
+                }
+            }
+        ],
+        favorites: [
+            {
+                _id: 'Spritzgeb\u00e4ck'
+            },
+            {
+                _id: 'Spaghetti Bolognese'
+            }
+        ],
+        fridge: [
+            {
+                _id: 'Bier',
+                amount: '123',
+                unit: 'ml'
+            },
+            {
+                _id: 'Zwiebel',
+                amount: '12',
+                unit: 'St'
+            },
+            {
+                _id: 'Apfel',
+                amount: '123',
+                unit: 'St'
+            }
+        ],
+        friends: [
+            {
+                _id: 'Paul Pimmel',
+                status: 'mutual'
+            }
+        ],
+        likes: [
+            {
+                _id: 'Spritzgeb\u00e4ck'
+            }
+        ],
+        profile: {
+            date_birthday: {
+                day: '24',
+                month: '12',
+                year: '1912'
+            },
+            date_joined: {
+                day: '24',
+                month: '12',
+                year: '2014'
+            },
+            email: 'archer_s@isis.com',
+            password: 'ocelotsrule123'
+        },
+        recipes: [
+            {
+                _id: 'Spaghetti Bolognese',
+                likes_amount: '0',
+                ratings_average: '0'
+            }
+        ]
+    }
+
+	this.own_redirect = function(i)
 	{
-		this.newRec = {
-			_id: '',
-			time: "",
-			description: "",
-			difficulty: 1,
-			creator: "",
-			image: "",
-			ingredients: []
-		};
+		window.location = '#/rezept/' + this.user.recipes[i]._id;
+	}
+
+	this.fav_redirect = function(i)
+	{
+		window.location = '#/rezept/' + this.user.favorites[i]._id;
+	}
+	
+}])
+
+app.controller('newRecipeController', function($scope, rec_add)
+{
+	this.newRec = {
+		_id: '',
+		time: '',
+		description: '',
+		difficulty: '1',
+		creator: '',
+		image: '',
+		ingredients: []
+	};
+	this.newIng = {
+		_id: '',
+		amount: '',
+		unit: 'St.'
+	};
+
+
+	this.addIngredient = function()
+	{
+		this.newRec.ingredients.push(this.newIng);
 		this.newIng = {
 			_id: '',
 			amount: '',
 			unit: 'St.'
 		};
 
+	};
 
-		this.addIngredient = function()
+	this.showFinal = function()
+	{
+		/* Anzeigen von Namen, Zutaten und Textarea */
+		document.getElementById('new_rec_name').style.display = block;
+		document.getElementById('new_r_ingredient').style.display = block;
+		document.getElementById('new_r_description').style.display = block;
+		/* Ausblenden der Inputfelder */
+		document.getElementById('add_r_ingredient_input').style.display = none;
+		document.getElementById('add_r_name_input').style.display = none;
+		document.getElementById('add_r_description_input').style.display = none;
+	};
+
+	this.newRecipeSend = function()
+	{	;
+		rec_add.save(this.newRec);
+		window.location = '#/rezept/' + this.newRec._id;
+	};
+
+	this.remove = function(i)
+	{
+		this.newRec.ingredients.splice(i, 1);
+	};
+
+	this.edit = function(i)
+	{
+		document.getElementById('add_r_description_input').style.display = none;
+		document.getElementById('new_r_ingredient').style.display = block;
+		document.getElementById('add_r_ingredient_input').style.display = block;
+		document.getElementById('new_r_description').style.display = none;
+		this.newIng = this.newRec.ingredients[i];
+		this.newRec.ingredients.splice(i, 1);
+	};
+
+	this.newRecipeDescription = function()
+	{
+		/* Pushen der aktuellen Zutat, falls sie ausgefüllt ist, aber nicht gespeichert wurde */
+		if (this.newIng._id != '' && this.newIng.amount != '' ) 
 		{
 			this.newRec.ingredients.push(this.newIng);
 			this.newIng = {
@@ -46,124 +202,85 @@
 				amount: '',
 				unit: 'St.'
 			};
-
 		};
+		/* Anzeigen von Namen, Zutaten und Textarea */
+		document.getElementById('new_rec_name').style.display = 'block';
+		document.getElementById('new_r_ingredient').style.display = 'block';
+		document.getElementById('add_r_description_input').style.display = 'block';
+		/* Ausblenden der Inputfelder */
+		document.getElementById('add_r_ingredient_input').style.display = 'none';
+		document.getElementById('add_r_name_input').style.display = 'none';
+		document.getElementById('new_r_description').style.display = 'none';
+	};
 
-		this.showFinal = function()
+	$scope.newRecipeName = function(difficulty)
+	{
+		/* Anzeigen von Namen und Zutaten */
+		document.getElementById('new_rec_name').style.display = 'block';
+		document.getElementById('new_r_ingredient').style.display = 'block';
+		document.getElementById('add_r_ingredient_input').style.display = 'block';
+		/* Ausblenden der Inputfelder */
+		document.getElementById('add_r_name_input').style.display = 'none';
+		document.getElementById('add_r_description_input').style.display = 'none';
+		document.getElementById('new_r_description').style.display = 'none';
+
+		/* Schwierigkeit farbig darstellen */
+		if (difficulty == 1) 
 		{
-			/* Anzeigen von Namen, Zutaten und Textarea */
-			document.getElementById("new_rec_name").style.display = "block";
-			document.getElementById("new_r_ingredient").style.display = "block";
-			document.getElementById("new_r_description").style.display = "block";
-			/* Ausblenden der Inputfelder */
-			document.getElementById("add_r_ingredient_input").style.display = "none";
-			document.getElementById("add_r_name_input").style.display = "none";
-			document.getElementById("add_r_description_input").style.display = "none";
-		};
-
-		this.newRecipeSend = function()
+			document.getElementById('new_rec_pic').style.borderBottom= '5px solid green';
+		}
+		else if (difficulty == 2) 
 		{
-			rec_add.save(this.newRec);
-			window.location = "#/"
-		};
-
-		this.remove = function(i)
+			document.getElementById('new_rec_pic').style.borderBottom = '5px solid #ff8c00';
+		}
+		else if (difficulty == 3) 
 		{
-			this.newRec.ingredients.splice(i, 1);
-		};
+			document.getElementById('new_rec_pic').style.borderBottom = '5px solid rgba(192, 57, 43,1.0)';
+		}
+	};
 
-		this.edit = function(i)
-		{
-			document.getElementById("add_r_description_input").style.display = "none";
-			document.getElementById("new_r_ingredient").style.display = "block";
-			document.getElementById("add_r_ingredient_input").style.display = "block";
-			document.getElementById("new_r_description").style.display = "none";
-			this.newIng = this.newRec.ingredients[i];
-			this.newRec.ingredients.splice(i, 1);
-		};
-
-		this.newRecipeDescription = function()
-		{
-			/* Pushen der aktuellen Zutat, falls sie ausgefüllt ist, aber nicht gespeichert wurde */
-			if (this.newIng._id != "" && this.newIng.amount != "") 
-			{
-				this.newRec.ingredients.push(this.newIng);
-				this.newIng = {
-					_id: '',
-					amount: '',
-					unit: 'St.'
-				};
-			};
-			/* Anzeigen von Namen, Zutaten und Textarea */
-			document.getElementById("new_rec_name").style.display = "block";
-			document.getElementById("new_r_ingredient").style.display = "block";
-			document.getElementById("add_r_description_input").style.display = "block";
-			/* Ausblenden der Inputfelder */
-			document.getElementById("add_r_ingredient_input").style.display = "none";
-			document.getElementById("add_r_name_input").style.display = "none";
-			document.getElementById("new_r_description").style.display = "none";
-		};
-
-		$scope.newRecipeName = function(difficulty)
-		{
-			/* Anzeigen von Namen und Zutaten */
-			document.getElementById("new_rec_name").style.display = "block";
-			document.getElementById("new_r_ingredient").style.display = "block";
-			document.getElementById("add_r_ingredient_input").style.display = "block";
-			/* Ausblenden der Inputfelder */
-			document.getElementById("add_r_name_input").style.display = "none";
-			document.getElementById("add_r_description_input").style.display = "none";
-			document.getElementById("new_r_description").style.display = "none";
-
-			/* Schwierigkeit farbig darstellen */
-			if (difficulty == 1) 
-			{
-				document.getElementById("new_rec_pic").style.borderBottom= "5px solid green";
-			}
-			else if (difficulty == 2) 
-			{
-				document.getElementById("new_rec_pic").style.borderBottom = "5px solid #ff8c00";
-			}
-			else if (difficulty == 3) 
-			{
-				document.getElementById("new_rec_pic").style.borderBottom = "5px solid rgba(192, 57, 43,1.0)";
-			}
-		};
-
-		$scope.newRecipeNameEdit = function()
-		{
-			/* Anzeigen von Nameninput */
-			document.getElementById("add_r_name_input").style.display = "block";
-			/* Ausblenden des Restes */
-			document.getElementById("new_rec_name").style.display = "none";
-			document.getElementById("new_r_ingredient").style.display = "none";
-			document.getElementById("add_r_ingredient_input").style.display = "none";
-			document.getElementById("add_r_description_input").style.display = "none";
-			document.getElementById("new_r_description").style.display = "none";
-		};
-	});
+	$scope.newRecipeNameEdit = function()
+	{
+		/* Anzeigen von Nameninput */
+		document.getElementById('add_r_name_input').style.display = 'block';
+		/* Ausblenden des Restes */
+		document.getElementById('new_rec_name').style.display = 'none';
+		document.getElementById('new_r_ingredient').style.display = 'none';
+		document.getElementById('add_r_ingredient_input').style.display = 'none';
+		document.getElementById('add_r_description_input').style.display = 'none';
+		document.getElementById('new_r_description').style.display = 'none';
+	};
+});
 
 app.controller('homeController', function($scope, rec_start)
 {
 	$scope.rezepteHome = rec_start.query();
 
+	this.redirect = function(i, $event)
+	{
+		if ($event) {
+			$event.stopImmediatePropagation();
+		};
+		window.location = '#/rezept/' + $scope.rezepteHome[i]._id;
+	}
+
 	$scope.overlayHomeId = function(value)
 	{
-		return "home_overlay_" + value;
+		return 'home_overlay_' + value;
 	};
 
 	$scope.openHomeOverlay = function(value)
 	{
-		var cl = "home_overlay_" + value;
-		var elements = document.getElementsByClassName(cl);
-		elements[0].style.display = "block";
+		var cl = 'home_overlay_' + value;
+		var elements = document.getElementsByClassName('overlay');
+		elements[value].style.display = 'block';
 	};
 
 	$scope.closeHomeOverlay = function(value)
 	{
-		var cl = "home_overlay_" + value;
-		var elements = document.getElementsByClassName(cl);
-		elements[0].style.display = "none";
+		var cl = 'home_overlay_' + value;
+		var elements = document.getElementsByClassName('overlay');
+		elements[value].style.display = 'none';
 	};
 });
 
@@ -187,25 +304,29 @@ app.controller('rezeptListController', function($scope, rec_list){
 	{
 		if (this.switchState == i) 
 		{
-			return "active";
+			return 'active';
 		}
 		else
 		{
-			return "";
+			return ;
 		}
 	}
-	console.log(this.rezeptListe);
+
+	this.redirect = function(i)
+	{
+		window.location = '#/rezept/' + this.rezeptListe[i]._id;
+	}
 });
 
 app.controller('generalController', function($scope)
 {
 	$scope.fridge = [
-	{ name: "Eier", count: "6", unit: "st"},
-	{ name: "Zucker", count: "500", unit: "gr"},
-	{ name: "Apfel", count: "3", unit: "st"},
-	{ name: "Milch", count: "1", unit: "ml"},
-	{ name: "Mehl", count: "400", unit: "gr"},
-	{ name: "Olivenöl", count: "6", unit: "ml"}
+	{ name: 'Eier', count: 6, unit: 'st'},
+	{ name: 'Zucker', count: 500, unit: 'gr'},
+	{ name: 'Apfel', count: 3, unit: 'st'},
+	{ name: 'Milch', count: 1, unit: 'ml'},
+	{ name: 'Mehl', count: 400, unit: 'gr'},
+	{ name: 'Olivenöl', count: 6, unit: 'ml'}
 	];
 
 	$scope.getTimes=function(n)
@@ -216,8 +337,7 @@ app.controller('generalController', function($scope)
 	/* @todo: Löschen... */
 	$scope.log=function(n)
 	{
-		console.log(user_list);
-		console.log(rezepte_Home);
+		
 	};
 
 	/* Einfärben der nötigen Sterne */
@@ -225,11 +345,11 @@ app.controller('generalController', function($scope)
 	{
 		if (starId <= rezept.ratings_average) 
 		{
-			return "r_active";
+			return 'r_active';
 		}
 		else
 		{
-			return "r_inactive";
+			return 'r_inactive';
 		};
 	};
 

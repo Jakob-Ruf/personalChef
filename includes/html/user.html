@@ -1,77 +1,93 @@
-<div class="user_outer_container">
-	
-	<!-- Container für Benutzerbild und Namen -->
-	<div class="user_header_pic">
-		<img id="user_header_img" src="media/img/user.jpg">
-		<div class="user_header_name"> Lucas </div>
-	</div>
+<div class="scrollable" >
+	<div class="scrollable-content section" id="user_content" ng-controller="userController as userCtrl">
 
-	<ui-state id='activeTab' default='1'></ui-state>
-	<ul class="nav nav-tabs">
-		<li ui-class="{'active': activeTab == 1}">
-			<a ui-set="{'activeTab': 1}"><i class="fa fa-list-ul fa-2x"></i></a>
-		</li>
-		<li ui-class="{'active': activeTab == 2}">
-			<a ui-set="{'activeTab': 2}"><i class="fa fa-trophy fa-2x"></i></a>
-		</li>
-		<li ui-class="{'active': activeTab == 3}">
-			<a ui-set="{'activeTab': 3}"><i class="fa fa-user fa-2x"></i></a>
-		</li>
-		<li ui-class="{'active': activeTab == 4}">
-			<a ui-set="{'activeTab': 4}"><img src="media/img/fridgeRedSmall.png"></a>
-		</li>
-		<li ui-class="{'active': activeTab == 5}">
-			<a ui-set="{'activeTab': 5}"><i class="fa fa-bar-chart fa-2x"></i></a>
-		</li>
-	</ul>
+		<!-- Container für Benutzerbild und Namen -->
+		<div class="user_header_pic">
+			<img id="user_header_img" src="media/img/user.jpg">
+			<div class="user_header_name"> {{userCtrl.user._id}} </div>
+		</div>
 
-	<div ui-if="activeTab == 1">
-		<h3 class="page-header">Rezepte</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	</div>
-	<div ui-if="activeTab == 2">
-		<h3 class="page-header">Auszeichnungen</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	</div>
-	<div ui-if="activeTab == 3">
-		<h3 class="page-header">Freunde</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	</div>
-	<div ui-if="activeTab == 4">
-		<h3 class="page-header">Lucas Kühlschrank</h3>
-		<div class="user_fridge_item" ng-repeat="item in fridge | orderBy:'name'">
-			<div class="user_fridge_item_name">
-				{{item.name}}
+		<ui-state id='activeTab' default='1'></ui-state>
+		<ul class="nav nav-tabs">
+			<li ui-class="{'active': activeTab == 1}">
+				<a ui-set="{'activeTab': 1}"><i class="fa fa-list-ul fa-2x"></i></a>
+			</li>
+			<li ui-class="{'active': activeTab == 2}">
+				<a ui-set="{'activeTab': 2}"><i class="fa fa-trophy fa-2x"></i></a>
+			</li>
+			<li ui-class="{'active': activeTab == 3}">
+				<a ui-set="{'activeTab': 3}"><i class="fa fa-user fa-2x"></i></a>
+			</li>
+			<li ui-class="{'active': activeTab == 4}">
+				<a ui-set="{'activeTab': 4}"><img src="media/img/fridgeRedSmall.png"></a>
+			</li>
+			<li ui-class="{'active': activeTab == 5}">
+				<a ui-set="{'activeTab': 5}"><i class="fa fa-bar-chart fa-2x"></i></a>
+			</li>
+		</ul>
+
+		<!-- Tab mit eigenen Rezepten -->
+		<div ui-if="activeTab == 1">
+			<h3 class="page-header">Eigene Rezepte</h3>
+			<div class="user_rec" ng-repeat="own_rec in userCtrl.user.recipes" ng-click="userCtrl.own_redirect($index)">
+				<!-- TODO Anzeige von Platzhalter wenn keine Rezepte erstellt wurden -->
+				<div class="user_rec_name">{{own_rec._id}}</div>
+				<div class="user_rec_likes">{{own_rec.likes_amount}} <i class="fa fa-heart"></i></div>
+				<div class="user_rec_rating">{{own_rec.ratings_average}} <i class="fa fa-star"></i></div>
 			</div>
-			<div class="user_fridge_item_stats">
-				<div class="user_fridge_item_count">{{item.count}}</div>
-				<div class="user_fridge_item_unit">{{item.unit}}</div>
+			<h3 class="page-header">Lieblingsrezepte</h3>
+			<div class="user_rec" ng-repeat="fav_rec in userCtrl.user.favorites" ng-click="userCtrl.fav_redirect($index)">
+				<div class="user_rec_name">{{fav_rec._id}}</div>
+				<div class="user_rec_likes">{{fav_rec.likes_amount}} <i class="fa fa-heart"></i></div>
+				<div class="user_rec_rating">{{fav_rec.ratings_average}} <i class="fa fa-star"></i></div>
 			</div>
 		</div>
-	</div>
-	<div ui-if="activeTab == 5">
-		<h3 class="page-header">Statistiken</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	</div>
 
+		<!-- Tab mit den Auszeichnungen -->
+		<div ui-if="activeTab == 2">
+			<h3 class="page-header">Auszeichnungen</h3>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+		</div>
+
+		<!-- Tab mit Freunden -->
+		<div ui-if="activeTab == 3">
+			<h3 class="page-header">Freunde</h3>
+			<div class="user_friend" ng-repeat="friend in userCtrl.user.friends" ng-click="userCtrl.friend_redirect($index)">
+				<div class="user_rec_name">{{friend._id}}</div>
+			</div>
+		</div>
+
+		<div ui-if="activeTab == 4">
+			<h3 class="page-header">Kühlschrank</h3>
+			<div class="user_fridge_item" ng-repeat="item in userCtrl.user.fridge">
+				<div class="user_fridge_item_name">
+					{{item._id}}
+				</div>
+				<div class="user_fridge_item_stats">
+					<div class="user_fridge_item_count">{{item.amount}}</div>
+					<div class="user_fridge_item_unit">{{item.unit}}</div>
+				</div>
+			</div>
+		</div>
+
+		<div ui-if="activeTab == 5">
+			<h3 class="page-header">Statistiken</h3>
+			<div class="user_stat" id="user_bday">
+				<div id="user_bday_title">Geburtstag: </div>
+				<div id="user_bday_date">{{userCtrl.user.profile.date_birthday.day}}.{{userCtrl.user.profile.date_birthday.month}}.{{userCtrl.user.profile.date_birthday.year}}</div>
+			</div>
+			<div class="user_stat" id="user_member_since">
+				<div id="user_bday_title">Mitglied seit: </div>
+				<div id="user_bday_date">{{userCtrl.user.profile.date_joined.day}}.{{userCtrl.user.profile.date_joined.month}}.{{userCtrl.user.profile.date_joined.year}}</div>
+			</div>
+		</div>
+
+	</div>
 </div>

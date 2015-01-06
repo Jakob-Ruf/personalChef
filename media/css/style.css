@@ -520,6 +520,17 @@ a, a:hover, a:focus
 /*----------------------------*/
 /*--- Anpassung für Profil ---*/
 /*----------------------------*/
+
+.user_rec .fa-star
+{
+	color: rgba(231, 76, 60,1.0);
+}
+
+.user_rec .fa-heart
+{
+	color: rgba(231, 76, 60,1.0);
+}
+
 .fa-list-ul
 {
 	color: rgba(231, 76, 60,1.0);
@@ -538,6 +549,11 @@ a, a:hover, a:focus
 .fa-user
 {
 	color: rgba(231, 76, 60,1.0);
+}
+
+#user_content
+{
+	padding: 0;
 }
 
 .user_header_pic
@@ -572,7 +588,61 @@ a, a:hover, a:focus
 .page-header
 {
 	padding-left: 5px;
+	padding-bottom: 5px;
 	margin-bottom: 0px;
+}
+
+.user_rec
+{
+	padding: 5px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	font-size: 1.1em;
+	border-bottom: solid 1px rgba(150,150,150,0.5);
+}
+
+.user_rec_name
+{
+	width: calc(75% - 20px);
+	display: inline-block;
+}
+
+.user_rec_likes
+{
+	width: 12.5%;
+	display: inline-block;
+	padding-right: 15px;
+	border-right: solid 1px rgba(50,50,50,0.5);
+	text-align: right;
+}
+
+.user_rec_rating
+{
+	text-align: right;
+	width: 12.5%;
+	display: inline-block;
+}
+
+.user_rec:nth-child(even)
+{
+	background-color: rgba(50,50,50,0.1);
+}
+
+.user_friend
+{
+	padding: 5px;
+	padding-bottom: 20px;
+	padding-left: 10px;
+	font-size: 1.2em;
+	border-bottom: solid 1px rgba(150,150,150,0.5);
+}
+
+.user_friend:nth-child(odd)
+{
+	background-color: rgba(50,50,50,0.1);
 }
 
 .user_fridge_item
@@ -611,9 +681,27 @@ a, a:hover, a:focus
 	display: inline-block;	
 }
 
-.nav-tabs
+.user_stat
 {
-	/*background-color: rgba(50,50,50,0.2);*/
+	width: 100%;
+	display: block;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 1.1em;
+}
+
+#user_bday_title
+{
+	display: inline-block;
+	width: calc(50% - 20px);
+}
+
+#user_bday_date
+{
+	width: 50%;
+	display: inline-block;
+	text-align: right;
 }
 
 .nav-tabs li 
@@ -944,7 +1032,7 @@ a, a:hover, a:focus
 	float:right;
 	margin-right: 19px;
 	display: block;
-	padding-top: 6px;
+	padding-top: 4px;
 	width: calc(100% - 26px) ;
 	background-color: rgba(231, 76, 60,1.0);
 	border-radius: 5px;
@@ -968,6 +1056,35 @@ a, a:hover, a:focus
 	text-align: justify;
 	border-bottom: solid 1px rgba(50,50,50,0.7);
 }
+
+.new_rec_img_upload
+{
+	margin:10px;
+	padding-top:200px;
+}
+
+#new_rec_img_upload_hint
+{
+	font-size: 1.2em;
+	margin-bottom: 10px;
+}
+
+#rec_picture_submit
+{
+	font-size: 1.5em;
+	color: white;
+	float:right;
+	margin-right: 13px;
+	display: block;
+	padding-top: 4px;
+	width: calc(100% - 26px) ;
+	background-color: rgba(231, 76, 60,1.0);
+	border-radius: 5px;
+	border: 1px solid rgba(50,50,50,0.7);
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
 
 /*-----------------------------*/
 /*--- Anpassung Rezeptliste ---*/
@@ -1121,6 +1238,44 @@ a, a:hover, a:focus
 	padding-right: 0.8em;
 	border-right: 1px solid rgba(20,20,20,0.2);
 }
+
+/*-------------------------------*/
+/*--- Anpassung Rezeptansicht ---*/
+/*-------------------------------*/
+
+#rec_content
+{
+	padding: 0;
+}
+
+#rec_content h1
+{
+	font-size: 1.7em;
+}
+
+#rec_padding_content
+{
+	padding: 10px;
+}
+
+#rec_ingredients li
+{
+	font-size: 1.3em;
+}
+
+#rec_instructions
+{
+	border-top: 1px solid;
+	padding-top: 5px;
+}
+
+#rec_instructions p
+{
+	padding-left: 5px;
+	text-align: justify;
+	font-size: 1.3em;
+}
+
 /*----------------------*/
 /*--- alte Anpassungen ab hier ---*/
 /*----------------------*/

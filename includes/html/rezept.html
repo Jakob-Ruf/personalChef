@@ -1,42 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="media/css/normalize.css" />
-	<link rel="stylesheet" href="includes/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css" />
-	<script src="includes/angular.min.js"></script>
-	<script src="includes/angular-route.min.js">	</script>
-	<script src="includes/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
+<div class="scrollable">
+	<div class="scrollable-content section" id="rec_content" ng-controller="rezeptController as recCtrl">
 
-	<link rel="stylesheet" type="text/css" href="media/css/style.css" />
-	<title>pChef</title>
-</head>
-<body>
-	<div id="content">
-		<div id="re_pic">
-			<img src="media/img/nudeln.jpg">
-			<div id="title">Spaghetti</div>
-			<div id="time">20 min</div>
+		<div id="content">
+			<div id="re_pic">
+				<img ng-src="{{recCtrl.recipe.image}}">
+				<div id="title">{{recCtrl.recipe._id}}</div>
+				<div id="time">{{recCtrl.recipe.time}} min</div>
+			</div>
+
+			<div id="rec_padding_content">
+				<div id="rec_ingredients">
+					<h1>Zutaten</h1>
+					<ul>
+						<li ng-repeat="ingredient in recCtrl.recipe.ingredients">{{ingredient.amount}} {{ingredient.unit}} {{ingredient._id}}</li>
+					</ul>
+				</div>
+				<div id="rec_instructions">
+					<h1>Zubereitung</h1>
+					<p>{{recCtrl.recipe.description}}</p>
+				</div>
+			</div>
+
+
 		</div>
-		<div id="user_pic">
-			<a href="#"><img src="media/img/user.png" id="user_pic_in"></a>
-		</div>
-		<div id="ingredients">
-			<h1>Zutaten</h1>
-			<ul>
-				<li>200 gr. Spaghetti</li>
-				<li>5 gr. Salz</li>
-				<li>5 l Wasser</li>
-			</ul>
-		</div>
-		<div id="instructions">
-			<h1>Zubereitung</h1>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</div>
-	</div>
-</body>
-</html>
