@@ -1,0 +1,25 @@
+<div class="scrollable">
+	<div class="scrollable-content section" id="rec_content">
+
+		<div id="content">
+			<div id="re_pic">
+				<img ng-src="{{recCtrl.recipe.image}}">
+				<div id="title">{{recCtrl.recipe._id}}</div>
+				<div id="time">{{recCtrl.recipe.time}} min</div>
+			</div>
+
+			<div id="rec_padding_content">
+				<div id="rec_ingredients">
+					<h1>Zutaten</h1>
+					<ul>
+						<li ng-repeat="ingredient in recCtrl.recipe.ingredients">{{ingredient.amount}} {{ingredient.unit}} {{ingredient._id}}</li>
+					</ul>
+				</div>
+				<div id="rec_instructions">
+					<h1>Zubereitung</h1>
+					<p>{{recCtrl.recipe.description}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

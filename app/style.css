@@ -1,0 +1,199 @@
+/*------------------------------*/
+/*--- Allgemeine Anpassungen ---*/
+/*------------------------------*/
+
+/*--- Schriftart ---*/
+@font-face {
+  font-family: "Ubuntu Light";
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Ubuntu-L.ttf');
+}
+
+body
+{
+	font-family: 'Ubuntu Light', sans-serif;
+}
+
+a, a:hover, a:focus
+{
+	text-decoration: none;
+}
+
+/*----------------------------------*/
+/*--- Navigationsleiste anpassen ---*/
+/*----------------------------------*/
+.navbar
+{
+	background-color: rgba(192, 57, 43,1.0);
+	border: 0px;
+	color: white;
+}
+
+.fa
+{
+	color: white;
+}
+
+.navbar-app .btn
+{
+	color: white;
+}
+
+.navbar-app .btn:hover
+{
+	color: white;
+}
+
+/*--- AppBody anpassen ---*/
+.app-body
+{
+	background-color: white;
+}
+
+/*--- Anpassung Menü ---*/
+.list-group-item.active
+{
+	background-color: rgba(192, 57, 43,1.0);
+	border-color: rgba(192, 57, 43,1.0);
+}
+
+.list-group-item.active:focus
+{
+	background-color: rgb(214,85,72);
+	border-color: rgb(214,85,72);
+}
+
+.list-group-item.active:hover
+{
+	background-color: rgb(214,85,72);
+	border-color: rgb(214,85,72);
+}
+
+.list-group-item:first-of-type {
+	padding: 0;
+	position: relative;
+}
+
+.list-group-item:first-of-type::after {
+	display:block;
+	background-color: rgba(30,30,30,0.3);
+	color: white;
+	position:absolute;
+	content:"Profil";
+	padding:5px;
+	padding-left: 15px;
+	font-size:1em;
+	z-index:3;
+	bottom:-1px;
+	width:100%;
+}
+
+.sidebar-left 
+{
+	background-color: rgba(123, 3, 2, 1);
+}
+/*----------------------*/
+/*--- alte Anpassungen ab hier ---*/
+/*----------------------*/
+#content
+{
+	position: relative;
+	width: 100%;
+	display: block;
+	height: 92%;
+	background-color: white;
+	z-index: 2;
+}
+
+#re_pic
+{
+	position: relative;
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	background-color: grey;
+	height: 30%;
+	max-height: 30%;
+	background-color: rgba(50,50,50,0.5);
+}
+
+#re_pic img
+{
+	width: 100%;
+	max-height: 100%;
+}
+
+#re_pic #title
+{
+	position: absolute;
+	font-size: 5em;
+	color: white;
+	bottom: 0.5em;
+	left: 0.5em;
+	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#re_pic #time
+{
+	position: absolute;
+	font-size: 2em;
+	color: white;
+	top: 0.5em;
+	right: 0.5em;
+	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#user_pic
+{
+	top: calc( -7.5em + 30%);
+	right: 5em;
+	display: block;
+	position: absolute;
+	height: 15em;
+	width: 15em;
+	z-index: 2;
+	border-radius: 10em;
+	-webkit-border-radius: 10em;
+	-moz-border-radius: 10em;
+}
+
+#user_pic_in
+{
+	max-height: 15em;
+	border-radius: 10em;
+	-webkit-border-radius: 10em;
+	-moz-border-radius: 10em;
+}
+
+#ingredients
+{
+	padding-left: 0.5em;
+	z-index: 2;
+	font-size: 2em;
+}
+
+#ingredients h1
+{
+	padding-left: 0.2em;
+	margin-bottom: 20px;
+}
+
+#ingredients ul
+{
+	margin-top: 20px;
+}
+
+#instructions
+{
+	font-size: 2em;
+	text-align: justify;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+}
+
+#instructions h1
+{
+	padding-top: 20px;
+	border-top: solid 2px rgba(50,50,50,0.5);
+}
