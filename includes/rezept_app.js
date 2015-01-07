@@ -11,25 +11,57 @@
 
 	app.config(function($routeProvider, $locationProvider) 
 	{
-		$routeProvider.when('/', {templateUrl: 'includes/html/home.html', reloadOnSearch: false});
-		$routeProvider.when('/user', {templateUrl: 'includes/html/user.html', controller: 'userController as userCtrl', reloadOnSearch: false});
-		$routeProvider.when('/fridge', {templateUrl: 'includes/html/fridge.html', controller: 'fridgeController as fridgeCtrl', reloadOnSearch: false});
-		$routeProvider.when('/rezepte', {templateUrl: 'includes/html/rezeptListe.html', reloadOnSearch: false});
-		$routeProvider.when('/addRezept', {templateUrl: 'includes/html/addRecipe.html', reloadOnSearch: false});
-		$routeProvider.when('/settings', {templateUrl: 'includes/html/settings.html', reloadOnSearch: false});
-		$routeProvider.when('/impressum', {templateUrl: 'includes/html/impressum.html', reloadOnSearch: false});
-		$routeProvider.when('/rezept/:_id', {templateUrl: 'includes/html/rezept.html', controller: 'rezeptController as recCtrl'});
+		/* Routing zur Startseite mit Neuladen der Seite beim Aufrufen der Startseite */
+		$routeProvider.when('/', {
+			templateUrl: 'includes/html/home.html',
+			reloadOnSearch: true});
+		/* Routing zum eigenen Userprofil mit Aktualisierung bei Aufruf */
+		$routeProvider.when('/user', {
+			templateUrl: 'includes/html/user.html',
+			controller: 'userController as userCtrl',
+			reloadOnSearch: true});
+		/* Routing zum eigenen Kühlschrank mit Aktualisierung bei Aufruf */
+		$routeProvider.when('/fridge', {
+			templateUrl: 'includes/html/fridge.html',
+			controller: 'fridgeController as fridgeCtrl',
+			reloadOnSearch: true});
+		/* Routing zur Rezeptliste mit Aktualisierung bei Aufruf */
+		$routeProvider.when('/rezepte', {
+			templateUrl: 'includes/html/rezeptListe.html',
+			controller: 'rezeptListController as rezeptLCtrl',
+			reloadOnSearch: true});
+		/* Routing zum Rezepterstellen ohne Aktualisierung bei Aufruf */
+		$routeProvider.when('/addRezept', {
+			templateUrl: 'includes/html/addRecipe.html',
+			reloadOnSearch: false});
+		/* Routing zu den eigenen Einstellungen mit Aktualisierung bei Aufruf */
+		$routeProvider.when('/settings', {
+			templateUrl: 'includes/html/settings.html',
+			reloadOnSearch: true});
+		/* Routing zum Impressum ohne Aktualisierung bei Aufruf */
+		$routeProvider.when('/impressum', {
+			templateUrl: 'includes/html/impressum.html',
+			reloadOnSearch: false});
+		/* Routing falls etwas nicht gefunden wurden ohne Aktualisierung bei Aufruf */
+		$routeProvider.when('/nfError', {
+			templateUrl: 'includes/html/notFound.html',
+			reloadOnSearch: false});
+		/* Routing zu einem bestimmten Rezept mit Aktualisierung bei Aufruf */
+		$routeProvider.when('/rezept/:_id', {
+			templateUrl: 'includes/html/rezept.html',
+			controller: 'rezeptController as recCtrl',
+			reloadOnSearch: true});
 		/* Umleitung auf die Startseite, falls keiner der definierten Parameter getroffen wurde */
 		$routeProvider.otherwise({redirectTo: '/'});
 	})
 
 app.controller('rezeptController', ['$routeParams','rec_get',function($routeParams, rec_get) 
 {
-	this.recipe = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
-	{
-		/*Umleitung, falls Fehlermeldung*/
-		window.location = '#/';
-	});
+this.recipe = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
+{
+	/*Umleitung, falls Fehlermeldung*/
+	window.location = '#/nfError';
+});
 }])
 
 app.controller('fridgeController', ['fridge_get','fridge_put','ingredient_list', function(fridge_get, fridge_put,ingredient_list){
@@ -37,119 +69,138 @@ app.controller('fridgeController', ['fridge_get','fridge_put','ingredient_list',
 	this.ingredientList = ingredient_list.query();
 	/* Switch zur Anzeige von Autocomplete */
 	var autoSwitch = 0;
-	this.fridge = fridge_get.get({id: 'Paul Pimmel'},function(){/*Success*/},function()
+	/* TODO User dynamisch anpassen */
+this.fridge = fridge_get.get({id: 'Paul Pimmel'},function(){/*Success*/},function()
+{
+	/*TODO Weiterleitung auf eine Fehlerseite*/
+	console.log("buh")
+});
+
+/* TODO User dynamisch anpassen */
+this.editItem = {
+	_id: 'Paul Pimmel',
+	ingredient: '',
+	amount: ''
+};
+
+this.refreshData = function(times)
+{
+	for (var i = 0; i < times; i++) 
+	{
+	this.fridge = fridge_get.get({id: 'Paul Pimmel'},function(){/*success*/},function()
 	{
 		/*TODO Weiterleitung auf eine Fehlerseite*/
 		console.log("buh")
-	});
+	})
+}
+}
+
+var clearInput = function()
+{
+	document.getElementById('fridge_input').value = "";
+	document.getElementById('fridge_input_amount').value = "";
+	document.getElementById('fridge_input_unit').value = "";
+}
+
+this.add = function()
+{
+	this.editItem.ingredient = document.getElementById('fridge_input').value
+	this.editItem.amount = document.getElementById('fridge_input_amount').value;
+	fridge_put.save({},this.editItem);
+	clearInput();
+	/* Neuladen der Daten, damit die Anzeige aktuell ist */
+	this.refreshData(5);
 	
-	this.editItem = {
-		_id: 'Paul Pimmel',
-		ingredient: '',
-		amount: ''
-	};
+}
 
-	this.refreshData = function(times)
+this.select = function(i)
+{
+	document.getElementById('fridge_input').value = this.ingredientList[i]._id;
+	document.getElementById('fridge_input_unit').value = this.ingredientList[i].unit;
+	if (this.ingredientList[i].unit == "St")
 	{
-		for (var i = 0; i < times; i++) 
-		{
-			this.fridge = fridge_get.get({id: 'Paul Pimmel'},function(){/*Success*/},function()
-		{
-			/*TODO Weiterleitung auf eine Fehlerseite*/
-			console.log("buh")
-		})
-		}
+		document.getElementById('fridge_input_amount').step = 1;
 	}
+	else
+	{
+		document.getElementById('fridge_input_amount').step = 100;
+	}
+}
 
-	var clearInput = function()
+this.edit = function(i)
+{
+	document.getElementById('fridge_input').value = this.fridge.fridge[i]._id;
+	document.getElementById('fridge_input_unit').value = this.fridge.fridge[i].unit;
+	document.getElementById('fridge_input_amount').value = this.fridge.fridge[i].amount;
+	if (this.ingredientList[i].unit == "St")
 	{
-		document.getElementById('fridge_input').value = "";
-		document.getElementById('fridge_input_amount').value = "";
-		document.getElementById('fridge_input_unit').value = "";
+		document.getElementById('fridge_input_amount').step = 1;
 	}
+	else
+	{
+		document.getElementById('fridge_input_amount').step = 100;
+	}
+}
 
-	this.add = function()
+this.switch_autocomplete = function()
+{
+	if (autoSwitch == 0) 
 	{
-		this.editItem.ingredient = document.getElementById('fridge_input').value
-		this.editItem.amount = document.getElementById('fridge_input_amount').value;
-		fridge_put.save({headers: {'Content-Type':'application/json; charset=utf-8'}},this.editItem);
-		clearInput();
-		/* Neuladen der Daten, damit die Anzeige aktuell ist */
-		this.refreshData(3);
+		document.getElementById('fridge_autocomplete_list').style.display = 'block';
+		autoSwitch = 1;
 	}
+	else
+	{
+		document.getElementById('fridge_autocomplete_list').style.display = 'none';
+		autoSwitch = 0;
+	}
+}
+/* Vorräte reduzieren */
+this.minus = function(i)
+{
+	this.editItem.ingredient = this.fridge.fridge[i]._id;
+	/* Unterscheidung zwsichen Stück und gr/ml */
+	if (this.fridge.fridge[i].unit == 'St') 
+	{
+		this.editItem.amount = parseInt(this.fridge.fridge[i].amount) - 1;
+	} 
+	else if (this.fridge.fridge[i].unit == 'g' || 'ml') 
+	{
+		this.editItem.amount = parseInt(this.fridge.fridge[i].amount) - 100;
+	}
+	fridge_put.save({},this.editItem);
+	this.fridge.fridge[i].amount = this.editItem.amount;
+	clearInput();
+}
 
-	this.select = function(i)
+/* Vorräte erhöhen */
+this.plus = function(i)
+{
+	this.editItem.ingredient = this.fridge.fridge[i]._id;
+	/* Unterscheidung zwsichen Stück und gr/ml */
+	if (this.fridge.fridge[i].unit == 'St') 
 	{
-		document.getElementById('fridge_input').value = this.ingredientList[i]._id;
-		document.getElementById('fridge_input_unit').value = this.ingredientList[i].unit;
+		this.editItem.amount = parseInt(this.fridge.fridge[i].amount) + 1;
+	} 
+	else if (this.fridge.fridge[i].unit == 'g' || 'ml') 
+	{
+		this.editItem.amount = parseInt(this.fridge.fridge[i].amount) + 100;
 	}
+	fridge_put.save({},this.editItem);
+	this.fridge.fridge[i].amount = this.editItem.amount;
+	clearInput();
+}
 
-	this.edit = function(i)
-	{
-		document.getElementById('fridge_input').value = this.fridge.fridge[i]._id;
-		document.getElementById('fridge_input_unit').value = this.fridge.fridge[i].unit;
-		document.getElementById('fridge_input_amount').value = this.fridge.fridge[i].amount;
-	}
-
-	this.switch_autocomplete = function()
-	{
-		if (autoSwitch == 0) 
-		{
-			document.getElementById('fridge_autocomplete_list').style.display = 'block';
-			autoSwitch = 1;
-		}
-		else
-		{
-			document.getElementById('fridge_autocomplete_list').style.display = 'none';
-			autoSwitch = 0;
-		}
-	}
-	/* Vorräte reduzieren */
-	this.minus = function(i)
-	{
-		this.editItem.ingredient = this.fridge.fridge[i]._id;
-		/* Unterscheidung zwsichen Stück und gr/ml */
-		if (this.fridge.fridge[i].unit == 'St') 
-		{
-			this.editItem.amount = parseInt(this.fridge.fridge[i].amount) - 1;
-		} 
-		else if (this.fridge.fridge[i].unit == 'g' || 'ml') 
-		{
-			this.editItem.amount = parseInt(this.fridge.fridge[i].amount) - 100;
-		}
-		fridge_put.save({headers: {'Content-Type':'application/json; charset=utf-8'}},this.editItem);
-		this.fridge.fridge[i].amount = this.editItem.amount;
-		clearInput();
-	}
-
-	/* Vorräte erhöhen */
-	this.plus = function(i)
-	{
-		this.editItem.ingredient = this.fridge.fridge[i]._id;
-		/* Unterscheidung zwsichen Stück und gr/ml */
-		if (this.fridge.fridge[i].unit == 'St') 
-		{
-			this.editItem.amount = parseInt(this.fridge.fridge[i].amount) + 1;
-		} 
-		else if (this.fridge.fridge[i].unit == 'g' || 'ml') 
-		{
-			this.editItem.amount = parseInt(this.fridge.fridge[i].amount) + 100;
-		}
-		fridge_put.save({headers: {'Content-Type':'application/json; charset=utf-8'}},this.editItem);
-		this.fridge.fridge[i].amount = this.editItem.amount;
-		clearInput();
-	}
-
-	/* Vorrat entfernen */
-	this.remove = function(i)
-	{
-		this.editItem.ingredient = this.fridge.fridge[i]._id;
-		this.editItem.amount = 0;
-		fridge_put.save({headers: {'Content-Type':'application/json; charset=utf-8'}},this.editItem);
-		this.ingredientList = ingredient_list.query();
-		this.refreshData(2);
-		clearInput();
-	}
+/* Vorrat entfernen */
+this.remove = function(i)
+{
+	this.editItem.ingredient = this.fridge.fridge[i]._id;
+	this.editItem.amount = 0;
+	fridge_put.save({},this.editItem);
+	this.ingredientList = ingredient_list.query();
+	this.refreshData(5);
+	clearInput();
+}
 }])
 
 app.controller('userController', ['$scope', function($scope){
@@ -251,7 +302,7 @@ app.controller('newRecipeController', function($scope, rec_add)
 		time: '',
 		description: '',
 		difficulty: '1',
-		creator: '',
+		creator: 'Sterling Archer',
 		image: '',
 		ingredients: []
 	};
@@ -276,13 +327,13 @@ app.controller('newRecipeController', function($scope, rec_add)
 	this.showFinal = function()
 	{
 		/* Anzeigen von Namen, Zutaten und Textarea */
-		document.getElementById('new_rec_name').style.display = block;
-		document.getElementById('new_r_ingredient').style.display = block;
-		document.getElementById('new_r_description').style.display = block;
+		document.getElementById('new_rec_name').style.display = 'block';
+		document.getElementById('new_r_ingredient').style.display = 'block';
+		document.getElementById('new_r_description').style.display = 'block';
 		/* Ausblenden der Inputfelder */
-		document.getElementById('add_r_ingredient_input').style.display = none;
-		document.getElementById('add_r_name_input').style.display = none;
-		document.getElementById('add_r_description_input').style.display = none;
+		document.getElementById('add_r_ingredient_input').style.display = 'none';
+		document.getElementById('add_r_name_input').style.display = 'none';
+		document.getElementById('add_r_description_input').style.display = 'none';
 	};
 
 	this.newRecipeSend = function()
@@ -298,10 +349,10 @@ app.controller('newRecipeController', function($scope, rec_add)
 
 	this.edit = function(i)
 	{
-		document.getElementById('add_r_description_input').style.display = none;
-		document.getElementById('new_r_ingredient').style.display = block;
-		document.getElementById('add_r_ingredient_input').style.display = block;
-		document.getElementById('new_r_description').style.display = none;
+		document.getElementById('add_r_description_input').style.display = 'none';
+		document.getElementById('new_r_ingredient').style.display = 'block';
+		document.getElementById('add_r_ingredient_input').style.display = 'block';
+		document.getElementById('new_r_description').style.display = 'none';
 		this.newIng = this.newRec.ingredients[i];
 		this.newRec.ingredients.splice(i, 1);
 	};
