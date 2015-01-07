@@ -1,0 +1,30 @@
+Wed Dec 31 11:12:35 
+Wed Dec 31 11:12:35 warning: 32-bit servers don't have journaling enabled by default. Please use --journal if you want durability.
+Wed Dec 31 11:12:35 
+warning: some regex utf8 things will not work.  pcre build doesn't have --enable-unicode-properties
+Wed Dec 31 11:12:35 [initandlisten] MongoDB starting : pid=5452 port=27017 dbpath=/var/www/root/git/backend/data 32-bit host=raspberrypi
+Wed Dec 31 11:12:35 [initandlisten] 
+Wed Dec 31 11:12:35 [initandlisten] ** NOTE: This is a development version (2.1.1-pre-) of MongoDB.
+Wed Dec 31 11:12:35 [initandlisten] **       Not recommended for production.
+Wed Dec 31 11:12:35 [initandlisten] 
+Wed Dec 31 11:12:35 [initandlisten] ** NOTE: when using MongoDB 32 bit, you are limited to about 2 gigabytes of data
+Wed Dec 31 11:12:35 [initandlisten] **       see http://blog.mongodb.org/post/137788967/32-bit-limitations
+Wed Dec 31 11:12:35 [initandlisten] **       with --journal, the limit is lower
+Wed Dec 31 11:12:35 [initandlisten] 
+Wed Dec 31 11:12:35 [initandlisten] db version v2.1.1-pre-, pdfile version 4.5
+Wed Dec 31 11:12:35 [initandlisten] git version: 47fbbdceb21fc2b791d22db7f01792500647daa9
+Wed Dec 31 11:12:35 [initandlisten] build info: Linux raspberrypi 3.2.27+ #102 PREEMPT Sat Sep 1 01:00:50 BST 2012 armv6l BOOST_LIB_VERSION=1_49
+Wed Dec 31 11:12:35 [initandlisten] options: { dbpath: "/var/www/root/git/backend/data", fork: true, logpath: "/var/www/root/git/backend/data/mongod.log" }
+************** 
+Unclean shutdown detected.
+Please visit http://dochub.mongodb.org/core/repair for recovery instructions.
+*************
+Wed Dec 31 11:12:35 [initandlisten] exception in initAndListen: 12596 old lock file, terminating
+Wed Dec 31 11:12:35 dbexit: 
+Wed Dec 31 11:12:35 [initandlisten] shutdown: going to close listening sockets...
+Wed Dec 31 11:12:35 [initandlisten] shutdown: going to flush diaglog...
+Wed Dec 31 11:12:35 [initandlisten] shutdown: going to close sockets...
+Wed Dec 31 11:12:35 [initandlisten] shutdown: waiting for fs preallocator...
+Wed Dec 31 11:12:35 [initandlisten] shutdown: closing all files...
+Wed Dec 31 11:12:35 [initandlisten] closeAllFiles() finished
+Wed Dec 31 11:12:35 dbexit: really exiting now

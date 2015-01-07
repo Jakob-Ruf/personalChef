@@ -47,13 +47,32 @@ var exports = {
 	        popularity = ratings_part + likes_part + 1;
 	        // console.log("Popularity: " + ratings_average + " * 0.5 *Math.log(" + ratings_amount + " + 2)) * Math.log(" + likes_amount + " + 2) + 1 = " + popularity);
 	        popularity = popularity.toFixed(4)*1;
-	        console.log(item[0]._id + ": " + popularity);
+	        // adjust values in recipe
 	        db.collection('recipes').update({"_id": item[0]._id},{$set: {"ratings_average": ratings_average, "ratings_amount": ratings_amount, "likes_amount": likes_amount, "popularity": popularity}}, function (err, result){
 	            if (err === null){ 
 	            } else {
 	            	console.log(err); 
 	            };
 	        });
+	        // adjust values in users
+	        db.collection('users').update({'favorites._id': item[0]._id},{$set: {'favorites.$.ratings_average': ratings_average, 'favorites.$.likes_amount': likes_amount}}, {upsert: true, multi: true}, function (err, result){
+		        if (err === null){
+		            if (result < 1){
+		                console.log("No fridge item for user was affected");
+		                res.send(404);
+		            } else {
+		                console.log();
+		                res.send(200);
+		            };
+		        } else {
+		            console.log('There has been an error');
+		            res.send(500);
+		        };
+		    });
+		    db.collection('users').update({'recipes._id': item[0]._id}, {$set : {'recipes.$.ratings_average': ratings_average, 'recipes.$.likes_amount': likes_amount}}, {upsert: true}, function (err, result){
+		    	if (err) throw err;
+		    	if (!result) console.log(Date().toString() + ": Error while updating ratings for ratings of recipe " + item[0]._id);
+		    });
 		});
 	}, //calculate
 

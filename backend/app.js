@@ -24,7 +24,17 @@ var images = require('./javascript/images');
 
 // uncomment this line to run the app in the background as a daemon
 // only for productive purposes
- require('daemon')();
+// require('daemon')();
+// var daemon = require('daemon');
+// var out = fs.createWriteStream('backends.log');
+// var opt = {
+//     stdout: [null, out]
+// };
+// out.on('open', function(){
+//     daemon.daemon("app.js", [], {
+//         'stdout': [ null, out ]
+//     });
+// });
 
 var app = express();
 
@@ -88,10 +98,10 @@ app.use(function(err, req, res, next) {
 
 // scripts to execute once when starting the server
 console.log(Date().toString() + ": Server successfully started");
-images.imageManip();
-tools.updateRatingsAndLikes(db);
-tools.checkForDiscrepancies(db);
-tools.updateStartScreen(db);
+// images.imageManip();
+// tools.updateRatingsAndLikes(db);
+// tools.checkForDiscrepancies(db);
+// tools.updateStartScreen(db);
 
 
 

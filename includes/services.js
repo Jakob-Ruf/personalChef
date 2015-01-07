@@ -13,7 +13,7 @@ rezeptServices.factory("rec_add", ['$resource', function($resource) {
 
 /* Factory zum Abruf der Rezeptliste */
 rezeptServices.factory('rec_list', ['$resource', function($resource) {
-	return $resource("http://personalchef.ddns.net:546/recipes/list");
+	return $resource("http://personalChef.ddns.net:546/recipes/list");
 }]);
 
 /* Factory zum Abruf einzelner Rezepte */

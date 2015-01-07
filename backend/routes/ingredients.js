@@ -43,7 +43,7 @@ router.get('/:iid', function (req, res) {
                 res.send(404);
             } else {
                 res.header("Content-Type: application/json; charset=utf-8");
-                res.json(items);
+                res.json(items[0]);
             };
         } else {
             res.send(500);

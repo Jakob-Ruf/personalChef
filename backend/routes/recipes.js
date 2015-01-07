@@ -1,13 +1,11 @@
 var express = require('express');
-var busboy = require('connect-busboy');
-var fs = require('fs');
 var router = express.Router();
 var images = require('../javascript/images');
+var tools = require('../javascript/tools');
+
 
 router.post('/upload', function (req, res){
-    console.log(req.body);
-    console.log(req.params);
-    images.imageUpload(req, res, "recipe");
+    images.imageUpload(req, res, "recipes");
 });
 
 // Method for getting list of recipes
@@ -26,6 +24,7 @@ router.get('/list', function (req, res) {
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -46,6 +45,7 @@ router.get('/shortlist', function (req, res) {
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -67,6 +67,7 @@ router.get('/oftheday', function (req, res){
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -99,11 +100,13 @@ router.get('/startscreen', function (req, res){
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -130,11 +133,13 @@ router.get('/withIngredient/:iid', function (req, res){
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             }
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -153,17 +158,18 @@ router.get('/flist', function (req, res){
 // responds with JSON if recipe found
 router.get('/:rid', function (req, res) {
     var db = req.db;
-    console.log(Date().toString() + ": Requested recipe " + req.body._id);
-    db.collection('recipes').find({"_id": req.params.rid},{"_id":1,"comments":1,"creator":1,"description":1,"difficulty":1,"image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items) {
+    console.log(Date().toString() + ": Requested recipe " + req.params.rid);
+    db.collection('recipes').find({"_id": req.params.rid},{"_id":1,"comments":1,"creator":1,"description":1,"difficulty":1,"time":1, "image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items) {
         if (err === null){
             if( items.length == 0){
                 res.send(404);
             } else {
                 res.header("Content-Type: application/json; charset=utf-8");
-                res.json(items);
+                res.json(items[0]);
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -173,36 +179,71 @@ router.post('/add', function (req, res){
     var db = req.db;
     var dummyUrl = ""
     console.log(Date().toString() + ": Requested adding of recipe " + req.body._id);
-    if ( req.body._id === null){
+    // check if all fields exist
+    if ( req.body._id === null || req.body.creator === null || req.body.description === null || req.body.difficulty === null || req.body.time === null){
         res.send(400);
     } else {
-        db.collection('recipes').find({"_id": req.body._id}).toArray(function (err, items) {
-            if (err === null){
-                if (items.length == 0){
-                    db.collection('recipes').insert(req.body, function (err, result){
-                        if (err === null){
-                            db.collection('recipes').update({"_id": req.body._id},{$set:{"image":"backend/imgs/recipes/dummy.jpg"}}, function (err, result){
-                                if (err === null){
-                                    if (result == 0){
-                                        res.send(200);
-                                    } else {
-                                        res.send(404);
-                                    };
+        // check if all fields are filled
+        if (req.body.id == "" || req.body.creator == "" || req.body.description.length < 100 || req.body.difficulty == "" || req.body.time == ""){
+            // check if recipe with _id already exists
+            db.collection('recipes').find({"_id": req.body._id}).toArray(function (err, items) {
+                if (err === null){
+                    if (items.length == 0){
+                        // check if creating user exists in db
+                        db.collection('users').find({'_id': req.body.creator},{'_id':1}).toArray(function (err, users){
+                            if (err === null){
+                                if (users.length < 1){
+                                    res.send(404);
                                 } else {
-                                    res.send(500);
+                                    // insert the image into the db
+                                    db.collection('recipes').insert(req.body, function (err, result){
+                                        if (err === null){
+                                            // set the image to a dummy image
+                                            db.collection('recipes').update({"_id": req.body._id},{$set:{"image":"backend/imgs/recipes/dummy.jpg"}}, function (err, result){
+                                                if (err === null){
+                                                    if (result == 0){
+                                                        db.collection('users').update({'_id': req.body.creator}, {$push: {'recipes': {'_id': req.body._id, 'ratings_average': 0, 'likes_amount': 0}}}, function (err, result){
+                                                            if (err === null){
+                                                                if (result == 0){
+                                                                    res.send({'_id': '404'});
+                                                                } else {
+                                                                    res.send(200);
+                                                                };
+                                                            } else {
+                                                                res.send(500);
+                                                                throw err;
+                                                            };
+                                                        });
+                                                    } else {
+                                                        res.send(404);
+                                                    };
+                                                } else {
+                                                    res.send(500);
+                                                    throw err;
+                                                }
+                                            });
+                                        } else {
+                                            res.send(500);
+                                            throw err;
+                                        }
+                                    });
                                 }
-                            });
-                        } else {
-                            res.send(500);
-                        }
-                    });
+                            } else {
+                                res.send(500);
+                                throw err;
+                            };
+                        });
+                    } else {
+                        res.send(409);
+                    };
                 } else {
-                    res.send(409);
+                    res.send(500);
+                    throw err;
                 };
-            } else {
-                res.send(500);
-            };
-        });
+            });
+        } else {
+            res.send(400);
+        }        
     };
 });
 
@@ -218,6 +259,7 @@ router.post('/report', function (req, res){
 			};
 		} else {
 			res.send(500);
+            throw err;
 		};
 	});
 });
@@ -228,57 +270,59 @@ router.post('/rate', function (req, res){
     // ratings ought to be between 1 and 5
     if (1 <= req.body.rating && req.body.rating <= 5){
         db.collection('users').find({'_id': req.body.user}).toArray(function (err, items){
-        if (err == null){
-            if (items.length == 0){
-                // user not found, aborting
-                console.log(req.body.user + " was not found");
-                res.send(404);
-            } else {
-                db.collection('recipes').find({"_id": req.body.recipe}).toArray(function (err, items){
-                    if (err === null){
-                        if (items.length == 0){
-                            // recipe not found, aborting
-                            console.log(req.body.recipe + " was not found");
-                            res.send(404);
-                        } else {
-                            db.collection('recipes').update({"_id": req.body.recipe, "ratings._id": req.body.user}, {$set: {'ratings.$.rating': req.body.rating}}, function (err, result){
-                                if (err === null){
-                                    if (result == 0){
-                                        // no prior rating found. pushing new subdocument
-                                        db.collection('recipes').update({"_id": req.body.recipe}, {$push: {"ratings": {"_id": req.body.user, "rating": req.body.rating}}}, function (err, result){
-                                            if (err === null){
-                                                if (result == 0){
-                                                    // no recipe was affected. this should not occur
-                                                    // console.log(req.body.user + " used rate. It was not very effective");
-                                                    res.send(500);
+            if (err == null){
+                if (items.length == 0){
+                    // user not found, aborting
+                    console.log(req.body.user + " was not found");
+                    res.send(404);
+                } else {
+                    db.collection('recipes').find({"_id": req.body.recipe}).toArray(function (err, items){
+                        if (err === null){
+                            if (items.length == 0){
+                                // recipe not found, aborting
+                                console.log(req.body.recipe + " was not found");
+                                res.send(404);
+                            } else {
+                                db.collection('recipes').update({"_id": req.body.recipe, "ratings._id": req.body.user}, {$set: {'ratings.$.rating': req.body.rating}}, function (err, result){
+                                    if (err === null){
+                                        if (result == 0){
+                                            // no prior rating found. pushing new subdocument
+                                            db.collection('recipes').update({"_id": req.body.recipe}, {$push: {"ratings": {"_id": req.body.user, "rating": req.body.rating}}}, function (err, result){
+                                                if (err === null){
+                                                    if (result == 0){
+                                                        // no recipe was affected. this should not occur
+                                                        res.send(500);
+                                                        throw err;
+                                                    } else {
+                                                    	// calculate the new popularity score for this recipe
+                                                    	tools.calculate(db, req.body.recipe);
+                                                        res.send(200);
+                                                    };
                                                 } else {
-                                                	// calculate the new popularity score for this recipe
-                                                	tools.calculate(db, req.body.recipe);
-                                                    // rating successful
-                                                    // console.log(req.body.user + " used rate. It was very effective.");
-                                                    res.send(200);
+                                                    res.send(500);
+                                                    throw err;
                                                 };
-                                            } else {
-                                                res.send(500);
-                                            };
-                                        });
+                                            });
+                                        } else {
+                                            res.send(200);
+                                        };
                                     } else {
-                                        res.send(200);
+                                        res.send(500);
+                                        throw err;
                                     };
-                                } else {
-                                    res.send(500);
-                                };
-                            });
+                                });
+                            };
+                        } else {
+                            res.send(500);
+                            throw err;
                         };
-                    } else {
-                        res.send(500);
-                    };
-                })  
+                    })  
+                };
+            } else {
+                res.send(500);
+                throw err;
             };
-        } else {
-            res.send(500);
-        };
-    });
+        });
     } else {
         res.send(400);
     };
@@ -309,16 +353,19 @@ router.post('/like', function (req, res){
                                     }
                                 } else {
                                     res.send(500);
+                                    throw err;
                                 };
                             });
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             };
         } else {
-            console.log(err);
+            res.send(500);
+            throw err;
         };
     });
 });

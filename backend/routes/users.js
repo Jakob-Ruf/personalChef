@@ -8,67 +8,48 @@ var images = require('../javascript/images');
 // http://78.42.34.2/knowhow.php?tab=6
 
 router.post('/upload', function (req, res){
-    console.log(req.body);
-    console.log(req.params);
-    images.imageUpload(req, res, "user");
+    images.imageUpload(req, res, "users");
 });
 
-router.get('/test', function (req, res){
+router.get('/flist', function (req, res){
     var db = req.db;
-    db.collection('recipes').find({},{'popularity':1},{
-        limit: 3,
-        sort: {'popularity': -1}
-    }).toArray( function (err, items){
-        res.json(items);
-    });
-});
-
-
-router.post('/mail', function (req, res){
-    var smtpTransport = mailer.createTransport("SMTP",{
-        service: "Gmail",
-        auth: {
-            user: "jakob.throwaway@gmail.com",
-            pass: "GidGxG573oD4aUnGhiMv"
-        }
-    });
-
-    var mail = {
-        from: "personal Chef <personalChef@gmail.com>",
-        to: req.body.to,
-        subject: "Your weekly cooking report",
-        text: "Node.js New world for me",
-        html: "<h1>Mail von personalChef</h1>"
-    };
-
-    smtpTransport.sendMail(mail, function(error, response){
-        if(error){
-            console.log(error);
-            res.send(500);
-        }else{
-            console.log("Message sent: " + response.message);
-            res.send(200);
-        }
-
-        smtpTransport.close();
-    });
-});
-
-
-router.get('/test/:id', function (req, res){
-    var db = req.db;
-    db.collection('users').find({"_id": req.params.id}).toArray(function (err, items){
+    db.collection('users').find().toArray(function (err, items){
         if (err === null){
-            if (items.length == 0){
-                res.send(404);
-            } else {
-                res.json(items[0]);
-            };
-        } else {
-            res.send(500);
-        };
+            res.json(items);
+        }
     });
 });
+
+// router.post('/mail', function (req, res){
+//     var smtpTransport = mailer.createTransport("SMTP",{
+//         service: "Gmail",
+//         auth: {
+//             user: "jakob.throwaway@gmail.com",
+//             pass: "GidGxG573oD4aUnGhiMv"
+//         }
+//     });
+
+//     var mail = {
+//         from: "personal Chef <personalChef@gmail.com>",
+//         to: req.body.to,
+//         subject: "Your weekly cooking report",
+//         text: "Node.js New world for me",
+//         html: "<h1>Mail von personalChef</h1>"
+//     };
+
+//     smtpTransport.sendMail(mail, function(error, response){
+//         if(error){
+//             console.log(error);
+//             res.send(500);
+//         }else{
+//             console.log("Message sent: " + response.message);
+//             res.send(200);
+//         }
+
+//         smtpTransport.close();
+//     });
+// });
+
 
 // Method for getting userlist
 // responds with 404 if no user is found
@@ -77,7 +58,7 @@ router.get('/test/:id', function (req, res){
 router.get('/list', function (req, res){
     var db = req.db;
     console.log(Date().toString() + ": List of users requested");
-    db.collection('users').find({}, {_id:1, favorites:1, image:1, badges:1 }).toArray(function (err, items) {
+    db.collection('users').find({}, {_id:1, favorites:1, image:1, badges:1, imageThumb:1 }).toArray(function (err, items) {
         if (err === null){
             if( items.length == 0){
                 res.send(404);
@@ -87,10 +68,10 @@ router.get('/list', function (req, res){
             }
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
-
 
 router.post('/user', function (req, res){
     var db = req.db;
@@ -99,7 +80,7 @@ router.post('/user', function (req, res){
         if (err === null){
             if (items.length == 0){
                 // get only limited user data 
-                db.collection('users').find({"_id": req.body.requested},{_id:1, favorites:1, image:1, badges:1}).toArray(function (err, items){
+                db.collection('users').find({"_id": req.body.requested},{_id:1, favorites:1, image:1, badges:1, imageThumb:1}).toArray(function (err, items){
                     if (err === null){
                         if (items.length == 0){
                             res.send(404);
@@ -109,11 +90,12 @@ router.post('/user', function (req, res){
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             } else {
                 // return the "complete" userdata
-                db.collection('users').find({"_id": req.body.requested}, {_id:1,email:1,date_joined:1,date_birthday:1,current_streak_total:1,highest_streak_total:1,current_streak_healthy:1,highest_streak_healthy:1,favorites:1,friends:1,badges:1,fridge:1}).toArray(function (err, items){
+                db.collection('users').find({"_id": req.body.requested}, {_id:1,favorites:1,friends:1,favorites:1,badges:1,fridge:1, image:1, imageThumb:1, likes:1}).toArray(function (err, items){
                     if (err === null){
                         if (items.length == 0){
                             res.send(404);
@@ -123,11 +105,13 @@ router.post('/user', function (req, res){
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -145,11 +129,28 @@ router.get('/shortlist', function (req, res){
                 res.send(404);
             } else {
                 res.header("Content-Type: application/json; charset=utf-8");
-                res.json(items);
+                res.json(items[0]);
             }
         } else {
             res.send(500);
+            throw err;
         }
+    });
+});
+
+router.get('/fridge/:uid', function (req, res){
+    var db = req.db;
+    db.collection('users').find({'_id': req.params.uid},{'fridge':1},{sort: {'fridge._id': -1}}).toArray( function (err, items){
+        if (err === null){
+            if (items.length == 0){
+                res.send(404);
+            } else {
+                res.json(items[0]);
+            }
+        } else {
+            res.send(500);
+            throw err;
+        };
     });
 });
 
@@ -160,7 +161,7 @@ router.get('/shortlist', function (req, res){
 router.get('/:uname', function(req, res) {
     var db = req.db;
     console.log(Date().toString() + ": Request of user " + req.params.uname);
-    db.collection('users').find({"_id": req.params.uname},{_id:1, favorites:1, image:1, badges:1}).toArray(function (err, items) {
+    db.collection('users').find({"_id": req.params.uname},{_id:1, favorites:1, image:1, badges:1, imageThumb:1, fridge:1}).toArray(function (err, items) {
         if (err === null){
             if (items.length == 0){
                 res.send(404);
@@ -170,6 +171,7 @@ router.get('/:uname', function(req, res) {
             }
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -187,7 +189,7 @@ router.post('/add', function(req, res){
             if (items.length == 0){
                 db.collection('users').insert(req.body, function (err, result){
                     if (err === null){
-                        db.collection('users').update({"_id": req.body._id},{$set:{"image":"backend/imgs/users/dummy.png"}}, function(err, result){
+                        db.collection('users').update({"_id": req.body._id},{$set:{"image":"backend/imgs/users/original/dummy.png", "imageThumb":"backend/imgs/users/thumbnails/dummy.png"}}, function(err, result){
                             if (err === null){
                                 if (result == 0){
                                     res.send(404);
@@ -196,10 +198,12 @@ router.post('/add', function(req, res){
                                 }
                             } else {
                                 res.send(500);
+                                throw err;
                             };
                         });
                     } else {
                         res.send(500);
+                        throw err;
                     }
                 });
             } else {
@@ -207,6 +211,7 @@ router.post('/add', function(req, res){
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -217,79 +222,68 @@ router.post('/add', function(req, res){
 // changes DB entry and responds with 200 if every little thing was gonna be alright
 router.post('/fridge', function (req, res){
     var db = req.db;
-    db.collection('users').find({"_id": req.body._id}).toArray(function (err, items){
+    db.collection('users').find({"_id": req.body._id}).toArray(function (err, users){
         if ( err === null){
-            if (items.length == 0){
+            if (users.length == 0){
                 res.send(404);
             } else {
-                db.collection('ingredients').find({"_id": req.body.ingredient}).toArray(function (err, items){
-                    if (err === null){
-                        if (items.length == 0){
-                            res.send(404);
-                        } else {
-                            if (req.body.amount == 0){
-                                console.log(Date().toString() + ": Deleting ingredient " + req.body.ingredient + " for user " + req.body._id);
-                                db.collection('users').update({"_id": req.body._id}, {$pull: { "fridge": {"_id": req.body.ingredient}}}, function (err, result){
-                                    if (err === null){
-                                        res.send(200);
-                                    } else {
-                                        res.send(500);
-                                    };
-                                });
+                manipulateFridge(req, res, users[0]);
+                function manipulateFridge(req, res, user){
+                    db.collection('ingredients').find({"_id": req.body.ingredient}).toArray(function (err, ingredients){
+                        if (err === null){
+                            if (ingredients.length == 0){
+                                res.send(404);
                             } else {
-                                console.log(Date().toString() + ": Setting amount of " + req.body.ingredient + " to " + req.body.amount + " for user " + req.body._id);
-                                db.collection('users').update({"_id": req.body._id, "fridge._id": req.body.ingredient}, { $set: {"fridge.$.amount": req.body.amount}}, function (err, result){
-                                    if (err === null){
-                                        res.send(200);
-                                    } else {
-                                        res.send(500);
-                                    }
-                                });
-                            };
-                        };
-                    } else {
-                        res.send(500);
-                    };
-                });
-            };
-        } else {
-            res.send(500);
-        };
-    });
-});
-
-// Method for inserting ingredient into fridge 
-// responds with 404 if user or ingredient was not found in DB
-// responds with 500 if error with DBcalls
-// changes DB entry and responds with 200 if every little thing was gonna be alright
-router.post('/fridgeNew', function (req, res){
-    var db = req.db;
-    console.log(Date().toString() + ": Requested adding of ingredient " + req.body.ingredient + " to the fridge of user " + req.body._id);
-    db.collection('users').find({"_id": req.body._id}).toArray(function (err, items){
-        if (err === null){
-            if (items.length == 0){
-                res.send(404)
-            } else {
-                db.collection('ingredients').find({'_id': req.body.ingredient}).toArray(function (err, items){
-                    if (err === null){
-                        if (items.length == 0){
-                            res.send(404);
-                        } else {
-                            db.collection('users').update({"_id": req.body._id}, {$push: {'fridge': {'_id': req.body.ingredient, 'amount': req.body.amount}}}, function (err, result){
-                                if (err === null){
-                                    res.send(200);
+                                if (req.body.amount == 0){
+                                    // deleting array element from fridge due to not being existent any more
+                                    db.collection('users').update({"_id": req.body._id}, {$pull: { "fridge": {"_id": req.body.ingredient}}}, function (err, result){
+                                        if (err === null){
+                                            res.send(200);
+                                        } else {
+                                            res.send(500);
+                                            throw err;
+                                        };
+                                    });
                                 } else {
-                                    res.send(500);
+                                    var b_found = false;
+                                    for (var i = 0; i < user.fridge.length; i++){
+                                        if (user.fridge[i]._id == req.body.ingredient){
+                                            b_found = true;
+                                        }
+                                    };
+                                    if (b_found){
+                                        // alter existing entry
+                                        db.collection('users').update({"_id": req.body._id, "fridge._id": req.body.ingredient}, { $set: {"fridge.$.amount": req.body.amount}}, function (err, result){
+                                            if (err === null){
+                                                res.send(200);
+                                            } else {
+                                                res.send(500);
+                                                throw err;
+                                            }
+                                        });
+                                    } else {
+                                        // create new array entry
+                                        db.collection('users').update({"_id": req.body._id}, {$push: {'fridge': {'_id': req.body.ingredient, 'amount': req.body.amount, 'unit': ingredients[0].unit}}}, function (err, result){
+                                            if (err === null){
+                                                res.send(200);
+                                            } else {
+                                                res.send(500);
+                                                throw err;
+                                            };
+                                        });
+                                    };
                                 };
-                            });
+                            };
+                        } else {
+                            res.send(500);
+                            throw err;
                         };
-                    } else {
-                        res.send(500);
-                    };
-                });
+                    });
+                };
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -323,6 +317,7 @@ router.post('/friend', function (req, res){
                                         {$set: {"friends.$.status":"mutual"}}, function (err, count, status){
                                             if (err !== null){
                                                 res.send(500);
+                                                throw err;
                                             } else {
                                                 res.send(200);
                                             };
@@ -332,6 +327,7 @@ router.post('/friend', function (req, res){
                                         {$set: {"friends.$.status":"mutual"}}, function (err, count, status){
                                             if (err !== null){
                                                 res.send(500);
+                                                throw err;
                                             } else {
                                                 res.send(200);
                                             };
@@ -344,6 +340,7 @@ router.post('/friend', function (req, res){
                                         {$set: {"friends.$.status":"rejected"}}, function (err, count, status){
                                             if (err !== null){
                                                 res.send(500);
+                                                throw err;
                                             } else {
                                                 res.send(200);
                                             };
@@ -354,6 +351,7 @@ router.post('/friend', function (req, res){
                                     db.collection('users').update({"_id": req.body.initiator},{$push: {'friends':{"_id": req.body.receiver,"status":"pending_out"}}}, function (err, count, status){
                                         if (err !== null){
                                             res.send(500);
+                                            throw err;
                                         } else {
                                             res.send(200);
                                         };
@@ -361,6 +359,7 @@ router.post('/friend', function (req, res){
                                     db.collection('users').update({"_id": req.body.receiver},{$push: {'friends':{"_id": req.body.initiator,"status":"pending_in"}}}, function (err, count, status){
                                         if (err !== null){
                                             res.send(500);
+                                            throw err;
                                         } else {
                                             res.send(200);
                                         };
@@ -371,6 +370,7 @@ router.post('/friend', function (req, res){
                                     db.collection('users').update({"_id":req.body.initiator}, {$pull : { "friends": { "_id": req.body.receiver}}}, function (err, count, status){
                                         if (err !== null){
                                             res.send(500);
+                                            throw err;
                                         } else {
                                             res.send(200);
                                         };
@@ -378,6 +378,7 @@ router.post('/friend', function (req, res){
                                     db.collection('users').update({"_id":req.body.receiver}, {$pull : { "friends": { "_id": req.body.initiator}}}, function (err, count, status){
                                         if (err !== null){
                                             res.send(500);
+                                            throw err;
                                         } else {
                                             res.send(200);
                                         };
@@ -389,11 +390,13 @@ router.post('/friend', function (req, res){
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -418,9 +421,10 @@ router.post('/favorite', function (req, res){
                             res.send(404);
                         } else {
                             if (req.body.activity == "add"){
-                                db.collection('users').update({"_id": req.body.user},{$push: {'favorites':{"_id": req.body.recipe}}}, function (err, count, status){
+                                db.collection('users').update({"_id": req.body.user},{$push: {'favorites':{"_id": req.body.recipe, 'ratings_average': items[0].ratings_average, 'likes_amount': items[0].likes_amount}}}, function (err, count, status){
                                     if (err !== null){
                                         res.send(500);
+                                        throw err;
                                     } else {
                                         res.send(200);
                                     };
@@ -429,6 +433,7 @@ router.post('/favorite', function (req, res){
                                 db.collection('users').update({"_id":req.body.user}, {$pull : { "favorites": { "_id": req.body.recipe}}}, function (err, count, status){
                                     if (err !== null){
                                         res.send(500);
+                                        throw err;
                                     } else {
                                         res.send(200);
                                     };
@@ -439,11 +444,13 @@ router.post('/favorite', function (req, res){
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -470,6 +477,7 @@ router.post('/badge', function (req, res){
                                 db.collection('users').update({"_id": req.body.user},{$push: {'badges':{"_id": req.body.badge, 'date_earned': Date()}}}, function (err, count, status){
                                     if (err !== null){
                                         res.send(500);
+                                        throw err;
                                     } else {
                                         res.send(200);
                                     };
@@ -478,6 +486,7 @@ router.post('/badge', function (req, res){
                                 db.collection('users').update({"_id":req.body.user}, {$pull : { "badges": { "_id": req.body.badge}}}, function (err, count, status){
                                     if (err !== null){
                                         res.send(500);
+                                        throw err;
                                     } else {
                                         res.send(200);
                                     };
@@ -488,11 +497,13 @@ router.post('/badge', function (req, res){
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -513,11 +524,13 @@ router.post('/password', function (req, res){
                         res.send(200);
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -533,16 +546,19 @@ router.post('/settings', function (req, res){
                     db.collection('users').update({"_id": req.body.user}, {$set : {"settings.portions": req.body.portions}}, function (err, result){
                         if (err !== null){
                             res.send(500);
+                            throw err;
                         } else {
                             if (req.body.unit != ""){
                                db.collection('users').update({"_id": req.body.user}, {$set : {"settings.unit": req.body.unit}}, function (err, result){
                                     if (err !== null){
                                         res.send(500);
+                                        throw err;
                                     } else {
                                         if (req.body.unit != ""){
                                            db.collection('users').update({"_id": req.body.user}, {$set : {"settings.colorscheme": req.body.colorscheme}}, function (err, result){
                                                 if (err !== null){
                                                     res.send(500);
+                                                    throw err;
                                                 } else {
                                                     res.send(200);
                                                 };
@@ -557,6 +573,7 @@ router.post('/settings', function (req, res){
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -574,15 +591,14 @@ router.post('/fridgeRecipes', function (req, res){
     db.collection('users').find({"_id": req.body._id},{"fridge":1}).toArray(function (err, users){
         if (err === null){
             if (users.length == 0){
-                console.log(req.body._id + " not found");
-                res.send(123);
+                res.send(404);
             } else {
                 var user = users[0];
                 // get all recipes
                 db.collection('recipes').find().toArray(function (err, recipes){
                     if (err === null){
                         if (recipes.length == 0){
-                            res.send(321);
+                            res.send(404);
                         } else {
                             // create array with the length of the number of recipes, create empty return array
                             var result = [recipes.length];
@@ -631,11 +647,13 @@ router.post('/fridgeRecipes', function (req, res){
                         };
                     } else {
                         res.send(500);
+                        throw err;
                     };
                 });
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });
@@ -651,6 +669,7 @@ router.post('/report', function (req, res){
             };
         } else {
             res.send(500);
+            throw err;
         };
     });
 });

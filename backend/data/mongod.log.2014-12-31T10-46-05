@@ -1,0 +1,50 @@
+Wed Dec 31 11:13:58 
+Wed Dec 31 11:13:58 warning: 32-bit servers don't have journaling enabled by default. Please use --journal if you want durability.
+Wed Dec 31 11:13:58 
+warning: some regex utf8 things will not work.  pcre build doesn't have --enable-unicode-properties
+Wed Dec 31 11:13:58 [initandlisten] MongoDB starting : pid=5484 port=27017 dbpath=/var/www/root/git/backend/data 32-bit host=raspberrypi
+Wed Dec 31 11:13:58 [initandlisten] 
+Wed Dec 31 11:13:58 [initandlisten] ** NOTE: This is a development version (2.1.1-pre-) of MongoDB.
+Wed Dec 31 11:13:58 [initandlisten] **       Not recommended for production.
+Wed Dec 31 11:13:58 [initandlisten] 
+Wed Dec 31 11:13:58 [initandlisten] ** NOTE: when using MongoDB 32 bit, you are limited to about 2 gigabytes of data
+Wed Dec 31 11:13:58 [initandlisten] **       see http://blog.mongodb.org/post/137788967/32-bit-limitations
+Wed Dec 31 11:13:58 [initandlisten] **       with --journal, the limit is lower
+Wed Dec 31 11:13:58 [initandlisten] 
+Wed Dec 31 11:13:58 [initandlisten] db version v2.1.1-pre-, pdfile version 4.5
+Wed Dec 31 11:13:58 [initandlisten] git version: 47fbbdceb21fc2b791d22db7f01792500647daa9
+Wed Dec 31 11:13:58 [initandlisten] build info: Linux raspberrypi 3.2.27+ #102 PREEMPT Sat Sep 1 01:00:50 BST 2012 armv6l BOOST_LIB_VERSION=1_49
+Wed Dec 31 11:13:58 [initandlisten] options: { dbpath: "/var/www/root/git/backend/data", fork: true, logpath: "/var/www/root/git/backend/data/mongod.log" }
+Wed Dec 31 11:13:59 [initandlisten] waiting for connections on port 27017
+Wed Dec 31 11:13:59 [websvr] admin web console waiting for connections on port 28017
+Wed Dec 31 11:14:43 [initandlisten] connection accepted from 127.0.0.1:42992 #1 (1 connection now open)
+Wed Dec 31 11:14:44 [conn1] end connection 127.0.0.1:42992 (0 connections now open)
+Wed Dec 31 11:14:59 [clientcursormon] mem (MB) res:16 virt:83 mapped:0
+Wed Dec 31 11:16:13 [initandlisten] connection accepted from 127.0.0.1:42993 #2 (1 connection now open)
+Wed Dec 31 11:16:13 [conn2] end connection 127.0.0.1:42993 (0 connections now open)
+Wed Dec 31 11:16:13 [initandlisten] connection accepted from 127.0.0.1:42994 #3 (1 connection now open)
+Wed Dec 31 11:16:13 [initandlisten] connection accepted from 127.0.0.1:42995 #4 (2 connections now open)
+Wed Dec 31 11:16:13 [initandlisten] connection accepted from 127.0.0.1:42996 #5 (3 connections now open)
+Wed Dec 31 11:16:13 [initandlisten] connection accepted from 127.0.0.1:42997 #6 (4 connections now open)
+Wed Dec 31 11:16:14 [initandlisten] connection accepted from 127.0.0.1:42998 #7 (5 connections now open)
+Wed Dec 31 11:16:59 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Wed Dec 31 11:21:59 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Wed Dec 31 11:26:59 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Wed Dec 31 11:31:59 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Wed Dec 31 11:36:59 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Wed Dec 31 11:41:59 [clientcursormon] mem (MB) res:32 virt:119 mapped:32
+Wed Dec 31 11:42:07 got signal 15 (Terminated), will terminate after current cmd ends
+Wed Dec 31 11:42:07 [interruptThread] now exiting
+Wed Dec 31 11:42:07 dbexit: 
+Wed Dec 31 11:42:07 [interruptThread] shutdown: going to close listening sockets...
+Wed Dec 31 11:42:07 [interruptThread] closing listening socket: 5
+Wed Dec 31 11:42:07 [interruptThread] closing listening socket: 6
+Wed Dec 31 11:42:07 [interruptThread] closing listening socket: 7
+Wed Dec 31 11:42:07 [interruptThread] removing socket file: /tmp/mongodb-27017.sock
+Wed Dec 31 11:42:07 [interruptThread] shutdown: going to flush diaglog...
+Wed Dec 31 11:42:07 [interruptThread] shutdown: going to close sockets...
+Wed Dec 31 11:42:07 [interruptThread] shutdown: waiting for fs preallocator...
+Wed Dec 31 11:42:07 [interruptThread] shutdown: closing all files...
+Wed Dec 31 11:42:07 [interruptThread] closeAllFiles() finished
+Wed Dec 31 11:42:07 [interruptThread] shutdown: removing fs lock...
+Wed Dec 31 11:42:07 dbexit: really exiting now
