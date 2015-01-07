@@ -76,13 +76,14 @@ this.edit = function(i)
 {
 	document.getElementById('fridge_input').value = this.fridge.fridge[i]._id;
 	document.getElementById('fridge_input_unit').value = this.fridge.fridge[i].unit;
-	document.getElementById('fridge_input_amount').value = this.fridge.fridge[i].amount;
-	if (this.ingredientList[i].unit == "St")
+	document.getElementById('fridge_input_amount').value = parseInt(this.fridge.fridge[i].amount);
+	if (this.fridge.fridge[i].unit == "St")
 	{
 		document.getElementById('fridge_input_amount').step = 1;
 	}
 	else
 	{
+		console.log("a");
 		document.getElementById('fridge_input_amount').step = 100;
 	}
 }

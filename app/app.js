@@ -17,14 +17,6 @@ angular.module('rezeptApp', [
 
 .controller('generalController', function($scope)
 {
-	$scope.fridge = [
-	{ name: 'Eier', count: 6, unit: 'st'},
-	{ name: 'Zucker', count: 500, unit: 'gr'},
-	{ name: 'Apfel', count: 3, unit: 'st'},
-	{ name: 'Milch', count: 1, unit: 'ml'},
-	{ name: 'Mehl', count: 400, unit: 'gr'},
-	{ name: 'Olivenöl', count: 6, unit: 'ml'}
-	];
 
 	$scope.getTimes=function(n)
 	{
