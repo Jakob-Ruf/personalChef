@@ -300,31 +300,3 @@
 	text-align: justify;
 	border-bottom: solid 1px rgba(50,50,50,0.7);
 }
-
-.new_rec_img_upload
-{
-	margin:10px;
-	padding-top:200px;
-}
-
-#new_rec_img_upload_hint
-{
-	font-size: 1.2em;
-	margin-bottom: 10px;
-}
-
-#rec_picture_submit
-{
-	font-size: 1.5em;
-	color: white;
-	float:right;
-	margin-right: 13px;
-	display: block;
-	padding-top: 4px;
-	width: calc(100% - 26px) ;
-	background-color: rgba(231, 76, 60,1.0);
-	border-radius: 5px;
-	border: 1px solid rgba(50,50,50,0.7);
-	margin-top: 20px;
-	margin-bottom: 20px;
-}

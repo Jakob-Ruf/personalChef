@@ -1,14 +1,21 @@
 var rezeptServices = angular.module('rezeptServices', ['ngResource']);
 
 rezeptServices.factory('rec_start', ['$resource', function($resource){
-    return $resource('http://personalChef.ddns.net:546/recipes/startscreen', {}, {
-      query: {method:'GET', params:{}, isArray:true, headers:{'Content-Type':'application/json; charset=UTF-8'}}
-    });
-  }]);
+  return $resource('http://personalChef.ddns.net:546/recipes/startscreen', {}, {
+    query: {method:'GET', params:{}, isArray:true, headers:{'Content-Type':'application/json; charset=UTF-8'}}
+  });
+}]);
 
 /* Factory zum Hinzufügen von Rezepten */
 rezeptServices.factory("rec_add", ['$resource', function($resource) {
-  return $resource("http://personalChef.ddns.net:546/recipes/add");
+  var resource = $resource("http://personalChef.ddns.net:546/recipes/add",{},{
+    post:{
+      method:"POST",
+      isArray:false,
+      headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'} 
+    },
+  });
+  return resource;
 }]);
 
 /* Factory zum Abruf der Rezeptliste */

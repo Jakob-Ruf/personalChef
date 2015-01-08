@@ -12,6 +12,7 @@ angular.module('rezeptApp', [
 	'rezeptApp.addRecipe',
 	'rezeptApp.rezept',
 	'rezeptApp.user',
+	'rezeptApp.userImgUpload',
 	'rezeptApp.notFound'
 	])
 

@@ -1,0 +1,17 @@
+<div class="scrollable">
+	<div class="scrollable-content section">
+		<div id="upload_current_img">
+			Dein Aktuelles Nutzerbild:
+			<img src="resource/user.jpg">
+		</div>
+		<div class="new_rec_img_upload">
+			<form action="http://personalchef.ddns.net:546/users/upload" method="post" enctype="multipart/form-data">
+				<div id="new_rec_img_upload_hint">Füge deinem Rezept ein individuelles Bild hinzu!</div>
+				<input type="file" id="upl_user_img" accept="image/*"/>
+				<input type="text" id="upl_user_name" name="name" hidden/>
+				<input type="submit" value="Bild hochladen" name="submit"  id="picture_submit">
+			</div>
+			<!-- TODO: Bild hochladen -->
+		</div>
+	</div>
+</div>
