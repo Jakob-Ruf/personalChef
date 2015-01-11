@@ -1,0 +1,18 @@
+<div class="scrollable">
+	<div class="scrollable-content section">
+		<div id="upload_current_img">
+			Aktuelles Rezeptbild:
+			<img ng-src="{{recImg}}">
+		</div>
+		<div class="new_rec_img_upload">
+			<form name="myForm" ng-submit="uploadPic(picFile)">
+				<div id="new_rec_img_upload_hint">Ändere hier das Rezeptbild!</div>
+				<input type="file" ng-file-select ng-model="picFile" name="file" accept="image/*" required>
+				<input type="submit" value="Bild hochladen" name="submit" id="picture_submit">
+				<span class="progress" ng-show="picFile[0].progress >= 0">
+					<div style="width:{{picFile[0].progress}}%" ng-bind="picFile[0].progress + '%'"></div>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
