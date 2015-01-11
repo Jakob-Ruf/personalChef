@@ -97,5 +97,10 @@ angular.module('rezeptApp.user', ['ngRoute'])
 	{
 		window.location = '#/rezept/' + this.user.favorites[i]._id;
 	}
+
+	this.redirect_edit_img = function()
+	{
+		window.location = '#/userImg';
+	}
 	
 }]);

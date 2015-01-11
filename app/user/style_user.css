@@ -66,6 +66,27 @@
 	background-color: rgba(30,30,30,0.3);
 }
 
+#user_edit_img
+{
+	padding-top:0.5em;
+	position: absolute;
+	text-align: center;
+	width: 3em;
+	height: 3em;
+	top: 15px;
+	right: 15px;
+	display: block;
+	background-color: rgba(231, 76, 60,0.8);
+	border-radius: 2em;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+}
+
+#user_edit_img .fa-pencil
+{
+	color: white;
+}
+
 .page-header
 {
 	padding-left: 5px;

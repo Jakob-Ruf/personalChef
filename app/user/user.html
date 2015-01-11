@@ -5,6 +5,9 @@
 		<div class="user_header_pic">
 			<img id="user_header_img" src="resource/user.jpg">
 			<div class="user_header_name"> {{userCtrl.user._id}} </div>
+			<div id="user_edit_img" ng-click="userCtrl.redirect_edit_img()">
+				<i class="fa fa-pencil fa-2x"></i>
+			</div>
 		</div>
 
 		<ui-state id='activeTab' default='1'></ui-state>
