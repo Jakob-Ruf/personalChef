@@ -6,7 +6,7 @@
 		</div>
 		<div class="new_rec_img_upload">
 			<form name="myForm" ng-submit="uploadPic(picFile)">
-				<div id="new_rec_img_upload_hint">Ändere hier dein aktuelles Nutzernild hinzu!</div>
+				<div id="new_rec_img_upload_hint">Ändere hier dein aktuelles Nutzernild!</div>
 				<input type="file" ng-file-select ng-model="picFile" name="file" accept="image/*" required>
 				<input type="submit" value="Bild hochladen" name="submit" id="picture_submit">
 				<span class="progress" ng-show="picFile[0].progress >= 0">

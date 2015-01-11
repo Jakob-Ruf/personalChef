@@ -36,9 +36,9 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
     		}).progress(function(evt) 
     		{
     			file.progress = parseInt(100.0 * evt.loaded / evt.total);
-    		}).success(function(data, status, headers, config) 
+    		}).success(function() 
     		{
-		        // file is uploaded successfully
+		        // Erfolgreicher upload sorgt für Weiterleitung zum Profil
 		        window.location = '#/user';
     		});
 		};

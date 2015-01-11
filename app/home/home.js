@@ -1,16 +1,22 @@
 angular.module('rezeptApp.home', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-		/* Routing zur Startseite mit Neuladen der Seite beim Aufrufen der Startseite */
-		$routeProvider.when('/', {
-			templateUrl: 'home/home.html',
-			controller: 'homeController as homeCtrl',
-			reloadOnSearch: true});
+	/* Routing zur Startseite mit Neuladen der Seite beim Aufrufen der Startseite */
+	$routeProvider.when('/', {
+		templateUrl: 'home/home.html',
+		controller: 'homeController as homeCtrl',
+		reloadOnSearch: true});
 }])
 
 .controller('homeController', function($scope, rec_start)
 {
-	$scope.rezepteHome = rec_start.query();
+	var rezepteHome = rec_start.query();
+	rezepteHome.$promise.then(function(data)
+	{
+		document.getElementById("loading").style.display = "none";
+		$scope.rezepteHome = data;
+	});
+
 
 	this.redirect = function(i, $event)
 	{

@@ -10,7 +10,13 @@ angular.module('rezeptApp.rezeptList', ['ngRoute'])
 
 .controller('rezeptListController', function($scope, rec_list){
 	this.switchState = 0;
-	this.rezeptListe = rec_list.query();
+
+	var d = rec_list.query();
+	d.$promise.then(function(data)
+	{
+		document.getElementById("loading").style.display = "none";
+		$scope.rezeptListe = data;
+	});
 
 	this.switch = function()
 	{
@@ -38,6 +44,6 @@ angular.module('rezeptApp.rezeptList', ['ngRoute'])
 
 	this.redirect = function(i)
 	{
-		window.location = '#/rezept/' + this.rezeptListe[i]._id;
+		window.location = '#/rezept/' + $scope.rezeptListe[i]._id;
 	}
 });

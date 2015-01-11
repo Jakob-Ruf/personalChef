@@ -45,5 +45,5 @@ rezeptServices.factory('ingredient_list', ['$resource', function($resource){
 
 /* Factory zum Abrufen der Userdaten */
 rezeptServices.factory('user_get', ['$resource', function($resource){
-  return $resource('http://personchef.ddns.net:546/users/:id');
+  return $resource('http://personalchef.ddns.net:546/users/:id');
 }])

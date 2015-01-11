@@ -13,10 +13,18 @@ angular.module('rezeptApp', [
 	'rezeptApp.rezept',
 	'rezeptApp.user',
 	'rezeptApp.userImgUpload',
-	'rezeptApp.notFound'
+	'rezeptApp.recImgUpload',
+	'rezeptApp.notFound',
+	'userService'
 	])
 
-.controller('generalController', function($scope)
+/* Erstellen einer globalen Variablen für den User */
+.value('user', {
+	name: "",
+	img: ""
+	})
+
+.controller('generalController',['$scope', 'setUser', function($scope, setUser)
 {
 
 	$scope.getTimes=function(n)
@@ -43,4 +51,4 @@ angular.module('rezeptApp', [
 		};
 	};
 
-});
+}]);
