@@ -10,10 +10,14 @@ angular.module('rezeptApp.home', ['ngRoute'])
 
 .controller('homeController', function($scope, rec_start)
 {
+	/* Variable mit der Anfrage */
 	var rezepteHome = rec_start.query();
+	/* Auszuführende Funktion wenn alle Daten vorliegen */
 	rezepteHome.$promise.then(function(data)
 	{
+		/* Ausblenden der Ladeanimation */
 		document.getElementById("loading").style.display = "none";
+		/* Setzen der anzuzeigenden Daten */
 		$scope.rezepteHome = data;
 	});
 

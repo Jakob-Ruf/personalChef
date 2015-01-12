@@ -4,7 +4,7 @@ userService.factory('setUser', ['user','user_get', function(user, user_get)
 {
 var userInfo = user_get.get({ id: "Sterling Archer" }, function() {/*Success*/},function()
 {
-	console.log("no");
+	console.log("Fehler beim Abrufen des Nutzers");
 });
 
 userInfo.$promise.then(function(data)

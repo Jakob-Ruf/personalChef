@@ -8,11 +8,54 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('rezeptController', ['$routeParams','rec_get',function($routeParams, rec_get) 
+.controller('rezeptController', ['$routeParams','rec_get','$scope','user',function($routeParams, rec_get,$scope,user) 
 {
-this.recipe = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
-{
-	/*Umleitung, falls Fehlermeldung*/
-	window.location = '#/nfError';
-});
+	/* Variable mit der Anfrage */
+	var d = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
+	{
+		/*Umleitung, falls Fehlermeldung*/
+		window.location = '#/nfError';
+	});
+
+	/* Auszuführende Funktion wenn alle Daten vorliegen */
+	d.$promise.then(function(data)
+	{
+		/* Ausblenden der Ladeanimation */
+		document.getElementById("loading").style.display = "none";
+		/* Setzen der anzuzeigenden Daten */
+		$scope.recipe = data;
+		/* Schwierigkeit farbig darstellen */
+		difficulty(data.difficulty);
+		console.log($scope.recipe);
+	});
+
+	/* Schwierigkeit farbig darstellen */
+	var difficulty = function(diff)
+	{
+		if (diff == 1) 
+		{
+			document.getElementById('re_pic').style.borderBottom= '5px solid green';
+		}
+		else if (diff == 2) 
+		{
+			document.getElementById('re_pic').style.borderBottom = '5px solid #ff8c00';
+		}
+		else if (diff == 3) 
+		{
+			document.getElementById('re_pic').style.borderBottom = '5px solid rgba(192, 57, 43,1.0)';
+		}
+	}
+
+	this.redirect_user = function()
+	{
+		if($scope.recipe.creator == user.name)
+			{
+				window.location = '#/user';
+			}
+			else
+			{
+				window.location = '#/nfError';
+			}
+	}
+	
 }])
