@@ -27,7 +27,7 @@
 		</ul>
 
 		<!-- Tab mit eigenen Rezepten -->
-		<div ui-if="activeTab == 1">
+		<div class="user_tab_content" ui-if="activeTab == 1">
 			<h3 class="page-header">Eigene Rezepte</h3>
 			<div class="user_rec" ng-repeat="own_rec in userCtrl.user.recipes" ng-click="userCtrl.own_redirect($index)">
 				<!-- TODO Anzeige von Platzhalter wenn keine Rezepte erstellt wurden -->
@@ -44,7 +44,7 @@
 		</div>
 
 		<!-- Tab mit den Auszeichnungen -->
-		<div ui-if="activeTab == 2">
+		<div class="user_tab_content" ui-if="activeTab == 2">
 			<h3 class="page-header">Auszeichnungen</h3>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -57,14 +57,14 @@
 		</div>
 
 		<!-- Tab mit Freunden -->
-		<div ui-if="activeTab == 3">
+		<div class="user_tab_content" ui-if="activeTab == 3">
 			<h3 class="page-header">Freunde</h3>
 			<div class="user_friend" ng-repeat="friend in userCtrl.user.friends" ng-click="userCtrl.friend_redirect($index)">
 				<div class="user_rec_name">{{friend._id}}</div>
 			</div>
 		</div>
 
-		<div ui-if="activeTab == 4">
+		<div class="user_tab_content" ui-if="activeTab == 4">
 			<h3 class="page-header">Statistiken</h3>
 			<div class="user_stat" id="user_bday">
 				<div id="user_bday_title">Geburtstag: </div>

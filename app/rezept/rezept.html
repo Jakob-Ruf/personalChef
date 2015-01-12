@@ -9,14 +9,14 @@
 				<img ng-src="{{recipe.image}}">
 				<div id="title">{{recipe._id}}</div>
 				<div id="time"><i class="fa fa-clock-o"></i> {{recipe.time}} min</div>
-				<div id="creator_img_container" ng-click="recCtrl.redirect_user()">
-					<div id="creater_img_helper">
+			</div>
+			<div id="creator_img_container" ng-click="recCtrl.redirect_user()">
+				<div id="creater_img_helper">
 					<img ng-src="{{recipe.creatorThumb}}">
-					</div>
 				</div>
 			</div>
 
-			<div id="rec_padding_content">
+			<div  ui-if="activeRecTab == 1" id="rec_padding_content">
 				<div id="rec_ingredients">
 					<h1>Zutaten</h1>
 					<ul>
@@ -28,6 +28,48 @@
 					<p>{{recipe.description}}</p>
 				</div>
 			</div>
+
+			<div  ui-if="activeRecTab == 2" id="rec_social_content">
+				<div id="rec_creator">
+					{{recipe.creator}}
+				</div>
+				<div id="rec_comments">
+					<div id="rec_comments_header">
+						Kommentare
+					</div>
+					<div class="rec_comment" ng-repeat="comment in recipe.comments">
+						<div class="rec_comment_content">
+							{{comment.content}}
+						</div>
+						<div class="rec_comment_author">
+							{{comment.author}}
+						</div>
+					</div>
+					<div id="rec_add_comment">
+						<div id="rec_add_comment_header">
+							Kommentar hinzufügen
+						</div>
+						<form ng-submit="recCtrl.addComment(newComment)">
+							<textarea id="rec_new_comment" ng-model="newComment" required></textarea>
+							<button id="rec_comment_commit" type="submit">Absenden</button>
+						</form>
+						
+					</div>
+				</div>
+
+			</div>
+			<ui-state id='activeRecTab' default='2'></ui-state>
+			<ul class="nav nav-tabs">
+				<li ui-class="{'active': activeRecTab == 1}">
+					<a ui-set="{'activeRecTab': 1}"><i class="fa fa-file-text-o fa-2x"></i></a>
+				</li>
+				<li ui-class="{'active': activeRecTab == 2}">
+					<a ui-set="{'activeRecTab': 2}"><i class="fa fa-comments-o fa-2x"></i></a>
+				</li>
+			</ul>
+
+
+
 		</div>
 	</div>
 </div>
