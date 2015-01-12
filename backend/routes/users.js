@@ -58,7 +58,7 @@ router.get('/flist', function (req, res){
 router.get('/list', function (req, res){
     var db = req.db;
     console.log(Date().toString() + ": List of users requested");
-    db.collection('users').find({}, {_id:1, favorites:1, image:1, badges:1, imageThumb:1 }).toArray(function (err, items) {
+    db.collection('users').find({}, {_id:1, favorites:1, image:1, badges:1, imageThumb:1, recipes:1 }).toArray(function (err, items) {
         if (err === null){
             if( items.length == 0){
                 res.send(404);
@@ -583,7 +583,7 @@ router.post('/fridgeRecipes', function (req, res){
     var db = req.db;
     var threshold = 0;
     if (req.body.threshold === null){
-        threshold = 0.2;
+        threshold = 0.5;
     } else {
         threshold = req.body.threshold;
     };

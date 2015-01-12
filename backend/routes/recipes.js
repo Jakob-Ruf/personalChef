@@ -159,7 +159,7 @@ router.get('/flist', function (req, res){
 router.get('/:rid', function (req, res) {
     var db = req.db;
     console.log(Date().toString() + ": Requested recipe " + req.params.rid);
-    db.collection('recipes').find({"_id": req.params.rid},{"_id":1,"comments":1,"creator":1,"description":1,"difficulty":1,"time":1, "image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items) {
+    db.collection('recipes').find({"_id": req.params.rid},{"_id":1,"comments":1,"creator":1,"creatorThumb":1,"description":1,"difficulty":1,"time":1, "image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items) {
         if (err === null){
             if( items.length == 0){
                 res.send(404);
@@ -180,26 +180,28 @@ router.post('/add', function (req, res){
     var dummyUrl = ""
     console.log(Date().toString() + ": Requested adding of recipe " + req.body._id);
     // check if all fields exist
+    console.log(req.body);
     if ( req.body._id === null || req.body.creator === null || req.body.description === null || req.body.difficulty === null || req.body.time === null){
         res.send(400);
     } else {
         // check if all fields are filled
-        if (req.body.id == "" || req.body.creator == "" || req.body.description.length < 100 || req.body.difficulty == "" || req.body.time == ""){
+        if (req.body._id == "" || req.body.creator == "" || req.body.description.length < 100 || req.body.difficulty == "" || req.body.time == ""){
             // check if recipe with _id already exists
             db.collection('recipes').find({"_id": req.body._id}).toArray(function (err, items) {
                 if (err === null){
                     if (items.length == 0){
                         // check if creating user exists in db
-                        db.collection('users').find({'_id': req.body.creator},{'_id':1}).toArray(function (err, users){
+                        db.collection('users').find({'_id': req.body.creator},{'_id':1,'imageThumb':1}).toArray(function (err, users){
                             if (err === null){
                                 if (users.length < 1){
                                     res.send(404);
                                 } else {
                                     // insert the image into the db
+                                    var user = users[0];
                                     db.collection('recipes').insert(req.body, function (err, result){
                                         if (err === null){
                                             // set the image to a dummy image
-                                            db.collection('recipes').update({"_id": req.body._id},{$set:{"image":"backend/imgs/recipes/dummy.jpg"}}, function (err, result){
+                                            db.collection('recipes').update({"_id": req.body._id},{$set:{"image":"backend/imgs/recipes/dummy.jpg","creatorThumb": user.imageThumb}}, function (err, result){
                                                 if (err === null){
                                                     if (result == 0){
                                                         db.collection('users').update({'_id': req.body.creator}, {$push: {'recipes': {'_id': req.body._id, 'ratings_average': 0, 'likes_amount': 0}}}, function (err, result){

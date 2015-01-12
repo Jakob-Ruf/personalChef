@@ -1,0 +1,28 @@
+Mon Jan 12 14:54:53 
+Mon Jan 12 14:54:53 warning: 32-bit servers don't have journaling enabled by default. Please use --journal if you want durability.
+Mon Jan 12 14:54:53 
+warning: some regex utf8 things will not work.  pcre build doesn't have --enable-unicode-properties
+Mon Jan 12 14:54:53 [initandlisten] MongoDB starting : pid=23927 port=27017 dbpath=/var/www/root/git/backend/data 32-bit host=raspberrypi
+Mon Jan 12 14:54:53 [initandlisten] 
+Mon Jan 12 14:54:53 [initandlisten] ** NOTE: This is a development version (2.1.1-pre-) of MongoDB.
+Mon Jan 12 14:54:53 [initandlisten] **       Not recommended for production.
+Mon Jan 12 14:54:53 [initandlisten] 
+Mon Jan 12 14:54:53 [initandlisten] ** NOTE: when using MongoDB 32 bit, you are limited to about 2 gigabytes of data
+Mon Jan 12 14:54:53 [initandlisten] **       see http://blog.mongodb.org/post/137788967/32-bit-limitations
+Mon Jan 12 14:54:53 [initandlisten] **       with --journal, the limit is lower
+Mon Jan 12 14:54:53 [initandlisten] 
+Mon Jan 12 14:54:53 [initandlisten] db version v2.1.1-pre-, pdfile version 4.5
+Mon Jan 12 14:54:53 [initandlisten] git version: 47fbbdceb21fc2b791d22db7f01792500647daa9
+Mon Jan 12 14:54:53 [initandlisten] build info: Linux raspberrypi 3.2.27+ #102 PREEMPT Sat Sep 1 01:00:50 BST 2012 armv6l BOOST_LIB_VERSION=1_49
+Mon Jan 12 14:54:53 [initandlisten] options: { dbpath: "/var/www/root/git/backend/data", fork: true, logpath: "/var/www/root/git/backend/logs/mongod.log" }
+Mon Jan 12 14:54:54 [initandlisten] waiting for connections on port 27017
+Mon Jan 12 14:54:54 [websvr] admin web console waiting for connections on port 28017
+Mon Jan 12 14:54:54 [initandlisten] connection accepted from 127.0.0.1:45507 #1 (1 connection now open)
+Mon Jan 12 14:54:54 [initandlisten] connection accepted from 127.0.0.1:45508 #2 (2 connections now open)
+Mon Jan 12 14:54:54 [initandlisten] connection accepted from 127.0.0.1:45509 #3 (3 connections now open)
+Mon Jan 12 14:54:54 [initandlisten] connection accepted from 127.0.0.1:45510 #4 (4 connections now open)
+Mon Jan 12 14:54:54 [initandlisten] connection accepted from 127.0.0.1:45511 #5 (5 connections now open)
+Mon Jan 12 14:54:58 [initandlisten] connection accepted from 127.0.0.1:45512 #6 (6 connections now open)
+Mon Jan 12 14:55:11 [conn6] end connection 127.0.0.1:45512 (5 connections now open)
+Mon Jan 12 14:55:54 [clientcursormon] mem (MB) res:32 virt:120 mapped:32
+Mon Jan 12 15:00:54 [clientcursormon] mem (MB) res:16 virt:120 mapped:32
