@@ -1,13 +1,10 @@
 <div class="scrollable" >
-	<div class="scrollable-content section" id="user_content">
+	<div class="scrollable-content section" id="users_content">
 
 		<!-- Container für Benutzerbild und Namen -->
 		<div class="user_header_pic">
 			<img id="user_header_img" src="resource/user.jpg">
-			<div class="user_header_name"> {{userCtrl.user._id}} </div>
-			<div id="user_edit_img" ng-click="userCtrl.redirect_edit_img()">
-				<i class="fa fa-pencil fa-2x"></i>
-			</div>
+			<div class="user_header_name"> {{usersCtrl.user._id}} </div>
 		</div>
 
 		<ui-state id='activeTab' default='1'></ui-state>
@@ -20,9 +17,6 @@
 			</li>
 			<li ui-class="{'active': activeTab == 3}">
 				<a ui-set="{'activeTab': 3}"><i class="fa fa-user fa-2x"></i></a>
-			</li>
-			<li ui-class="{'active': activeTab == 4}">
-				<a ui-set="{'activeTab': 4}"><i class="fa fa-bar-chart fa-2x"></i></a>
 			</li>
 		</ul>
 
@@ -63,18 +57,5 @@
 				<div class="user_rec_name">{{friend._id}}</div>
 			</div>
 		</div>
-
-		<div ui-if="activeTab == 4">
-			<h3 class="page-header">Statistiken</h3>
-			<div class="user_stat" id="user_bday">
-				<div id="user_bday_title">Geburtstag: </div>
-				<div id="user_bday_date">{{userCtrl.user.profile.date_birthday.day}}.{{userCtrl.user.profile.date_birthday.month}}.{{userCtrl.user.profile.date_birthday.year}}</div>
-			</div>
-			<div class="user_stat" id="user_member_since">
-				<div id="user_bday_title">Mitglied seit: </div>
-				<div id="user_bday_date">{{userCtrl.user.profile.date_joined.day}}.{{userCtrl.user.profile.date_joined.month}}.{{userCtrl.user.profile.date_joined.year}}</div>
-			</div>
-		</div>
-
 	</div>
 </div>
