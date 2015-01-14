@@ -41,13 +41,15 @@ this.addComment = function(comment)
 {
 	/* Variable welche vor dem pushen gefüllt wird */
 	var temp = {
-		comment: "",
-		author: "",
+		content: comment,
+		author:  user.name,
+		activity: "add",
+		recipe: $routeParams._id
 	};
-	temp.content = comment;
-	temp.author = user.name;
 	/* Zurücksetzen des Textfeldes */
 	document.getElementById("rec_new_comment").value = "";
+	/* Absenden des Kommentares an das Backend */
+	rec_comment.save(temp);
 	/* Hinzfügen des neuen Kommentares zum bestehenden Array */
 	$scope.recipe.comments.push(temp);
 }
