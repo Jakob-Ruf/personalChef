@@ -1,42 +1,71 @@
+<!-- Definition des scrollbaren App-Contents -->
 <div class="scrollable">
 	<div class="scrollable-content section" id="rec_content">
 
+		<!-- Ladeanimation während mit dem Server kommuniziert wird -->
 		<div id="loading">
 			<i class="fa fa-spinner fa-spin fa-3x"></i>
 		</div>
+
+		<!-- Rezeptansicht -->
 		<div id="recipe_content">
+
+			<!-- Bild des Rezeptes -->
 			<div id="re_pic">
 				<img ng-src="{{recipe.image}}">
 				<div id="title">{{recipe._id}}</div>
 				<div id="time"><i class="fa fa-clock-o"></i> {{recipe.time}} min</div>
+				<!-- Button zur Änderung des Rezeptbildes, wird nur angezeigt, wenn der User = der Rezeptersteller -->
 				<div id="rec_edit_img" ng-show="recCtrl.checkUser(recipe.creator)" ng-click="recCtrl.redirect_ImgUpload()">
 					<i class="fa fa-pencil fa-2x"></i>
 				</div>
 			</div>
+
+			<!-- Bild des Rezepterstellers -->
 			<div id="creator_img_container" ng-click="recCtrl.redirect_user()">
 				<div id="creater_img_helper">
 					<img ng-src="{{recipe.creatorThumb}}">
 				</div>
 			</div>
 
+			<!-- Tab 1 mit Zutaten und Zubereitung -->
 			<div  ui-if="activeRecTab == 1" id="rec_padding_content">
+
+				<!-- Zutaten des Rezeptes -->
 				<div id="rec_ingredients">
 					<h1>Zutaten</h1>
 					<ul>
-						<li ng-repeat="ingredient in recipe.ingredients">{{ingredient.amount}} {{ingredient.unit}} {{ingredient._id}}</li>
+
+						<!-- pro Zutat wird mit ng-repeat ein Listenelement erstellt -->
+						<li ng-repeat="ingredient in ingredients">{{ingredient.amount}} {{ingredient.unit}} {{ingredient._id}}</li>
 					</ul>
 				</div>
+
+				<!-- Einstellung der Portionsgröße -->
+				<div id="rec_size">
+					Portionsgröße
+					<input id="rec_size_input" type="number" ng-model="ingSize" ng-change="recCtrl.calcIngr(ingSize)" min="1">
+				</div>
+
+				<!-- Abschnitt für die Instruktionen zur korrekten Zubereitung -->
 				<div id="rec_instructions">
 					<h1>Zubereitung</h1>
 					<p>{{recipe.description}}</p>
 				</div>
+
+				<!-- Button zum bestätigen, dass ein Rezept gekocht wurde -->
+				<button id="rec_cooked" ng-click="recCtrl.recCooked()"><i class="fa fa-check fa-fw"></i>Rezept gekocht </button>
 			</div>
 
+			<!-- Tab 2 mit den social features, wie Rezepte liken, bewerten und kommentieren -->
 			<div  ui-if="activeRecTab == 2" id="rec_social_content">
+
+				<!-- Anzeige des Erstellers mit Weiterleitung auf sein Nutzprofil -->
 				<div id="rec_creator" ng-click="recCtrl.redirect_user()">
 					{{recipe.creator}}
 				</div>
 
+				<!-- Container für Bewertungen und Likes -->
 				<div id="rec_ratings">
 					<div id="rec_ratings_header">
 						<div id="rec_like_header">
@@ -46,23 +75,37 @@
 							Bewertung
 						</div>
 					</div>
+
+					<!-- Abschnitt für Likes eines Nutzers -->
 					<div id="rec_like">
 						<div id="rec_like_count">
 							{{recLikes.size}}
 						</div>
+
+						<!-- Anzeige eines ausgefüllten Herzens, wenn der Nutzer des Rezept geliket hat -->
 						<div id="rec_like_false" ng-show="!recLikes.userLike" ng-click="recCtrl.setLike(true)">
 							<i class="fa fa-heart-o fa-2x"></i>
 						</div>
+
+						<!-- Anzeige eines leeren Herzens, falls es noch nicht geliket wurd -->
 						<div id="rec_like_true" ng-show="recLikes.userLike" ng-click="recCtrl.setLike(false)">
 							<i class="fa fa-heart fa-2x"></i>
 						</div>
 					</div>
+
+					<!-- Abschnitt für die Bewertung des Rezepts -->
 					<div id="rec_rate">
 						<div id="rec_rating">
 							{{recipe.ratings_average}}
 						</div>
+
+						<!-- Abschnitt für die Sterne der Bewertung. -->
 						<div id="rec_rating_stars">
+
+							<!-- Ausgefüllter Stern, falls die Bewertung <= den Werten 1 bis 5 ist -->
 							<i class="fa fa-star fa-2x" ng-show="1 <= recipe.ratings_average" ng-click="recCtrl.recRate(1)"></i>
+
+							<!-- Leerer Stern, falls die Bewertung entsprechend > den Werten 1 bis 5 ist -->
 							<i class="fa fa-star-o fa-2x" ng-show="1 > recipe.ratings_average" ng-click="recCtrl.recRate(1)"></i>
 							<i class="fa fa-star fa-2x" ng-show="2 <= recipe.ratings_average" ng-click="recCtrl.recRate(2)"></i>
 							<i class="fa fa-star-o fa-2x" ng-show="2 > recipe.ratings_average" ng-click="recCtrl.recRate(2)"></i>
@@ -73,51 +116,64 @@
 							<i class="fa fa-star fa-2x" ng-show="5 <= recipe.ratings_average" ng-click="recCtrl.recRate(5)"></i>
 							<i class="fa fa-star-o fa-2x" ng-show="5 > recipe.ratings_average" ng-click="recCtrl.recRate(5)"></i>
 						</div>
-
 					</div>
-
 				</div>
+
+				<!-- Abschnitt für die Kommentare -->
 				<div id="rec_comments">
 					<div id="rec_comments_header">
 						Kommentare
 					</div>
+
+					<!-- Für jeden Kommentar zu dem Rezept wird mittels ng-repeat ein neuer Abschnitt erstellt -->
 					<div class="rec_comment" ng-repeat="comment in recipe.comments">
 						<div class="rec_comment_content">
 							{{comment.content}}
 						</div>
+
+						<!-- Ist der Nutzer der ersteller des Kommentars, so bekommt er einen Button zum löschen angezeigt -->
 						<div class="rec_comment_delete" ng-show="recCtrl.showRemove(comment,$index)" ng-click="recCtrl.removeComment(comment)">
 							<i class="fa fa-times"></i>
 						</div>
+
+						<!-- Verfasser des Kommentares -->
 						<div class="rec_comment_author">
 							{{comment.author}}
 						</div>
 					</div>
+
+					<!-- Abschnitt um Kommentare hinzuzufügen und Rezepte zu melden -->
 					<div id="rec_add_comment">
 						<div id="rec_add_comment_header">
 							Kommentar hinzufügen
 						</div>
 						<form ng-submit="recCtrl.addComment(newComment)">
 							<textarea id="rec_new_comment" ng-model="newComment" required></textarea>
+
+							<!-- Rezepte können den Admins gemeldet werden -->
 							<button id="rec_report_commit" ng-click="recCtrl.recAlert(newComment)" type="button">Melden</button>
+
+							<!-- Rezept wird ein Kommentar hinzugefügt. Dieser erscheint sofort -->
 							<button id="rec_comment_commit" type="submit">Absenden</button>
 						</form>
-						
 					</div>
 				</div>
-
 			</div>
+
+			<!-- Initialisierung der Tab-Struktur. Standard-Tab ist der mit der Nummer 1 -->
 			<ui-state id='activeRecTab' default='1'></ui-state>
 			<ul class="nav nav-tabs">
+
+				<!-- Umschalten auf Tab 1, mit erneutem initialisieren der Portionsgröße -->
 				<li ui-class="{'active': activeRecTab == 1}">
-					<a ui-set="{'activeRecTab': 1}"><i class="fa fa-file-text-o fa-2x"></i></a>
+					<a ui-set="{'activeRecTab': 1}" ng-click="recCtrl.loadPortSize()"><i class="fa fa-file-text-o fa-2x"></i></a>
 				</li>
+
+				<!-- Umschalten auf Tab 2 -->
 				<li ui-class="{'active': activeRecTab == 2}">
 					<a ui-set="{'activeRecTab': 2}"><i class="fa fa-comments-o fa-2x"></i></a>
 				</li>
 			</ul>
-
-
-
 		</div>
 	</div>
 </div>

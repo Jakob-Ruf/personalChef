@@ -121,6 +121,22 @@
 	min-width:100%;
 }
 
+#rec_size
+{
+	width: 100%;
+	display: block;
+	text-align: right;
+	margin-bottom: 5px;
+}
+
+#rec_size_input
+{
+	border: none;
+	margin-left: 10px;
+	width: 5em;
+	float: right;
+}
+
 #recipe_content .nav li
 {
 	width: 50%;
@@ -314,4 +330,19 @@
 #rec_edit_img .fa-pencil
 {
 	color: white;
+}
+
+#rec_cooked
+{
+	margin-top: 5px;
+	margin-bottom: 60px;
+	font-size: 1.5em;
+	color: white;
+	float:left;
+	display: block;
+	padding-top: 4px;
+	width: 100%;
+	background-color: rgba(231, 76, 60,1.0);
+	border-radius: 5px;
+	border: 1px solid rgba(50,50,50,0.7);
 }

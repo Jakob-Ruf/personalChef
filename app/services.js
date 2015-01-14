@@ -116,5 +116,17 @@ rezeptServices.factory('rec_like', ['$resource', function($resource){
   return resource;
 }])
 
+/* Factory zum Mitteilen, dass ein Rezept gekocht wurde */
+rezeptServices.factory('rec_cooked', ['$resource', function($resource){
+  var resource = $resource("http://personalchef.ddns.net:546//recipes/cooked",{},{
+    post:{
+      method:'POST',
+      isArray:false,
+      headers:{'Content-Type':'application/json; charset=UTF-8'} 
+    },
+  });
+  return resource;
+}])
+
 
 

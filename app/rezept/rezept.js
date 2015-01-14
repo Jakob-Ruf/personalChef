@@ -8,7 +8,7 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('RezeptController', ['$routeParams','rec_get','$scope','user','rec_rate','rec_alert','rec_comment','rec_like',function($routeParams, rec_get,$scope,user,rec_rate,rec_alert,rec_comment,rec_like) 
+.controller('RezeptController', ['$routeParams','rec_get','$scope','user','rec_rate','rec_alert','rec_comment','rec_like','rec_cooked',function($routeParams, rec_get,$scope,user,rec_rate,rec_alert,rec_comment,rec_like,rec_cooked) 
 {
 	$scope.recLikes = { size: '', userLike: false};
 var d = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
@@ -17,8 +17,7 @@ var d = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function(
 	window.location = '#/nfError';
 });
 
-/* Notwendige Variable zur korrekten Darstellung der Likes eines Rezeptes */
-
+var portionSize = 1;
 
 /* Auszuführende Funktion wenn alle Daten vorliegen */
 d.$promise.then(function(data)
@@ -27,6 +26,7 @@ d.$promise.then(function(data)
 	document.getElementById('loading').style.display = 'none';
 	/* Setzen der anzuzeigenden Daten */
 	$scope.recipe = data;
+	$scope.ingredients = data.ingredients;
 	/* Schwierigkeit farbig darstellen */
 	difficulty(data.difficulty);
 	/* Anzahl der Likes festlegen */
@@ -42,6 +42,9 @@ d.$promise.then(function(data)
 	if (likeHelper == 1) {
 		$scope.recLikes.userLike = true;
 	}
+
+	/* Standardportionsgröße wird auf 1 gesetzt */
+	document.getElementById('rec_size_input').value = portionSize;
 	console.log($scope.recipe);
 });
 /* Schwierigkeit farbig darstellen */
@@ -178,5 +181,37 @@ this.recAlert = function(comm)
 	document.getElementById("rec_new_comment").value = "";
 }
 
+/* Funktion zur Anpassung der Portiongröße */
+this.calcIngr = function(val)
+{
+	if (val > 0) 
+	{
+		for (var i = 0; i < $scope.ingredients.length; i++) 
+		{
+			$scope.ingredients[i].amount = $scope.ingredients[i].amount / portionSize * val;
+		};
+		portionSize = val;
+	};
+
+}
+
+/* Erneutes Laden der Portionsgröße, damit die Anzeige korrekt bleibt */
+this.loadPortSize = function()
+{
+	document.getElementById('rec_size_input').value = portionSize;
+}
+
+this.recCooked = function()
+{
+	var temp = {
+		recipe: $routeParams._id,
+		user: user.name
+	};
+	var c = rec_cooked.save(temp);
+	c.$promise.then(function(data)
+	{
+		console.log("Erfolgreich übertragen.. Antwort: " + data);
+	})
+}
 
 }])
