@@ -25,7 +25,7 @@ angular.module('rezeptApp', [
 	img: ""
 	})
 
-.controller('generalController',['$scope', 'setUser', function($scope, setUser)
+.controller('GeneralController',['$scope', 'setUser', function($scope, setUser)
 {
 
 	$scope.getTimes=function(n)

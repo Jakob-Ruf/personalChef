@@ -4,11 +4,11 @@ angular.module('rezeptApp.user', ['ngRoute'])
 	/* Routing zum eigenen Userprofil mit Aktualisierung bei Aufruf */
 	$routeProvider.when('/user', {
 		templateUrl: 'user/user.html',
-		controller: 'userController as userCtrl',
+		controller: 'UserController as userCtrl',
 		reloadOnSearch: true});
 }])
 
-.controller('userController', ['$scope', function($scope){
+.controller('UserController', ['$scope', function($scope){
 	this.user = {
 		_id: 'Sterling Archer',
 		badges: [

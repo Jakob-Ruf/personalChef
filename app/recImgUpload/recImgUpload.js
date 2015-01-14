@@ -5,11 +5,11 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/recImg/:_id', {
 		templateUrl: 'recImgUpload/recImgUpload.html',
-		controller: 'recImgController as recImgCtrl',
+		controller: 'RecImgController as recImgCtrl',
 		reloadOnSearch: true});
 }])
 
-.controller('recImgController',['$routeParams','rec_get', '$scope','$upload', 'user', function($routeParams, rec_get, $scope, $upload, user){
+.controller('RecImgController',['$routeParams','rec_get', '$scope','$upload', 'user', function($routeParams, rec_get, $scope, $upload, user){
 
 	var d = rec_get.get({id: $routeParams._id});
 	d.$promise.then(function(data)

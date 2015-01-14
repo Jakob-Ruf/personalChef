@@ -5,13 +5,13 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/fridge', {
 		templateUrl: 'fridge/fridge.html',
-		controller: 'fridgeController as fridgeCtrl',
+		controller: 'FridgeController as fridgeCtrl',
 		reloadOnSearch: true});
 }])
 
-.controller('fridgeController', ['fridge_get','fridge_put','ingredient_list','$scope', function(fridge_get, fridge_put,ingredient_list, $scope){
+.controller('FridgeController', ['fridge_get','fridge_put','ingredient_list','$scope', function(fridge_get, fridge_put,ingredient_list, $scope){
 	/* Switch zur Anzeige von Autocomplete */
-	var autoSwitch = 0;
+	var autoSwitch = false;
 
 	/* TODO User dynamisch anpassen */
 	this.editItem = {
@@ -19,6 +19,14 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		ingredient: '',
 		amount: ''
 	};
+
+	/* Abrufen der möglichen Zutaten */
+	var d1 = ingredient_list.query();
+	d1.$promise.then(function(data)
+	{
+		$scope.ingredientList = data;
+		console.log(data);
+	});
 
 	this.refreshData = function(times)
 	{
@@ -43,12 +51,7 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 				}
 			});
 		}
-		/* Abrufen der möglichen Zutaten */
-		var d1 = ingredient_list.query();
-		d1.$promise.then(function(data)
-		{
-			$scope.ingredientList = data;
-		});
+
 	}
 
 	/* Daten initial abrufen */
@@ -75,6 +78,8 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 	{
 		document.getElementById('fridge_input').value = $scope.ingredientList[i]._id;
 		document.getElementById('fridge_input_unit').value = $scope.ingredientList[i].unit;
+		document.getElementById('fridge_input_amount').focus();
+		document.getElementById('fridge_autocomplete_list').style.display = 'none';
 		if ($scope.ingredientList[i].unit == "St")
 		{
 			document.getElementById('fridge_input_amount').step = 1;
@@ -100,17 +105,17 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		}
 	}
 
-	this.switch_autocomplete = function()
+	this.switch_autocomplete = function(a)
 	{
-		if (autoSwitch == 0) 
+		if (a) 
 		{
 			document.getElementById('fridge_autocomplete_list').style.display = 'block';
-			autoSwitch = 1;
+			autoSwitch = true;
 		}
 		else
 		{
 			document.getElementById('fridge_autocomplete_list').style.display = 'none';
-			autoSwitch = 0;
+			autoSwitch = false;
 		}
 	}
 	/* Vorräte reduzieren */
@@ -155,7 +160,6 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		this.editItem.ingredient = $scope.fridge.fridge[i]._id;
 		this.editItem.amount = 0;
 		fridge_put.save({},this.editItem);
-		$scope.ingredientList = ingredient_list.query();
 		this.refreshData(5);
 		clearInput();
 	}

@@ -4,11 +4,11 @@ angular.module('rezeptApp.home', ['ngRoute'])
 	/* Routing zur Startseite mit Neuladen der Seite beim Aufrufen der Startseite */
 	$routeProvider.when('/', {
 		templateUrl: 'home/home.html',
-		controller: 'homeController as homeCtrl',
+		controller: 'HomeController as homeCtrl',
 		reloadOnSearch: true});
 }])
 
-.controller('homeController', function($scope, rec_start)
+.controller('HomeController', function($scope, rec_start)
 {
 	/* Variable mit der Anfrage */
 	var rezepteHome = rec_start.query();

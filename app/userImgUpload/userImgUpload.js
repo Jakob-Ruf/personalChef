@@ -5,11 +5,11 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/userImg', {
 		templateUrl: 'userImgUpload/userImgUpload.html',
-		controller: 'userImgController as userImgCtrl',
+		controller: 'UserImgController as userImgCtrl',
 		reloadOnSearch: true});
 }])
 
-.controller('userImgController',['$scope','$upload', function($scope, $upload){
+.controller('UserImgController',['$scope','$upload', function($scope, $upload){
 
 	$scope.uploadPic = function(files) {
 		if (files != null) 

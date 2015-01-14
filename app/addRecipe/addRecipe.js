@@ -4,11 +4,11 @@ angular.module('rezeptApp.addRecipe', ['ngRoute'])
 	/* Routing zum Rezepterstellen ohne Aktualisierung bei Aufruf */
 	$routeProvider.when('/addRezept', {
 		templateUrl: 'addRecipe/addRecipe.html',
-		controller: 'newRecipeController as newRCtrl',
+		controller: 'NewRecipeController as newRCtrl',
 		reloadOnSearch: false});
 }])
 
-.controller('newRecipeController', function($scope, rec_add)
+.controller('NewRecipeController', function($scope, rec_add)
 {
 	this.newRec = {
 		_id: '',

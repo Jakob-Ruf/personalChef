@@ -8,7 +8,7 @@
 				<div class="fridge_form">
 
 					<!-- Eingabefeld für Zutaten -->
-					<input type="text" ng-model="fridge_input_text._id" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete()" ng-blur="fridgeCtrl.switch_autocomplete()" autocomplete="off" required>
+					<input type="text" ng-model="fridge_input_text._id" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete(true)"  ng-blur="fridgeCtrl.switch_autocomplete(false)" autocomplete="off" required>
 					<input type="number"  ng-model="fridge_input_text.amount" id="fridge_input_amount" min="0" placeholder="Menge" autocomplete="off" required>
 					<input type="text" id="fridge_input_unit" disabled="true" required>
 					<!-- Button zum Hinzufügen -->

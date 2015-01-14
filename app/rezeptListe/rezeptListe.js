@@ -4,11 +4,11 @@ angular.module('rezeptApp.rezeptList', ['ngRoute'])
 		/* Routing zur Rezeptliste mit Aktualisierung bei Aufruf */
 		$routeProvider.when('/rezepte', {
 			templateUrl: 'rezeptListe/rezeptListe.html',
-			controller: 'rezeptListController as rezeptLCtrl',
+			controller: 'RezeptListController as rezeptLCtrl',
 			reloadOnSearch: true});
 }])
 
-.controller('rezeptListController', function($scope, rec_list){
+.controller('RezeptListController', function($scope, rec_list){
 	this.switchState = 0;
 
 	var d = rec_list.query();
