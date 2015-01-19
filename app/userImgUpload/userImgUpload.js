@@ -9,8 +9,9 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 		reloadOnSearch: true});
 }])
 
-.controller('UserImgController',['$scope','$upload', function($scope, $upload){
+.controller('UserImgController',['$scope','$upload','user', function($scope, $upload,user){
 
+	$scope.img = user.image;
 	$scope.uploadPic = function(files) {
 		if (files != null) 
 		{
@@ -19,11 +20,11 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 			/* Auslesen des Dateityps. Notwendig für Namensanpassung des Bildes */
 			if (file.type == "image/png") 
 			{
-				name = "Sterling Archer.png";
+				name = user.name+".png";
 			}
 			else if (file.type == "image/jpeg")
 			{
-				name = "Sterling Archer.jpg";
+				name = user.name+".jpg";
 			}
 			console.log(file);
 			$upload.upload(

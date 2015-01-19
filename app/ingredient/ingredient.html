@@ -1,0 +1,42 @@
+<div class="scrollable" >
+	<div class="scrollable-content section" id="ingredient_content">
+
+	<div id="ing_header">
+		{{ingredientDetail.name}}
+	</div>
+	<div id="ing_general_info">
+		<div id="bez">
+			Hersteller:
+		</div>
+		<div id="bez_info">
+			{{ingredientDetail.producer}}
+		</div>
+		<div id="bez">
+			Typ:
+		</div>
+		<div id="bez_info">
+			{{ingredientDetail.type}}
+		</div> 
+	</div>
+
+	<div id="ing_contents" ng-show="ingredientDetail.contents">
+		Inhaltsstoffe:
+	</div>
+	<div id="ing_contents_container" ng-repeat="content in ingredientDetail.contents | orderBy : 'name' ">
+		<div id="ing_name">
+			{{content.name}}
+		</div>
+		<div id="ing_amount">
+			{{content.amount}}
+		</div>
+		<div id="ing_unit">
+			{{content.unit}}
+		</div>
+	</div>
+
+	<div id="ing_buttons">
+		<button>Rezepte mit {{ingredientDetail.type}} suchen</button>
+		<button>{{ingredientDetail.type}} in den Kühlschrank</button>
+	</div>
+	</div>
+</div>

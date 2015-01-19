@@ -9,13 +9,13 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('FridgeController', ['fridge_get','fridge_put','ingredient_list','$scope', function(fridge_get, fridge_put,ingredient_list, $scope){
+.controller('FridgeController', ['fridge_get','fridge_put','ingredient_list','$scope','user', function(fridge_get, fridge_put,ingredient_list, $scope,user){
 	/* Switch zur Anzeige von Autocomplete */
 	var autoSwitch = false;
 
 	/* TODO User dynamisch anpassen */
 	this.editItem = {
-		_id: 'Paul Pimmel',
+		_id: user.name,
 		ingredient: '',
 		amount: ''
 	};
@@ -40,7 +40,7 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		{
 			/* Abrufen des Inhaltes */
 			/* TODO User dynamisch anpassen */
-			var d = fridge_get.get({id: 'Paul Pimmel'});
+			var d = fridge_get.get({id: user.name});
 			d.$promise.then(function(data)
 			{
 				document.getElementById("loading").style.display = "none";

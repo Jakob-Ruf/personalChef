@@ -16,40 +16,60 @@ angular.module('rezeptApp', [
 	'rezeptApp.userImgUpload',
 	'rezeptApp.recImgUpload',
 	'rezeptApp.notFound',
-	'userService'
+	'rezeptApp.ingredient',
+	'rezeptApp.tutorial'
 	])
 
 /* Erstellen einer globalen Variablen für den User */
 .value('user', {
 	name: "",
-	img: ""
-	})
+	image: ""
+})
 
-.controller('GeneralController',['$scope', 'setUser', function($scope, setUser)
+.controller('GeneralController',['$scope','user','user_get', function($scope, user, user_get)
+{
+var userInfo = user_get.get({ id: "Sterling Archer" }, function() {/*Success*/},function()
+{
+	console.log("Fehler beim Abrufen des Nutzers");
+});
+
+userInfo.$promise.then(function(data)
+{
+	console.log(data);
+	$scope.profile = {
+	name : data._id,
+	image : data.image
+};
+	user.name = data._id;
+	user.image = data.image;
+});
+
+if (user.name == "") {
+	window.location = '#/';
+};
+
+$scope.getTimes=function(n)
+{
+	return new Array(n);
+};
+
+/* @todo: Löschen... */
+$scope.log=function(n)
 {
 
-	$scope.getTimes=function(n)
-	{
-		return new Array(n);
-	};
+};
 
-	/* @todo: Löschen... */
-	$scope.log=function(n)
+/* Einfärben der nötigen Sterne */
+$scope.ratingIsActive = function(starId, rezept)
+{
+	if (starId <= rezept.ratings_average) 
 	{
-		
-	};
-
-	/* Einfärben der nötigen Sterne */
-	$scope.ratingIsActive = function(starId, rezept)
+		return 'r_active';
+	}
+	else
 	{
-		if (starId <= rezept.ratings_average) 
-		{
-			return 'r_active';
-		}
-		else
-		{
-			return 'r_inactive';
-		};
+		return 'r_inactive';
 	};
+};
 
 }]);

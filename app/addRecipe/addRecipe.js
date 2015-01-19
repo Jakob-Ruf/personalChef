@@ -8,14 +8,14 @@ angular.module('rezeptApp.addRecipe', ['ngRoute'])
 		reloadOnSearch: false});
 }])
 
-.controller('NewRecipeController', function($scope, rec_add)
+.controller('NewRecipeController', function($scope, rec_add,user)
 {
 	this.newRec = {
 		_id: '',
 		time: '',
 		description: '',
 		difficulty: '1',
-		creator: 'Sterling Archer',
+		creator: user.name,
 		image: '',
 		ingredients: []
 	};
@@ -49,9 +49,16 @@ angular.module('rezeptApp.addRecipe', ['ngRoute'])
 	};
 
 	this.newRecipeSend = function()
-	{	;
-		rec_add.save(this.newRec);
-		window.location = '#/rezept/' + this.newRec._id;
+	{	
+		var id = this.newRec._id;
+		var upload = rec_add.save(this.newRec);
+
+		upload.$promise.then(function(data)
+		{
+			window.location = '#/rezept/' + id;
+			console.log(data);
+		});
+		
 	};
 
 	this.remove = function(i)

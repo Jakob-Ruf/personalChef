@@ -205,7 +205,8 @@ this.recCooked = function()
 {
 	var temp = {
 		recipe: $routeParams._id,
-		user: user.name
+		user: user.name,
+		difficulty: $scope.recipe.difficulty
 	};
 	var c = rec_cooked.save(temp);
 	c.$promise.then(function(data)
