@@ -1,0 +1,154 @@
+var constants = require('../javascript/constants.js');
+var sha = require('sha1');
+
+var exports = {
+
+	signup: function(req, res, next){
+		var db = req.db;
+		var date = new Date();
+		console.log(req.body);
+		// überprüfen ob alle verlangten Felder ausgefüllt sind
+		if (!req.body.username || !req.body.password || !req.body.email){
+			res.send("Bitte alle Felder ausfüllen", 400);
+			return;
+		} else {
+			// erstellen eines temporären Nutzerobjekts mit Dummyfeldern
+			var user = {};
+			user._id = req.body.username;
+			user.profile = {};
+			user.profile.password = sha(req.body.password);
+			user.profile.email = shorten(req.body.email);
+			// user.profile.birthday = {
+			// 	'day': req.body.day,
+			// 	'month': req.body.month
+			// };
+			user.cooked = [];
+			user.cookedAmount = 0;
+			user.fridge = [];
+			user.image = constants.imgUserDummyOriginal;
+			user.imageThumb = constants.imgUserDummyThumb;
+			user.likes = [];
+			user.profile.date_joined = {
+				'day': date.getDate(),
+				'month': date.getMonth()+1,
+				'year': date.getFullYear()
+			};
+			user.recipes = [];
+
+			console.log(user);
+			// Abruf aller Badges zum Einfügen in den Benutzer
+			db.collection('badges').find({}).toArray(function (err, badges){
+				if (err){
+					console.log(err);
+					res.send(500);
+				} else {
+					if (!badges.length){
+						res.send(404);
+					} else {
+						// setze den Geburtstagsbadge entsprechend dem  Geburtsdatum
+						// for (var i = badges.length - 1; i >= 0; i--) {
+						// 	if (badges[i].category == "date"){
+						// 		for (var j = badges[i].badges.length - 1; j >= 0; j--) {
+						// 			if (badges[i].badges[j]._id == "dateBirthday"){
+						// 				badges[i].badges[j].day = req.body.day;
+						// 				badges[i].badges[j].month = req.body.month;
+						// 			};
+						// 		};
+						// 	};
+						// };
+						// hinzufügen der badges zum User-Objekt
+						user.badges = badges;
+						// überprüfe, ob der Nutzer bereits existiert
+						db.collection('users').find('_id').toArray(function (err, users){
+							if (err){
+								res.send(500);
+							} else {
+								if (users.length){
+									res.send("Nutzer bereits vorhanden", 409);
+								} else {
+									// schreibe den Nutzer in die Datenbank
+									db.collection('users').insert(user, function (err, result){
+										if (err) {
+											console.log(err);
+											res.send(500);
+										} else {
+											if (!result){
+												console.log('Nutzer wurde nicht erstellt. Unbekannter Fehler');
+												res.send(500);
+											} else {
+												console.log('Nutzer ' + user._id + ' wurde erstellt');
+												res.send(user);
+												res.send(200);
+											};
+										};
+									});
+								};
+							};
+						});
+					};
+				};
+			});
+		};
+	},
+
+	login: function(req, res){
+		var db = req.db
+		var json = {};
+		db.collection('users').find({'_id': req.body.username}, {'_id': 1, 'profile.password': 1}).toArray(function (err, users){
+			if (err){
+				res.send(json, 500);
+			} else {
+				if (!users.length){
+					console.log('Nutzer nicht gefunden');
+					res.send(json)
+				} else {
+					var user = users[0];
+					if (user.profile.password == sha(req.body.password)) {
+						json.username = req.body.username;
+						json.password = req.body.password;
+						console.log('Nutzer ' + json.username + " wurde eingeloggt");
+						res.send(json)
+					} else {
+						res.send(json, 401);
+					}
+				}
+			}
+		})
+	},
+
+	auth: function(req, res, next){
+		var db = req.db
+		var json = {};
+		db.collection('users').find({'_id': req.body.username}, {'_id': 1, 'profile.password': 1}).toArray(function (err, users){
+			if (err){
+				res.send(json, 500);
+			} else {
+				if (!users.length){
+					console.log('Nutzer nicht gefunden');
+					res.send(json, 404)
+				} else {
+					var user = users[0];
+					if (user.profile.password == sha(req.body.password)) {
+						console.log('Nutzer ' + req.body.username + " wurde eingeloggt");
+						next();
+					} else {
+						res.send(json, 401);
+					}
+				}
+			}
+		})
+	}
+};
+
+function shorten(email){
+	if (email.indexOf('+') == -1){
+		return email;
+	} else {
+		var splitted = email.split('+');
+		var splitted2 = splitted[1].split('@');
+		var newmail = splitted[0] + '@' + splitted2[1];
+		return newmail;
+	};
+};
+
+module.exports = exports;

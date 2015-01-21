@@ -1,3 +1,5 @@
+var tools = require('../javascript/tools.js');
+
 module.exports = 
 {
 	scheduleJobs: function (){

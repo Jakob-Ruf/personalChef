@@ -1,125 +1,94 @@
 var express = require('express');
 var path = require('path');
-var logger = require('morgan');
+var morgan = require('morgan');
 // var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var fs = require('fs');
 var schedule = require('node-schedule');
 var busboy = require('connect-busboy');
 
-// database connection
-var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/personalChef", {native_parser:true});
+var mongo = require('mongoskin'); // Datenbank-Middleware (schlanker als Mongoose-Zugriffe)
+var db = mongo.db("mongodb://localhost:27017/personalChef", {native_parser:true});   // Verbindung mit der Datenbank
 
-// require the different routes
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var recipes = require('./routes/recipes');
-var ingredients = require('./routes/ingredients');  
+var tools = require('./javascript/tools'); // JS Funktionen für Berechnung der Rezept-Bewertungen
+var badges = require('./javascript/badges'); // JS Funktionen für Berechnung der Rezept-Bewertungen
 
-// javascript functions to be used inside this app
-var tools = require('./javascript/tools');
-var images = require('./javascript/images');
-
-
-// uncomment this line to run the app in the background as a daemon
-// only for productive purposes
-// require('daemon')();
-// var daemon = require('daemon');
-// var out = fs.createWriteStream('backends.log');
-// var opt = {
-//     stdout: [null, out]
-// };
-// out.on('open', function(){
-//     daemon.daemon("app.js", [], {
-//         'stdout': [ null, out ]
-//     });
-// });
 
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('env', 'development'); // Setzen des App-Environments auf Development für detaillierte Stacktraces bei Fehlern
 
 
-app.use(busboy());
-app.use(logger('dev'));
-app.use(bodyParser.json());
+app.set('views', path.join(__dirname, 'views')); // Verknüpfung mit View Ordner
+app.set('view engine', 'ejs'); // Setzen der View Engine auf EJS
+
+
+app.use(busboy()); // busboy für Datei-Uploads
+app.use(morgan('dev')); // morgan für Zugriffs-Logs
+
+
+app.use(bodyParser.json()); // bodyParser zum Parsen von Requests
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-// Make our db accessible to our router
-// Allow CORS
+
+
 app.use(function(req,res,next){
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    req.db = db;
-    next();
+    res.header("Access-Control-Allow-Origin", "*"); // erlauben von CORS
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); // erlauben von CORS
+    res.header("Access-Control-Allow-Methods", "GET, POST"); // erlauben von bestimmten METHODEN
+    req.db = db; // DB an Request übergeben
+    next(); // Weiterleitung an den zuständigen Router
 });
 
-// set up our routes
-app.use('/', routes);
-app.use('/users', users);
-app.use('/recipes', recipes);
-app.use('/ingredients', ingredients);
 
-// catch 404 and forward to error handler
+
+require('./routes/routes.js')(app); // Laden der allgemeinen Router-Datei, Übergabe von app und passport für Authentifizierung
+// require('./routes/routes.js')(app, passport); // Laden der allgemeinen Router-Datei, Übergabe von app und passport für Authentifizierung
+
+
+// Fehlerbehandlung
+// 404 abfangen und an Fehlerbehandlung übergeben
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
-
-// error handlers
-
-// development error handler
-// will print stacktrace
+// Development mit Stacktraces
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: err,
+            status: err.status
         });
     });
-}
-
-// production error handler
-// no stacktraces leaked to user
+};
+// Production ohne Stacktraces
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: {},
+        status: err.status
     });
 });
 
 
-// scripts to execute once when starting the server
+
+// Skripte für Serverstart
 console.log(Date().toString() + ": Server successfully started");
-// images.imageManip();
 // tools.updateRatingsAndLikes(db);
 // tools.checkForDiscrepancies(db);
-// tools.updateStartScreen(db);
+tools.updateStartScreen(db);
+// badges.checkSpecialDate(db, "Paul Pimmel");
+// badges.checkSpecialTime(db, "Paul Pimmel");
 
-
-
-// scripts to execute multiple times
-
-// execute every 1st minute of every hour
+// Skripte, die regelmäßig ausgeführt werden sollen
 var rule = new schedule.RecurrenceRule();
 rule.hour = 0;
 rule.minute = 1;
 schedule.scheduleJob(rule, function(){
     tools.updateStartScreen(db);
 });
-
-// setInterval(tools.updateRatingsAndLikes, 600000, db);
-// setInterval(tools.updateStartScreen, 600000, db);
-// setInterval(tools.checkForDiscrepancies, 600000, db);
-// console.log(Date().toString() +": Daily jobs scheduled");
-
-
 
 module.exports = app;

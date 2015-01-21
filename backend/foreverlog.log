@@ -2019,3 +2019,122 @@ Mon Jan 12 2015 14:59:46 GMT+0100 (CET): Request of user Sterling Archer
 [90mGET /users/Sterling%20Archer [36m304 [90m109ms[0m
 Mon Jan 12 2015 15:00:24 GMT+0100 (CET): Request of user Sterling Archer
 [90mGET /users/Sterling%20Archer [36m304 [90m115ms[0m
+Mon Jan 12 2015 15:01:33 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m45ms[0m
+Mon Jan 12 2015 15:01:43 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m54ms[0m
+Mon Jan 12 2015 15:03:15 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m39ms[0m
+Mon Jan 12 2015 15:03:28 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m122ms[0m
+Mon Jan 12 2015 15:03:32 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m33ms[0m
+Mon Jan 12 2015 15:03:36 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m72ms[0m
+Mon Jan 12 2015 15:03:53 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m43ms[0m
+Mon Jan 12 2015 15:04:05 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m34ms[0m
+Mon Jan 12 2015 15:04:09 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m47ms[0m
+Mon Jan 12 2015 15:04:39 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [32m200 [90m58ms - 605b[0m
+Mon Jan 12 2015 15:07:34 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m49ms[0m
+Mon Jan 12 2015 15:08:25 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [32m200 [90m43ms - 605b[0m
+Mon Jan 12 2015 15:10:40 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m56ms[0m
+Mon Jan 12 2015 15:10:49 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m48ms[0m
+Mon Jan 12 2015 15:12:34 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m52ms[0m
+Mon Jan 12 2015 15:12:50 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m45ms[0m
+[90mGET /recipes/list [36m304 [90m79ms[0m
+Mon Jan 12 2015 15:13:02 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m61ms[0m
+Mon Jan 12 2015 15:14:09 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m57ms[0m
+Mon Jan 12 2015 15:14:15 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m51ms[0m
+Mon Jan 12 2015 15:14:47 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m44ms[0m
+Mon Jan 12 2015 15:14:52 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m63ms[0m
+Mon Jan 12 2015 15:15:13 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m33ms[0m
+Mon Jan 12 2015 15:15:57 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m65ms[0m
+Mon Jan 12 2015 15:16:05 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m53ms[0m
+Mon Jan 12 2015 15:16:49 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m61ms[0m
+Mon Jan 12 2015 15:16:53 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m41ms[0m
+error: Forever detected script exited with code: null
+
+> backend@0.0.1 start /var/www/root/git/backend
+> node ./bin/www /var/www/root/git/backend/app.js
+
+Wed Jan 21 2015 11:18:18 GMT+0100 (CET): Server successfully started
+Wed Jan 21 2015 11:18:19 GMT+0100 (CET): Wahl der Community: Spritzgebäck
+Wed Jan 21 2015 11:18:19 GMT+0100 (CET): Neues Rezept des Tages: Test der Weiterleitung
+[90mGET /users/flist [32m200 [90m426ms - 39.92kb[0m
+[90mGET /favicon.ico [33m404 [90m152ms - 129b[0m
+[90mGET /favicon.ico [33m404 [90m19ms - 129b[0m
+Wed Jan 21 2015 11:18:36 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m116ms[0m
+Wed Jan 21 2015 11:18:59 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m91ms[0m
+Wed Jan 21 2015 11:19:01 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m52ms[0m
+[90mGET /recipes/startscreen [32m200 [90m57ms - 740b[0m
+Wed Jan 21 2015 11:20:08 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m66ms[0m
+[90mGET /recipes/startscreen [36m304 [90m45ms[0m
+[90mGET /recipes/startscreen [36m304 [90m41ms[0m
+[90mGET /recipes/startscreen [36m304 [90m39ms[0m
+Wed Jan 21 2015 11:21:22 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m58ms[0m
+[90mGET /recipes/startscreen [36m304 [90m37ms[0m
+Wed Jan 21 2015 11:21:55 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m61ms[0m
+[90mGET /recipes/startscreen [36m304 [90m63ms[0m
+[90mGET /recipes/startscreen [36m304 [90m39ms[0m
+[90mGET /recipes/startscreen [36m304 [90m40ms[0m
+[90mGET /recipes/startscreen [36m304 [90m43ms[0m
+Wed Jan 21 2015 11:22:18 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m59ms[0m
+[90mGET /recipes/startscreen [36m304 [90m39ms[0m
+Nutzer JakobRuf wurde eingeloggt
+Nutzer JakobRuf wurde eingeloggt
+[90mPOST /login [32m200 [90m83ms - 48b[0m
+Wed Jan 21 2015 11:22:49 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [32m200 [90m52ms - 4.09kb[0m
+[90mGET /recipes/startscreen [32m200 [90m39ms - 740b[0m
+Wed Jan 21 2015 11:23:01 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m59ms[0m
+[90mGET /recipes/startscreen [36m304 [90m38ms[0m
+Wed Jan 21 2015 11:23:07 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m58ms[0m
+[90mGET /recipes/startscreen [36m304 [90m36ms[0m
+Wed Jan 21 2015 11:23:24 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m62ms[0m
+[90mGET /recipes/startscreen [36m304 [90m38ms[0m
+[90mGET /recipes/startscreen [36m304 [90m43ms[0m
+Wed Jan 21 2015 11:24:58 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m102ms[0m
+[90mGET /recipes/startscreen [36m304 [90m51ms[0m
+[90mGET /recipes/startscreen [36m304 [90m56ms[0m
+Nutzer JakobRuf wurde eingeloggt
+Nutzer JakobRuf wurde eingeloggt
+[90mPOST /login [32m200 [90m56ms - 48b[0m
+Wed Jan 21 2015 11:25:23 GMT+0100 (CET): Request of user Sterling Archer
+[90mGET /users/Sterling%20Archer [36m304 [90m69ms[0m
+[90mGET /recipes/startscreen [36m304 [90m65ms[0m
+[90mGET /recipes/startscreen [36m304 [90m48ms[0m
+[90mGET /recipes/startscreen [36m304 [90m46ms[0m
+[90mGET /recipes/startscreen [36m304 [90m53ms[0m
+[90mGET /recipes/startscreen [36m304 [90m51ms[0m
+error: Forever detected script exited with code: null
