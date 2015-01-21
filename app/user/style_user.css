@@ -276,3 +276,30 @@
 	bottom: 3px;
 	left: 3px;
 }
+
+.user_badg_desc.general
+{
+	font-size: 1.6em;
+}
+
+.user_badg_count
+{
+	text-align: right;
+	font-size: 2.4em;
+}
+
+.user_badges_general
+{
+	margin-left: 10px;
+	margin-right: 10px;
+	display: block;
+	width: calc(100% - 20px);
+	font-size: 0.8em;
+	border-bottom: solid 1px rgba(50,50,50,0.2);
+}
+
+.single_badge
+{
+	position: relative;
+	border-bottom: solid 1px rgba(50,50,50,0.2);
+}

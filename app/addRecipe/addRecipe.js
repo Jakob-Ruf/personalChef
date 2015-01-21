@@ -56,7 +56,6 @@ angular.module('rezeptApp.addRecipe', ['ngRoute'])
 		upload.$promise.then(function(data)
 		{
 			window.location = '#/rezept/' + id;
-			console.log(data);
 		});
 		
 	};

@@ -18,7 +18,7 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 		$scope.recImg = recipe.image;
 		var creator = recipe.creator;
 		if (creator != user.name) {
-			window.location = '#/';
+			window.location = '#/home';
 		}
 	});
 
@@ -39,7 +39,6 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 			{
 				type = ".jpg";
 			}
-			console.log(file);
 			$upload.upload(
 			{
 				url: 'http://personalchef.ddns.net:546/recipes/upload',

@@ -23,30 +23,39 @@ angular.module('rezeptApp', [
 /* Erstellen einer globalen Variablen für den User */
 .value('user', {
 	name: "",
-	image: ""
+	image: "",
+	pwd: ""
 })
 
 .controller('GeneralController',['$scope','user','user_get', function($scope, user, user_get)
 {
-var userInfo = user_get.get({ id: "Sterling Archer" }, function() {/*Success*/},function()
-{
-	console.log("Fehler beim Abrufen des Nutzers");
-});
 
-userInfo.$promise.then(function(data)
-{
-	console.log(data);
-	$scope.profile = {
-	name : data._id,
-	image : data.image
-};
-	user.name = data._id;
-	user.image = data.image;
-});
+	load(1);
+	function load (count)
+	{
+	var userInfo = user_get.get({ id: user.name}, function() {/*Success*/},function()
+	{
+		console.log("Fehler beim Abrufen des Nutzers");
 
-if (user.name == "") {
-	window.location = '#/';
-};
+		// Falls die Funktion ohne gesetzten Nutzernamen aufgerufen wird, redirect zum login
+		if (count == 10) {
+			window.location = '../index.html'
+		};
+		setTimeout(load(count+1),100);
+	});
+
+	userInfo.$promise.then(function(data)
+	{
+		if (data == "") {
+			window.location = '../index.html'
+		};
+		$scope.profile = {
+			name : data._id,
+			image : data.image
+		};
+	});
+}
+
 
 $scope.getTimes=function(n)
 {

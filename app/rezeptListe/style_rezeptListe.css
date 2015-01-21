@@ -11,7 +11,7 @@
 	border-bottom: solid 1px rgba(50,50,50,0.7);
 }
 
-#recL_filter_input
+.recL_filter_input
 {
 	position: absolute;
 	top: 0;
@@ -27,7 +27,7 @@
 	display: none;
 }
 
-#recL_filter_input.active
+.recL_filter_input.active
 {
 	display: block;
 }
@@ -47,7 +47,7 @@
 	border: solid 1px rgba(50,50,50,0.7);
 }
 
-#recL_filter_input:active, #recL_filter_input:focus
+.recL_filter_input:active, .recL_filter_input:focus
 {
 	border: solid 1px blue;
 	border-radius: 5px;

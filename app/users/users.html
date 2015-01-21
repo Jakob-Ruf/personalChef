@@ -1,10 +1,16 @@
 <div class="scrollable" >
-	<div class="scrollable-content section" id="users_content">
+	<div class="scrollable-content section" id="user_content">
+
+
+		<!-- Ladeanimation während mit dem Server kommuniziert wird -->
+		<div id="loading">
+			<i class="fa fa-spinner fa-spin fa-3x"></i>
+		</div>
 
 		<!-- Container für Benutzerbild und Namen -->
 		<div class="user_header_pic">
-			<img id="user_header_img" src="resource/user.jpg">
-			<div class="user_header_name"> {{usersCtrl.user._id}} </div>
+			<img id="user_header_img" ng-src="{{user.image}}">
+			<div class="user_header_name"> {{user._id}} </div>
 		</div>
 
 		<ui-state id='activeTab' default='1'></ui-state>
@@ -16,21 +22,21 @@
 				<a ui-set="{'activeTab': 2}"><i class="fa fa-trophy fa-2x"></i></a>
 			</li>
 			<li ui-class="{'active': activeTab == 3}">
-				<a ui-set="{'activeTab': 3}"><i class="fa fa-user fa-2x"></i></a>
+				<a ui-set="{'activeTab': 3}"><i class="fa fa-bar-chart fa-2x"></i></a>
 			</li>
 		</ul>
 
 		<!-- Tab mit eigenen Rezepten -->
-		<div ui-if="activeTab == 1">
-			<h3 class="page-header">Eigene Rezepte</h3>
-			<div class="user_rec" ng-repeat="own_rec in userCtrl.user.recipes" ng-click="userCtrl.own_redirect($index)">
+		<div class="user_tab_content" ui-if="activeTab == 1">
+			<h3 class="page-header" ng-show="user.recipes">Eigene Rezepte</h3>
+			<div class="user_rec" ng-repeat="own_rec in user.recipes" ng-click="usersCtrl.own_redirect($index)">
 				<!-- TODO Anzeige von Platzhalter wenn keine Rezepte erstellt wurden -->
 				<div class="user_rec_name">{{own_rec._id}}</div>
 				<div class="user_rec_likes">{{own_rec.likes_amount}} <i class="fa fa-heart"></i></div>
 				<div class="user_rec_rating">{{own_rec.ratings_average}} <i class="fa fa-star"></i></div>
 			</div>
-			<h3 class="page-header">Lieblingsrezepte</h3>
-			<div class="user_rec" ng-repeat="fav_rec in userCtrl.user.favorites" ng-click="userCtrl.fav_redirect($index)">
+			<h3 class="page-header" ng-show="user.likes">Lieblingsrezepte</h3>
+			<div class="user_rec" ng-repeat="fav_rec in user.likes" ng-click="usersCtrl.fav_redirect($index)">
 				<div class="user_rec_name">{{fav_rec._id}}</div>
 				<div class="user_rec_likes">{{fav_rec.likes_amount}} <i class="fa fa-heart"></i></div>
 				<div class="user_rec_rating">{{fav_rec.ratings_average}} <i class="fa fa-star"></i></div>
@@ -38,24 +44,87 @@
 		</div>
 
 		<!-- Tab mit den Auszeichnungen -->
-		<div ui-if="activeTab == 2">
-			<h3 class="page-header">Auszeichnungen</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
-		</div>
+		<div class="user_tab_content" ui-if="activeTab == 2">
+			<h3 class="page-header">Deine Auszeichnungen</h3>
+			<div id="badge_place">
+				
+			</div>
+			<h3 class="page-header">Standardauszeichnungen</h3>
+			<div class="user_badges_general">
+				<div class="single_badge">
+					<div class="user_badg_desc general">
+						Insgesamt gekocht
+					</div>
+					<div class="user_badg_count">
+						{{user.badges[1].badges[0].amount}}
+					</div>
+				</div>
+				<div class="single_badge">
+					<div class="user_badg_desc general">
+						Einfach gekocht
+					</div>
+					<div class="user_badg_count">
+						{{user.badges[1].badges[1].amount}}
+					</div>
+				</div>
+				<div class="single_badge">
+					<div class="user_badg_desc general">
+						Mittelschwer gekocht
+					</div>
+					<div class="user_badg_count">
+						{{user.badges[1].badges[2].amount}}
+					</div>
+				</div>
+				<div class="single_badge">
+					<div class="user_badg_desc general">
+						Schwer gekocht
+					</div>
+					<div class="user_badg_count">
+						{{user.badges[1].badges[3].amount}}
+					</div>
+				</div>
 
-		<!-- Tab mit Freunden -->
-		<div ui-if="activeTab == 3">
-			<h3 class="page-header">Freunde</h3>
-			<div class="user_friend" ng-repeat="friend in userCtrl.user.friends" ng-click="userCtrl.friend_redirect($index)">
-				<div class="user_rec_name">{{friend._id}}</div>
+
+
+			</div>
+
+
+			<div id="badge_place">
+				
+			</div>
+			<h3 class="page-header">Zeitauszeichnungen</h3>
+			<div ng-repeat="timedBadges in user.badges[0].badges" class="user_badges">
+
+				<div class="user_badg_desc">
+					{{timedBadges.description}}
+				</div>
+			</div>
+			<div id="badge_place">
+				
+			</div>
+
+
+			<h3 class="page-header">Datumsauszeichnungen</h3>
+			<div ng-repeat="dateBadges in user.badges[2].badges | orderBy:['month','day']" class="user_badges">
+				<div class="user_badg_desc" ng-class="userCtrl.badgeEarned(dateBadges)">
+					{{dateBadges.description}}
+				</div>
+				<div class="user_badg_date">
+					{{dateBadges.day}}.{{dateBadges.month}}
+				</div>
+				<div class="user_badg_date_earn" ng-show="dateBadges.earnedDate">
+					Verdient am: {{dateBadges.earnedDate}}
+				</div>
 			</div>
 		</div>
+
+		<div class="user_tab_content" ui-if="activeTab == 3">
+			<h3 class="page-header">Statistiken</h3>
+			<div class="user_stat" id="user_member_since">
+				<div id="user_bday_title">Mitglied seit: </div>
+				<div id="user_bday_date">{{user.profile.date_joined.day}}.{{user.profile.date_joined.month}}.{{user.profile.date_joined.year}}</div>
+			</div>
+		</div>
+
 	</div>
 </div>

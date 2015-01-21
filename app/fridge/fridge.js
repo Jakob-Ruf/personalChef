@@ -13,20 +13,14 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 	/* Switch zur Anzeige von Autocomplete */
 	var autoSwitch = false;
 
-	/* TODO User dynamisch anpassen */
 	this.editItem = {
 		_id: user.name,
 		ingredient: '',
 		amount: ''
 	};
 
-	/* Abrufen der möglichen Zutaten */
-	var d1 = ingredient_list.query();
-	d1.$promise.then(function(data)
-	{
-		$scope.ingredientList = data;
-		console.log(data);
-	});
+	this.ingredientList = ingredient_list.query();
+
 
 	this.refreshData = function(times)
 	{
@@ -44,7 +38,7 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 			d.$promise.then(function(data)
 			{
 				document.getElementById("loading").style.display = "none";
-				$scope.fridge = data;
+				$scope.fridge = data.fridge;
 				for(var i =0, il = items.length;i<il;i++)
 				{
 					items[i].style.display = "block";
@@ -76,11 +70,11 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 
 	this.select = function(i)
 	{
-		document.getElementById('fridge_input').value = $scope.ingredientList[i]._id;
-		document.getElementById('fridge_input_unit').value = $scope.ingredientList[i].unit;
+		document.getElementById('fridge_input').value = this.ingredientList[i]._id;
+		document.getElementById('fridge_input_unit').value = this.ingredientList[i].unit;
 		document.getElementById('fridge_input_amount').focus();
 		document.getElementById('fridge_autocomplete_list').style.display = 'none';
-		if ($scope.ingredientList[i].unit == "St")
+		if (this.ingredientList[i].unit == "St")
 		{
 			document.getElementById('fridge_input_amount').step = 1;
 		}
@@ -92,10 +86,10 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 
 	this.edit = function(i)
 	{
-		document.getElementById('fridge_input').value = $scope.fridge.fridge[i]._id;
-		document.getElementById('fridge_input_unit').value = $scope.fridge.fridge[i].unit;
-		document.getElementById('fridge_input_amount').value = parseInt($scope.fridge.fridge[i].amount);
-		if ($scope.fridge.fridge[i].unit == "St")
+		document.getElementById('fridge_input').value = $scope.fridge[i]._id;
+		document.getElementById('fridge_input_unit').value = $scope.fridge[i].unit;
+		document.getElementById('fridge_input_amount').value = parseInt($scope.fridge[i].amount);
+		if ($scope.fridge[i].unit == "St")
 		{
 			document.getElementById('fridge_input_amount').step = 1;
 		}
@@ -121,43 +115,43 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 	/* Vorräte reduzieren */
 	this.minus = function(i)
 	{
-		this.editItem.ingredient = $scope.fridge.fridge[i]._id;
+		this.editItem.ingredient = $scope.fridge[i]._id;
 		/* Unterscheidung zwsichen Stück und gr/ml */
-		if ($scope.fridge.fridge[i].unit == 'St') 
+		if ($scope.fridge[i].unit == 'St') 
 		{
-			this.editItem.amount = parseInt($scope.fridge.fridge[i].amount) - 1;
+			this.editItem.amount = parseInt($scope.fridge[i].amount) - 1;
 		} 
-		else if ($scope.fridge.fridge[i].unit == 'g' || 'ml') 
+		else if ($scope.fridge[i].unit == 'g' || 'ml') 
 		{
-			this.editItem.amount = parseInt($scope.fridge.fridge[i].amount) - 100;
+			this.editItem.amount = parseInt($scope.fridge[i].amount) - 100;
 		}
 		fridge_put.save({},this.editItem);
-		$scope.fridge.fridge[i].amount = this.editItem.amount;
+		$scope.fridge[i].amount = this.editItem.amount;
 		clearInput();
 	}
 
 	/* Vorräte erhöhen */
 	this.plus = function(i)
 	{
-		this.editItem.ingredient = $scope.fridge.fridge[i]._id;
+		this.editItem.ingredient = $scope.fridge[i]._id;
 		/* Unterscheidung zwsichen Stück und gr/ml */
-		if ($scope.fridge.fridge[i].unit == 'St') 
+		if ($scope.fridge[i].unit == 'St') 
 		{
-			this.editItem.amount = parseInt($scope.fridge.fridge[i].amount) + 1;
+			this.editItem.amount = parseInt($scope.fridge[i].amount) + 1;
 		} 
-		else if ($scope.fridge.fridge[i].unit == 'g' || 'ml') 
+		else if ($scope.fridge[i].unit == 'g' || 'ml') 
 		{
-			this.editItem.amount = parseInt($scope.fridge.fridge[i].amount) + 100;
+			this.editItem.amount = parseInt($scope.fridge[i].amount) + 100;
 		}
 		fridge_put.save({},this.editItem);
-		$scope.fridge.fridge[i].amount = this.editItem.amount;
+		$scope.fridge[i].amount = this.editItem.amount;
 		clearInput();
 	}
 
 	/* Vorrat entfernen */
 	this.remove = function(i)
 	{
-		this.editItem.ingredient = $scope.fridge.fridge[i]._id;
+		this.editItem.ingredient = $scope.fridge[i]._id;
 		this.editItem.amount = 0;
 		fridge_put.save({},this.editItem);
 		this.refreshData(5);

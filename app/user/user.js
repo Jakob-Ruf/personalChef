@@ -11,7 +11,7 @@ angular.module('rezeptApp.user', ['ngRoute'])
 .controller('UserController', ['$scope','user','user_get', function($scope,user,user_get){
 	/* Prüfung ob der Nutzername bereits gesetzt wurde. Falls nicht redirect auf die Startseite */
 	if (user.name == "") {
-		window.location = '#/';
+		window.location = '#/home';
 	};
 var userInfo = user_get.get({ id: user.name }, function() {/*Success*/},function()
 {
@@ -22,8 +22,8 @@ userInfo.$promise.then(function(data)
 {
 	/* Ausblenden der Ladeanimation */
 	document.getElementById('loading').style.display = 'none';
-	$scope.user = data;
 	console.log(data);
+	$scope.user = data;
 });
 
 

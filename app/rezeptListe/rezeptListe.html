@@ -1,9 +1,9 @@
 <div class="scrollable">
 	<div class="scrollable-content section">
 		<div id="recL_filter">
-			<input id="recL_filter_input" ng-model="rec_searchText._id" placeholder="Rezeptnamen durchsuchen" ng-class="rezeptLCtrl.switchInput(0)">
-			<input id="recL_filter_input" ng-model="rec_searchText.ingredients" placeholder="Zutaten durchsuchen" ng-class="rezeptLCtrl.switchInput(1)">
-			<a ng-click="rezeptLCtrl.switch(); rec_searchText._id = ''; rec_searchText.ingredients = '';" id="recL_filter_switch" href><i class="fa fa-refresh fa-2x"></i></a>
+			<input class="recL_filter_input" ng-model="rec_searchText" placeholder="Rezeptnamen durchsuchen" ng-class="rezeptLCtrl.switchInput(0)">
+			<input class="recL_filter_input" ng-model="rec_searchText.ingredients" placeholder="Zutaten durchsuchen" ng-class="rezeptLCtrl.switchInput(1)">
+			<a ng-click="rezeptLCtrl.switch(); rec_searchText = ''; rec_searchText.ingredients = '';" id="recL_filter_switch" href><i class="fa fa-refresh fa-2x"></i></a>
 		</div>
 
 		<div id="loading">

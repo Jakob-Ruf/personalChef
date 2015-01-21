@@ -2,16 +2,28 @@ angular.module('rezeptApp.home', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
 	/* Routing zur Startseite mit Neuladen der Seite beim Aufrufen der Startseite */
-	$routeProvider.when('/', {
+	$routeProvider.when('/home/:id', {
 		templateUrl: 'home/home.html',
 		controller: 'HomeController as homeCtrl',
 		reloadOnSearch: true});
 }])
 
-.controller('HomeController', function($scope, rec_start)
+.config(['$routeProvider', function($routeProvider) {
+	/* Routing zur Startseite mit Neuladen der Seite beim Aufrufen der Startseite */
+	$routeProvider.when('/home', {
+		templateUrl: 'home/home.html',
+		controller: 'HomeController as homeCtrl',
+		reloadOnSearch: true});
+}])
+
+.controller('HomeController', function($scope, rec_start,$routeParams,user_get,user)
 {
 	/* Variable mit der Anfrage */
 	var rezepteHome = rec_start.query();
+	if ($routeParams.id) {
+		user.name = $routeParams.id;
+		console.log(user.name);
+	};
 	/* Auszuführende Funktion wenn alle Daten vorliegen */
 	rezepteHome.$promise.then(function(data)
 	{
@@ -20,6 +32,10 @@ angular.module('rezeptApp.home', ['ngRoute'])
 		/* Setzen der anzuzeigenden Daten */
 		$scope.rezepteHome = data;
 	});
+
+	if (!user.name) {
+		window.location = '../index.html';
+	};
 
 
 	this.redirect = function(i, $event)
@@ -48,4 +64,9 @@ angular.module('rezeptApp.home', ['ngRoute'])
 		var elements = document.getElementsByClassName('overlay');
 		elements[value].style.display = 'none';
 	};
+
+	this.do_search = function(input)
+	{
+		window.location = '#/rezepte/r:' + input;
+	}
 });

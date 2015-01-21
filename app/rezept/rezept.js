@@ -45,7 +45,7 @@ d.$promise.then(function(data)
 
 	/* Standardportionsgröße wird auf 1 gesetzt */
 	document.getElementById('rec_size_input').value = portionSize;
-	console.log($scope.recipe);
+
 });
 /* Schwierigkeit farbig darstellen */
 var difficulty = function(diff)
@@ -72,7 +72,7 @@ this.redirect_user = function()
 	}
 	else
 	{
-		window.location = '#/nfError';
+		window.location = '#/users/' + $scope.recipe.creator;
 	}
 }
 
@@ -96,7 +96,6 @@ this.removeComment = function(comment, i)
 		activity: "delete",
 		recipe: $routeParams._id
 	};
-	console.log(temp);
 	$scope.recipe.comments.splice(i-1, 1);
 	rec_comment.save(temp);
 }
@@ -135,7 +134,7 @@ this.recRate = function(val)
 	var p = rec_rate.save(temp);
 	p.$promise.then(function(data)
 	{
-		console.log(data);/* POST war erfolgreich und ist abgeschlossen */
+		/* POST war erfolgreich und ist abgeschlossen */
 	});
 }
 
@@ -176,7 +175,7 @@ this.recAlert = function(comm)
 	var a = rec_alert.save(temp);
 	a.$promise.then(function(data)
 	{
-		console.log(data);
+		
 	});
 	document.getElementById("rec_new_comment").value = "";
 }

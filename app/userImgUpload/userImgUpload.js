@@ -26,7 +26,6 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 			{
 				name = user.name+".jpg";
 			}
-			console.log(file);
 			$upload.upload(
 			{
 				url: 'http://personalchef.ddns.net:546/users/upload',
