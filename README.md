@@ -24,7 +24,7 @@ This README would normally document whatever steps are necessary to get your app
 Die Applikation wurde im Front-End möglichst modular gestaltet. So kommen sich parrallelarbeitende Entwickler möglichst wenig in die Quere und können gleichzeitig unterschiedliche Ansichten des Front-Ends entwickeln.
 
 Die App besitzt einen umschließenden Ordner (app), welcher die notwendigen Ressourcen enthält. Bilder welche sich nicht dynamisch in der Laufzeit verändern werden im Ordner "resource" abgelegt. Die nötigen AngularJS-Bibliotheken befinden sich im Ordner "components" und verwendete Schriften sind im Ordner "fonts" zu finden.
-Jede individuelle Ansicht der App besitzt einen eigenen Ordner. Darin befinden sich die HTML-Seite, die dazugehörige CSS-Datei und die für diese Seite verantwortliche Javascript-Datei, welche das entsprechende Modul mit dem Controller der Seite enthält.
+Jede individuelle Ansicht der App besitzt einen eigenen Ordner. Darin befinden sich die HTML-Seite, die dazugehörige CSS-Datei und die für diese Seite verantwortliche Javascript-Datei, welche das entsprechende Modul mit dem Controller der Seite enthält. Zusätzlich lässt sich so eine bessere Übersicht ermöglichen, da jegliche Inhalte zu einer Ansicht nur in einem Ordner zu suchen sind.
 
 Die Javascript- und CSS-Dateien werden in der index.html der App eingebunden. Initialisiert werden die Module in der app.js.
 ```
@@ -50,43 +50,6 @@ angular.module('rezeptApp', [
 	'rezeptApp.tutorial'
 	])
 ```
-
-
-### Der aktuellen Anzeige weitere Elemente hinzufügen ###
-
-Bestehende Arrays können mittels ng-model und einem damit verbundenen push um weitere Elemente erweitert werden. Diese Änderungen machen sich bei $scope-Variablen direkt in der Anzeige bemerkbar.
-```
-#!HTML
-<!-- Form wird mit dazugehöriger Submit-Funktion definiert --> 
-<form ng-submit="recCtrl.addComment(newComment)">
-	<!-- Textarea und ng-model werden festgelegt --> 
-	<textarea id="rec_new_comment" ng-model="newComment" required></textarea>
-	<button type="submit">Absenden</button>
-</form>
-```
- Im entsprechende Controller wird der Kommentar den angezeigten Daten hinzugefügt.
-
-```
-#!Javascript
-/* Funktion zum Hinzufügen von Kommentaren */
-this.addComment = function(comment)
-{
-	/* Variable welche vor dem pushen gefüllt wird */
-	var temp = {
-		content: comment,
-		author:  user.name,
-		activity: "add",
-		recipe: $routeParams._id
-	};
-	/* Zurücksetzen des Textfeldes */
-	document.getElementById("rec_new_comment").value = "";
-	/* Absenden des Kommentares an das Backend */
-	rec_comment.save(temp);
-	/* Hinzfügen des neuen Kommentares zum bestehenden Array */
-	$scope.recipe.comments.push(temp);
-}
-```
-
 
 ### Kommunikation mit dem Back End via REST ###
 #### Erstellen eines Service mit Factories zur Kommunikation ####
@@ -139,6 +102,42 @@ rezepteHome.$promise.then(function(data)
 });
 ```
 ### Diverses im Front-End ###
+
+#### Der aktuellen Anzeige weitere Elemente hinzufügen ####
+
+Bestehende Arrays können mittels ng-model und einem damit verbundenen push um weitere Elemente erweitert werden. Diese Änderungen machen sich bei $scope-Variablen direkt in der Anzeige bemerkbar.
+```
+#!HTML
+<!-- Form wird mit dazugehöriger Submit-Funktion definiert --> 
+<form ng-submit="recCtrl.addComment(newComment)">
+	<!-- Textarea und ng-model werden festgelegt --> 
+	<textarea id="rec_new_comment" ng-model="newComment" required></textarea>
+	<button type="submit">Absenden</button>
+</form>
+```
+ Im entsprechende Controller wird der Kommentar den angezeigten Daten hinzugefügt.
+
+```
+#!Javascript
+/* Funktion zum Hinzufügen von Kommentaren */
+this.addComment = function(comment)
+{
+	/* Variable welche vor dem pushen gefüllt wird */
+	var temp = {
+		content: comment,
+		author:  user.name,
+		activity: "add",
+		recipe: $routeParams._id
+	};
+	/* Zurücksetzen des Textfeldes */
+	document.getElementById("rec_new_comment").value = "";
+	/* Absenden des Kommentares an das Backend */
+	rec_comment.save(temp);
+	/* Hinzfügen des neuen Kommentares zum bestehenden Array */
+	$scope.recipe.comments.push(temp);
+}
+```
+
 #### Globale Variablen ####
 In AngularJS lassen sich globale Werte festlegen, welche sich durch eine einfache Referenzierung in der Definition des Controllers, auch innerhalb des Controllers ansprechen lassen. So werden bei der Anmeldung die Variablen user.name und user.image befüllt. User.name wird benötigt um REST-Calls richtig zuzuordnen und user.image wird genutzt, um die Sidebar mit einem Nutzerbild zu versorgen.
 ```
