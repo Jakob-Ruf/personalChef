@@ -20,6 +20,38 @@ This README would normally document whatever steps are necessary to get your app
 - - - -
 ## Front End ##
 
+### Struktur der Applikation ###
+Die Applikation wurde im Front-End möglichst modular gestaltet. So kommen sich parrallelarbeitende Entwickler möglichst wenig in die Quere und können gleichzeitig unterschiedliche Ansichten des Front-Ends entwickeln.
+
+Die App besitzt einen umschließenden Ordner (app), welcher die notwendigen Ressourcen enthält. Bilder welche sich nicht dynamisch in der Laufzeit verändern werden im Ordner "resource" abgelegt. Die nötigen AngularJS-Bibliotheken befinden sich im Ordner "components" und verwendete Schriften sind im Ordner "fonts" zu finden.
+Jede individuelle Ansicht der App besitzt einen eigenen Ordner. Darin befinden sich die HTML-Seite, die dazugehörige CSS-Datei und die für diese Seite verantwortliche Javascript-Datei, welche das entsprechende Modul mit dem Controller der Seite enthält.
+
+Die Javascript- und CSS-Dateien werden in der index.html der App eingebunden. Initialisiert werden die Module in der app.js.
+```
+#!Javascript
+/* Laden der zugehörigen Module */
+angular.module('rezeptApp', [
+	'ngRoute',
+	'ngTouch',
+	'ngResource',
+	'mobile-angular-ui',
+	'rezeptServices',
+	'rezeptApp.home',
+	'rezeptApp.fridge',
+	'rezeptApp.rezeptList',
+	'rezeptApp.addRecipe',
+	'rezeptApp.rezept',
+	'rezeptApp.user',
+	'rezeptApp.users',
+	'rezeptApp.userImgUpload',
+	'rezeptApp.recImgUpload',
+	'rezeptApp.notFound',
+	'rezeptApp.ingredient',
+	'rezeptApp.tutorial'
+	])
+```
+
+
 ### Der aktuellen Anzeige weitere Elemente hinzufügen ###
 
 Bestehende Arrays können mittels ng-model und einem damit verbundenen push um weitere Elemente erweitert werden. Diese Änderungen machen sich bei $scope-Variablen direkt in der Anzeige bemerkbar.
