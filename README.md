@@ -58,6 +58,34 @@ this.addComment = function(comment)
 
 ### Kommunikation mit dem Back End via REST ###
 #### Erstellen eines Service mit Factories zur Kommunikation ####
+Die Kommunikation der angemeldeten Nutzer basiert auf einem zentralen Service (service.js), welcher beim Start der App in der app.js eingebunden wird. Dieser Service beinhaltet mehrere Factories, welche durch einen eindeutigen Namen identifiziert werden und in den notwendigen Fällen geladen angesprochen werden können. Eine Factory besitzt neben dem Namen noch definierte Methoden der Kommunikation mit dem Back-End, die erwartete Art der Antwort und benötigte Header.
+
+Durch die zentrale Anlage der Factories in einem Service können die entsprechenden Ressourcen im Back-End leicht angesprochen werden, ohne diese jedes mal neu zu implementieren.
+```
+#!Javascript
+
+/* Anlegen des Rezeptservices, welcher die Factories beinhaltet */
+var rezeptServices = angular.module('rezeptServices', ['ngResource']);
+
+/* Factory zum Abruf der Startseite */
+rezeptServices.factory('rec_start', ['$resource', function($resource){
+	/* Festlegen der zugehörigen Adresse im Back-End */
+	var resource = $resource("http://personalChef.ddns.net:546/recipes/startscreen",{},
+	{
+		/* Festlegen möglicher Methoden zur Kommunikation mit den nötigen Einstellungen und Headern */
+		query:
+		{
+      			method:'GET',
+      			isArray:true,
+      			headers:{'Content-Type':'application/json; charset=UTF-8'} 
+    		},
+	});
+	/* Return der Adresse mit den definierten Methoden */
+  	return resource;
+}]);
+```
+
+
 #### Nutzen von promises ####
 
 Die definierten Factories liefern über die entsprechende URL eine $promise. Mit dieser lässt sich erst etwas anfangen, wenn sie komplette aufgelöst wurde. Der Code würde aber weiter ausgeführt und es könnte sein, dass benötigte Daten noch nicht vorliegen. Also wird eine Funktion definiert, welche erst ausgeführt wird, wenn die Daten komplett auf dem Gerät des Nutzers vorhanden sind.
@@ -77,6 +105,24 @@ rezepteHome.$promise.then(function(data)
 	/* Setzen der anzuzeigenden Daten */
 	$scope.rezepteHome = data;
 });
+```
+### Diverses im Front-End ###
+#### Globale Variablen ####
+In AngularJS lassen sich globale Werte festlegen, welche sich durch eine einfache Referenzierung in der Definition des Controllers, auch innerhalb des Controllers ansprechen lassen. So werden bei der Anmeldung die Variablen user.name und user.image befüllt. User.name wird benötigt um REST-Calls richtig zuzuordnen und user.image wird genutzt, um die Sidebar mit einem Nutzerbild zu versorgen.
+```
+#!Javascript
+
+/* Erstellen einer globalen Variablen für den User */
+angular.value('user', {
+	name: "",
+	image: ""
+})
+
+/* Einbinden des 'Users' in einem Controller */
+angular.controller('GeneralController',['user', function(user)
+{
+...
+}]);
 ```
 
 - - - -
