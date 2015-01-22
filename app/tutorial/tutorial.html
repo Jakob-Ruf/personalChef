@@ -1,8 +1,228 @@
 <div class="scrollable" >
-	<div class="scrollable-content section" 
-		id="tutorial_content">
+	<div class="tut_darkpane"></div>
+			<div id="page1">
+				<div class="tut_overlay">
+					<div id="message1">
+						<img class="tut_arrows" src="http://localhost:8888/tutorial/icons/arr1.png"/>
+						<div class="tut_descr">Suche nach einer Zutat oder nach einem Rezept. Du kannst auch EAN Nummern eintragen oder direkt einen Barcode abscannen.</div>
+						<button class="tut_button" ng-click="nextMessage(1)">Weiter</button>
+					</div>
+					<div id="message2" class="hidden">
+						<br/><br/><br/><br/><br/><br/><br/>
+						<img class="tut_arrows" src="http://localhost:8888/tutorial/icons/arr1.png"/>
+						<div class="tut_descr">Dir wird an jedem Tag ein anderes Rezept empfohlen.</div>
+						<button class="tut_button" ng-click="nextMessage(2)">Weiter</button>
+					</div>
+					<div id="message3" class="hidden">
+						<br/><br/><br/><br/><br/><br/><br/>
+						<img class="tut_arrows" src="http://localhost:8888/tutorial/icons/arr1.png"/>
+						<div class="tut_descr">Du siehst auch direkt, wie lange ein Rezept dauert...</div>
+						<button class="tut_button" ng-click="nextMessage(3)">Weiter</button>
+					</div>
+					<div id="message4" class="hidden">
+						<br/><br/><br/><br/><br/><br/><br/>
+						<div class="tut_descr">...oder wie es von der Community bewertet wurde</div>
+						<button class="tut_button" ng-click="nextMessage(4)">Weiter</button>
+						<br/>
+						<img class="tut_arrows_middle" src="http://localhost:8888/tutorial/icons/arr5.png"/>
+					</div>
+					<div id="message5" class="hidden">
+						<br/><br/><br/><br/><br/><br/><br/>
+						<div class="tut_descr">Tippe auf das Informationssysmbol um mehr Informationen zu erhalten</div>
+						<button class="tut_button" ng-click="loadPage(2)">Weiter</button>
+						<br/><br/><br/>
+						<img class="tut_arrows" src="http://localhost:8888/tutorial/icons/arr7.png"/>
+					</div>
+				</div>
+				<div class="tut_backgroundlayer">
+					<form role="form" ng-submit='check_input()'>
+						<fieldset>
+							<div class="home_search">
+								<a id="home_input_pic"><i class="fa fa-camera fa-2x"></i></a>
+								<input type="text" id="home_input" placeholder="Zutat/Rezept eingeben...">
+								<a id="home_search_btn"><i class="fa fa-search fa-2x"></i></a>
+							</div>
+						</fieldset>
+					</form>
+					<div class="home_r">
+						<h1>Rezept des Tages</h1>
+						<div class="rec_content">
+							<div class="rec_pic">
+								<img src="http://personalchef.ddns.net/git/backend/imgs/recipes/original/Spritzgeb%C3%A4ck.jpg">
+							</div>
 
-			Penis
+							<div class="rec_name">
+								<h4>Burger</h4>
+							</div>
+							<div class="rec_incr">
+								<i class="fa fa-info fa-2x"></i>
+							</div>
 
+							<div class="rec_time">
+								<i class="fa fa-clock-o"></i>12 min
+							</div>
+							<div class="rec_rating">
+								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(1, rezept)" ></i>
+								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(2, rezept)" ></i>
+								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(3, rezept)" ></i>
+								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(4, rezept)" ></i>
+								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(5, rezept)" ></i>
+							</div>
+						</div>
+						<h1>Rezept des Community</h1>
+						<div class="rec_content">
+							<div class="rec_pic">
+								<img src="http://personalchef.ddns.net/git/backend/imgs/recipes/original/dummy.jpg">
+							</div>
+							<div class="rec_name">
+								<h4>Spritzgebäck</h4>
+							</div>
+							<div class="rec_incr">
+								<i class="fa fa-info fa-2x"></i>
+							</div>
+
+							<div class="rec_time">
+								<i class="fa fa-clock-o"></i>30 min
+							</div>
+							<div class="rec_rating">
+								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(1, rezept)" ></i>
+								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(2, rezept)" ></i>
+								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(3, rezept)" ></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="page2" class="hide">
+				<div class="tut_overlay">
+					<div id="message11">
+						<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+						<div class="tut_descr">Wirf einen Blick in deinen virtuellen Kühlschrank. Du kannst die Anzahl deiner Zutaten erhöhen, vermindern, Zutaten löschen und sogar neue hinzufügen</div>
+						<button class="tut_button" ng-click="loadPage(3)">Weiter</button>
+					</div>
+				</div>
+				<div class="scrollable-content section">
+					<div class="tut_backgroundlayer">
+						<form role="form">
+									<fieldset>
+										<div class="fridge_form">
+											<!-- Eingabefeld für Zutaten -->
+											<input type="text" ng-model="fridge_input_text._id" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete(true)"  ng-blur="fridgeCtrl.switch_autocomplete(false)" autocomplete="off" required>
+											<input type="number"  ng-model="fridge_input_text.amount" id="fridge_input_amount" min="0" placeholder="Menge" autocomplete="off" required>
+											<input type="text" id="fridge_input_unit" disabled="true" required>
+											<!-- Button zum Hinzufügen -->
+											<button id="input_add_btn" type="submit"><i class="fa fa-plus fa-2x"></i></button>
+											<ul id="fridge_autocomplete_list">
+											</ul>
+										</div>
+									</fieldset>
+						</form>
+						<div class="fridge">
+							<div class="fridge_item">
+								<div class="fridge_item_name">
+									Milch
+								</div>
+								<div class="fridge_item_modify">
+									<a class="fridge_item_minus"><i class="fa fa-minus"></i></a>
+									<div class="fridge_item_count">500</div>
+									<div class="fridge_item_unit">ml</div>
+									<a class="fridge_item_plus"><i class="fa fa-plus"></i></a>
+									<a class="fridge_item_remove"><i class="fa fa-times"></i></a>
+								</div>
+							</div>
+							<div class="fridge_item">
+								<div class="fridge_item_name">
+									Käse
+								</div>
+								<div class="fridge_item_modify">
+									<a class="fridge_item_minus"><i class="fa fa-minus"></i></a>
+									<div class="fridge_item_count">100</div>
+									<div class="fridge_item_unit">g</div>
+									<a class="fridge_item_plus"><i class="fa fa-plus"></i></a>
+									<a class="fridge_item_remove"><i class="fa fa-times"></i></a>
+								</div>
+							</div>
+							<div class="fridge_item">
+								<div class="fridge_item_name">
+									Apfel
+								</div>
+								<div class="fridge_item_modify">
+									<a class="fridge_item_minus"><i class="fa fa-minus"></i></a>
+									<div class="fridge_item_count">5</div>
+									<div class="fridge_item_unit">St</div>
+									<a class="fridge_item_plus"><i class="fa fa-plus"></i></a>
+									<a class="fridge_item_remove"><i class="fa fa-times"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="page3" class="hide">
+				<div class="tut_overlay">
+					<div id="message11">
+						<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+						<div class="tut_descr">Die Community liefert dir jede Menge leckere Rezepte die du ausprobiern kannst. Der Ersteller des Rezeptes freut sich sicherlich auch über dein "Like" oder eine postive Bewertung.</div>
+						<button class="tut_button"><a href="/">Los geht's!</a></button>
+					</div>
+				</div>
+				<div class="scrollable">
+					<div class="scrollable-content section">
+						<div id="recL_filter">
+							<input class="tut_dummyInput" placeholder="Rezeptnamen durchsuchen">
+							<a ng-click="rezeptLCtrl.switch(); rec_searchText._id = ''; rec_searchText.ingredients = '';" id="recL_filter_switch" href><i class="fa fa-refresh fa-2x"></i></a>
+						</div>
+						<div class="recL_rec">
+							<div class="recL_rec_name">Spaghetti Bolognese</div>
+							<div class="recL_rec_ingredient_List">
+								<div class="recL_rec_ingredients">Spaghetti, Hackfleisch</div>
+							</div>
+							<div class="recL_rec_creator">Daniel Müller</div>
+							<div class="recL_rec_rating">
+								14 <i class="fa fa-star"></i>
+							</div>
+							<div class="recL_rec_likes">
+								5 <i class="fa fa-heart"></i>
+							</div>
+							<div class="recL_rec_img_container">
+								<img class="recL_rec_img" ng-src="http://personalchef.ddns.net/git/backend/imgs/recipes/thumbnails/dummy.jpg">
+							</div>
+						</div>
+						<div class="recL_rec">
+							<div class="recL_rec_name">Nudeln a la Pasta</div>
+							<div class="recL_rec_ingredient_List">
+								<div class="recL_rec_ingredients">Spaghetti, Hackfleisch</div>
+							</div>
+							<div class="recL_rec_creator">Daniel Müller</div>
+							<div class="recL_rec_rating">
+								14 <i class="fa fa-star"></i>
+							</div>
+							<div class="recL_rec_likes">
+								5 <i class="fa fa-heart"></i>
+							</div>
+							<div class="recL_rec_img_container">
+								<img class="recL_rec_img" ng-src="http://personalchef.ddns.net/git/backend/imgs/recipes/thumbnails/dummy.jpg">
+							</div>
+						</div>
+						<div class="recL_rec">
+							<div class="recL_rec_name">Nudeln mit Hackfleisch</div>
+							<div class="recL_rec_ingredient_List">
+								<div class="recL_rec_ingredients">Spaghetti, Hackfleisch</div>
+							</div>
+							<div class="recL_rec_creator">Daniel Müller</div>
+							<div class="recL_rec_rating">
+								14 <i class="fa fa-star"></i>
+							</div>
+							<div class="recL_rec_likes">
+								5 <i class="fa fa-heart"></i>
+							</div>
+							<div class="recL_rec_img_container">
+								<img class="recL_rec_img" ng-src="http://personalchef.ddns.net/git/backend/imgs/recipes/thumbnails/dummy.jpg">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

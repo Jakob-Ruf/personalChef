@@ -9,5 +9,21 @@ angular.module('rezeptApp.tutorial', ['ngRoute'])
 }])
 
 .controller('TutorialController', ['$scope', function($scope){
-	
+	$scope.nextMessage = function(value){
+		var lhide = "message"+value;
+		var lshow = "message"+(value+1);
+		var d = document.getElementById(lhide);
+		d.className = d.className + " hidden";
+
+		document.getElementById(lshow).className = "";
+	}
+	$scope.loadPage = function(value){
+		var lhide = "page"+(value-1);
+		var lshow = "page"+value;		
+		var d = document.getElementById(lhide);
+		d.className = d.className + " hidden";
+
+		document.getElementById(lshow).className = "";
+	}
+
 }])

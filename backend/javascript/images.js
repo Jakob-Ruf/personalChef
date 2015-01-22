@@ -5,7 +5,7 @@ var imageMagick = gm.subClass({ imageMagick: true});
 
 var exports = {
 
-	imageUpload: function (req, res, type){
+	postImageUpload: function (req, res, type){
 		console.log(Date().toString() + ": Incoming " + type + " image upload");
 		var fileType = ['png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'];
 		var fileExtension = "";
@@ -84,8 +84,11 @@ var exports = {
 
 	addToDB: function (file, type, db, fileExt){
 		var name = file.substring(0, file.indexOf('.' + fileExt));
-		var pathNormal = "http://personalchef.ddns.net/git/backend/imgs/" + type + "/original/" + file;
-		var pathThumb = "http://personalchef.ddns.net/git/backend/imgs/" + type + "/thumbnails/" + file;
+		
+		// Anhängen eines Zeitstempels an die Bilder-URL, damit der Browser das Bild als neues behandelt und nicht das im Cache vorhandene lädt
+		var date = new Date().getTime();
+		var pathNormal = "http://personalchef.ddns.net/git/backend/imgs/" + type + "/original/" + file + "?v=" + date;
+		var pathThumb = "http://personalchef.ddns.net/git/backend/imgs/" + type + "/thumbnails/" + file + "?v=" + date;
 		db.collection(type).update({'_id': name}, {$set: {"image": pathNormal, "imageThumb": pathThumb}}, function (err, result){
 			if (err){
 				console.log(Date().toString() + ": Error while writing new image to db");
@@ -99,7 +102,7 @@ var exports = {
 			}; // if
 		}); // update
 		if (type == 'users'){
-			db.collection(type).update({'creator': name},{$set{'creatorThumb': pathThumb}}, {upsert:true, multi: true}, function (err, result){
+			db.collection('recipes').update({'creator': name},{$set: {'creatorThumb': pathThumb}}, {upsert:true, multi: true}, function (err, result){
 				if (err) console.log(err);
 				if (result){
 					console.log(Date().toString() + ": The creatorThumb was modified for " + result + " recipes by user " + name);

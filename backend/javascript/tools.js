@@ -1,6 +1,7 @@
 var fs = require('fs');
 
 var exports = {
+
 	updateRatingsAndLikes: function (db){
 	    db.collection('recipes').find({},{'_id':1}).toArray(function (err, items){
 	        if (err === null){
@@ -19,66 +20,81 @@ var exports = {
 	}, // updateRatingsAndLikes
 
 	calculate: function (db, recipe){
+		console.log(Date().toString() + ": Neuberechnung der Bewertung wurde angestoßen für Rezept " + recipe);
 		db.collection('recipes').find({'_id': recipe},{'ratings':1,'likes':1}).toArray(function (err, item){
-			var likes_amount = 0;
-	        var ratings_amount = 0;
-	        var ratings_average = 0;
-	        var popularity = 0;
-	        var ratings_part = 0;
-	        var likes_part = 0;
-	        if (item[0].likes){
-	            likes_amount = item[0].likes.length;
-	            likes_part = 10 * Math.log(likes_amount + 1);
-	        };
-	        if (item[0].ratings) {
-	            ratings_amount = item[0].ratings.length;
-	            var sum = 0;
-	            for (var j = item[0].ratings.length - 1; j >= 0; j--) {
-	                sum += item[0].ratings[j].rating;
-	            };
-	            ratings_average = sum / ratings_amount;
-	            ratings_average = ratings_average.toFixed(1)*1;
-	            if (isNaN(ratings_average)){
-	            	ratings_average = 1;
-	            }
-	            ratings_part = (ratings_average * 1.5 * Math.log(ratings_amount+2));
-	        };
-	        // popularity = (ratings_average * 0.5 * Math.log(ratings_amount+2)) * Math.log(likes_amount+2) + 1;
-	        popularity = ratings_part + likes_part + 1;
-	        // console.log("Popularity: " + ratings_average + " * 0.5 *Math.log(" + ratings_amount + " + 2)) * Math.log(" + likes_amount + " + 2) + 1 = " + popularity);
-	        popularity = popularity.toFixed(4)*1;
-	        // adjust values in recipe
-	        db.collection('recipes').update({"_id": item[0]._id},{$set: {"ratings_average": ratings_average, "ratings_amount": ratings_amount, "likes_amount": likes_amount, "popularity": popularity}}, function (err, result){
-	            if (err === null){ 
-	            } else {
-	            	console.log(err); 
-	            };
-	        });
-	        // adjust values in users
-	        db.collection('users').update({'favorites._id': item[0]._id},{$set: {'favorites.$.ratings_average': ratings_average, 'favorites.$.likes_amount': likes_amount}}, {upsert: true, multi: true}, function (err, result){
-		        if (err === null){
-		            if (result < 1){
-		                console.log("No fridge item for user was affected");
-		                res.send(404);
-		            } else {
-		                console.log();
-		                res.send(200);
-		            };
-		        } else {
-		            console.log('There has been an error');
-		            res.send(500);
-		        };
-		    });
-		    db.collection('users').update({'recipes._id': item[0]._id}, {$set : {'recipes.$.ratings_average': ratings_average, 'recipes.$.likes_amount': likes_amount}}, {upsert: true}, function (err, result){
-		    	if (err) throw err;
-		    	if (!result) console.log(Date().toString() + ": Error while updating ratings for ratings of recipe " + item[0]._id);
-		    });
+			if (err){
+				console.log(err);
+			} else {
+				if (!item.length){
+					console.log(Date().toString() + ": Rezept nicht gefunden: " + recipe);
+				} else {
+					var recipe = item[0];
+					var likes_amount = 0;
+			        var ratings_amount = 0;
+			        var ratings_average = 0;
+			        var popularity = 0;
+			        var ratings_part = 0;
+			        var likes_part = 0;
+			        if (recipe.likes){
+			            likes_amount = recipe.likes.length;
+			            likes_part = 10 * Math.log(likes_amount + 1);
+			        };
+			        if (recipe.ratings) {
+			            ratings_amount = recipe.ratings.length;
+			            var sum = 0;
+			            for (var j = recipe.ratings.length - 1; j >= 0; j--) {
+			                sum += recipe.ratings[j].rating*1;
+			            };
+			            console.log("Summe: " + sum);
+			            ratings_average = sum / ratings_amount;
+			            console.log("ratings_average: " + ratings_average);
+			            ratings_average = ratings_average.toFixed(1)*1;
+			            console.log("ratings_average: " + ratings_average);
+			            if (isNaN(ratings_average)){
+			            	ratings_average = 1;
+			            }
+			            ratings_part = (ratings_average * 1.5 * Math.log(ratings_amount+2));
+			        };
+			        // popularity = (ratings_average * 0.5 * Math.log(ratings_amount+2)) * Math.log(likes_amount+2) + 1;
+			        popularity = ratings_part + likes_part + 1;
+			        // console.log("Popularity: " + ratings_average + " * 0.5 *Math.log(" + ratings_amount + " + 2)) * Math.log(" + likes_amount + " + 2) + 1 = " + popularity);
+			        popularity = popularity.toFixed(4)*1;
+			        // adjust values in recipe
+			        console.log(Date().toString() + ": Rezept " + recipe._id + " wurde neu berechnet. Popularität: " + popularity + " Durchschnitt: " + ratings_average + " Likes: " + likes_amount);
+			        db.collection('recipes').update({"_id": recipe._id},{$set: {"ratings_average": ratings_average, "ratings_amount": ratings_amount, "likes_amount": likes_amount, "popularity": popularity}}, function (err, result){
+			            if (err === null){ 
+			            } else {
+			            	console.log(err); 
+			            };
+			        });
+
+			        // Aktualisierung der Referenzen auf alle Rezepte
+			        db.collection('users').update({'likes._id': recipe._id}, {$set : {'likes.$.ratings_average': ratings_average, 'likes.$.likes_amount': likes_amount}}, {multi: true}, function (err, result){
+			        	if (err){
+			        		console.log(err);
+			        	} else {
+			        		if (result){
+			        			console.log(Date().toString() + ": Die Bewertungen für die Likes wurden bei " + result + " Nutzern angepasst");
+			        		}; 
+			        	};
+			        });
+			        db.collection('users').update({'recipes._id': recipe._id}, {$set : {'recipes.$.ratings_average': ratings_average, 'recipes.$.likes_amount': likes_amount}}, {multi: true}, function (err, result){
+			        	if (err){
+			        		console.log(err);
+			        	} else {
+			        		if (result){
+			        			console.log(Date().toString() + ": Die Bewertungen für die Eigenkreationen wurden bei " + result + " Nutzern angepasst");
+			        		}; 
+			        	};
+			        });
+				};
+			};
 		});
 	}, //calculate
 
 
 	updateStartScreen: function (db){
-		db.collection('recipes').update({},{$set:{"title":""}}, function (err, result){
+		db.collection('recipes').update({},{$set:{"title":""}},{multi:true, upsert: true}, function (err, result){
 			if (err === null){
 				db.collection('recipes').find({},{'popularity':1},{sort:{'popularity':-1,limit:1}}).toArray(function (err, recipes){
 					if (err === null){

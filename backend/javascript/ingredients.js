@@ -69,6 +69,19 @@ var exports = {
 	            res.send(500);
 	        };
 	    });
+	},
+
+	newIngr: function(db, id, unit){
+		var ingredient = {};
+		ingredient._id = id;
+		ingredient.unit = unit;
+		db.collection('ingredients').insert(ingredient, function (err, result) {
+			if (err){
+				console.log(err);
+			} else {
+				console.log(result + ' neue Zutat wurde hinzugefügt (' + id + ')');
+			};
+		});
 	}
 };
 

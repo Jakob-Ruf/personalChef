@@ -30,8 +30,8 @@ var exports = {
 
 	getByName: function(req, res, id){
 	    var db = req.db;
-	    console.log(Date().toString() + ": Request of user " + req.params.uname);
-	    db.collection('users').find({"_id": id},{_id:1, favorites:1, image:1, badges:1, imageThumb:1, fridge:1}).toArray(function (err, items) {
+	    console.log(Date().toString() + ": Request of user " + id);
+	    db.collection('users').find({"_id": id},{_id:1, "profile.birthday": 1, favorites:1, image:1, badges:1, cooked: 1, cookedAmount: 1, dateJoined: 1, recipes:1, likes: 1}).toArray(function (err, items) {
 	        if (err === null){
 	            if (items.length == 0){
 	                res.send(404);
@@ -75,7 +75,7 @@ var exports = {
 
 	getFridge: function(req, res, id){
 		var db = req.db;
-		db.collection('users').find({'_id': id},{'fridge':1},{sort: {'fridge._id': -1}}).toArray( function (err, items){
+		db.collection('users').find({'_id': id},{'fridge':1}).sort({'fridge._id':1}).toArray( function (err, items){
 	        if (err === null){
 	            if (items.length == 0){
 	                res.send(404);
@@ -332,7 +332,7 @@ var exports = {
 
 	postReport: function(req, res){
 	    var db = req.db;
-	    db.collection('users').update({"_id": req.body._id}, {$set: {"reported": true}}, function (err, result){
+	    db.collection('users').update({"_id": req.body._id}, {$set: {"reported": true, "reportReason": req.body.reason}}, function (err, result){
 	        if (err === null){
 	            if ( result == 0 ){
 	                console.log("No users was affected. Is _id right?: " + req.body._id);
