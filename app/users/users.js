@@ -33,7 +33,7 @@ this.own_redirect = function(i)
 
 this.fav_redirect = function(i)
 {
-	window.location = '#/rezept/' + $scope.user.favorites[i]._id;
+	window.location = '#/rezept/' + $scope.user.likes[i]._id;
 }
 
 }])
