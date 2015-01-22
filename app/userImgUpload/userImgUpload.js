@@ -11,7 +11,12 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 
 .controller('UserImgController',['$scope','$upload','user', function($scope, $upload,user){
 
-	$scope.img = user.image;
+	setTimeout(setImg(), 1000);
+
+	function setImg()
+	{
+		$scope.img = user.image;
+	}
 	$scope.uploadPic = function(files) {
 		if (files != null) 
 		{
@@ -33,14 +38,14 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 		        //headers: {'Authorization': 'xxx'}, // only for html5
 		        file: file,
 		        fileName: name
-    		}).progress(function(evt) 
-    		{
-    			file.progress = parseInt(100.0 * evt.loaded / evt.total);
-    		}).success(function() 
-    		{
+		    }).progress(function(evt) 
+		    {
+		    	file.progress = parseInt(100.0 * evt.loaded / evt.total);
+		    }).success(function() 
+		    {
 		        // Erfolgreicher upload sorgt für Weiterleitung zum Profil
 		        window.location = '#/user';
-    		});
+		    });
 		};
 	}
 }]);

@@ -23,8 +23,7 @@ angular.module('rezeptApp', [
 /* Erstellen einer globalen Variablen für den User */
 .value('user', {
 	name: "",
-	image: "",
-	pwd: ""
+	image: ""
 })
 
 .controller('GeneralController',['$scope','user','user_get', function($scope, user, user_get)
@@ -53,6 +52,7 @@ angular.module('rezeptApp', [
 			name : data._id,
 			image : data.image
 		};
+		user.image = data.image;
 	});
 }
 
