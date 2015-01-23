@@ -1,7 +1,7 @@
 angular.module('loginApp', ['ngResource','loginServices'])
 
 
-	.controller('LoginController',['$scope','login','register', function($scope,login,register)
+	.controller('LoginController',['$scope','login','register','$timeout', function($scope,login,register,$timeout)
 	{
 		$scope.usrLogin = {
 			username: '',
@@ -14,11 +14,20 @@ angular.module('loginApp', ['ngResource','loginServices'])
 			email: ''
 		}
 
+		var hidePopup = function()
+		{
+			document.getElementById("popup").className = "";
+		}
+
 		$scope.userLogin = function(user)
 		{
 
 		var userLogin = login.save(user, function() {/*Success*/},function()
 		{
+			var d = document.getElementById("popup");
+			d.innerHTML = "Es trat ein Fehler bei der Anmeldung auf. Bitte prüfe die Richtigkeit deiner Angaben!"
+			d.className = d.className + "active";
+			$timeout(hidePopup, 5000);
 			console.log("Fehler bei der Anmeldung");
 		});
 
@@ -35,6 +44,10 @@ angular.module('loginApp', ['ngResource','loginServices'])
 		{
 		var userRegister = register.save(user, function() {/*Success*/},function()
 		{
+			var d = document.getElementById("popup");
+			d.innerHTML = "Es trat ein Fehler bei der Registrierung auf. Bitte versuche es erneut!"
+			d.className = d.className + "active";
+			$timeout(hidePopup, 5000);
 			console.log("Fehler bei Signup");
 		});
 

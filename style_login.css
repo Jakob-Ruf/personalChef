@@ -56,11 +56,11 @@ button:focus, button:active, button:hover
 
 #header
 {
- width: 50%;
- float: left;
- padding-left: 6%;
- font-size: 1.4em;
- padding-bottom: 10px;
+	width: 50%;
+	float: left;
+	padding-left: 6%;
+	font-size: 1.4em;
+	padding-bottom: 10px;
 }
 
 .fa-refresh
@@ -86,4 +86,24 @@ button:focus, button:active, button:hover
 #signup_submit
 {
 	display: none;
+}
+
+#popup
+{
+	top:0;
+	left: 20%;
+	width: 60%;
+	text-align: justify;
+	position: fixed;
+	z-index: 100;
+	padding: 10 20 10 20;
+	display: none;
+	background-color: rgba(231, 76, 60,1.0);
+	border: white solid 2px;
+	border-top: none;
+}
+
+.active#popup
+{
+	display:block;
 }
