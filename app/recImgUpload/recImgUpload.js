@@ -11,6 +11,8 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 
 .controller('RecImgController',['$routeParams','rec_get', '$scope','$upload', 'user', function($routeParams, rec_get, $scope, $upload, user){
 
+
+	document.getElementById('loading').style.display = 'none';
 	var d = rec_get.get({id: $routeParams._id});
 	d.$promise.then(function(data)
 	{
@@ -21,6 +23,11 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 			window.location = '#/home';
 		}
 	});
+
+	var redirect = function()
+	{
+		window.location = '#/rezept/' + name;
+	}
 
 	var name = $routeParams._id;
 	$scope.uploadPic = function(files) {
@@ -52,7 +59,10 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 		    }).success(function() 
 		    {
 		        // Erfolgreicher upload sorgt für Weiterleitung zum Profil
-		        window.location = '#/rezept/' + name;
+		        var temp = document.getElementsByClassName('new_rec_img_upload');
+		        temp[0].style.display = 'none';
+		        document.getElementById('loading').style.display = 'block';
+		        $timeout(redirect,5000);
 		    });
 		};
 	}

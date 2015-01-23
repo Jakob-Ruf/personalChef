@@ -12,7 +12,13 @@
 				<span class="progress" ng-show="picFile[0].progress >= 0">
 					<div style="width:{{picFile[0].progress}}%" ng-bind="picFile[0].progress + '%'"></div>
 				</span>
-			</div>
+			</form>
+			<!-- Ladeanimation während mit dem Server kommuniziert wird -->
 		</div>
+		<div id="loading">
+		<i class="fa fa-spinner fa-spin fa-4x"></i>
+		</div>
+
+
 	</div>
 </div>

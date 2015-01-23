@@ -24,6 +24,8 @@ userInfo.$promise.then(function(data)
 	document.getElementById('loading').style.display = 'none';
 	console.log(data);
 	$scope.user = data;
+	$scope.profile.image = data.image;
+	user.image = data.image;
 });
 
 

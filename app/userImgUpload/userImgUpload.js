@@ -9,14 +9,21 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 		reloadOnSearch: true});
 }])
 
-.controller('UserImgController',['$scope','$upload','user', function($scope, $upload,user){
+.controller('UserImgController',['$scope','$upload','user','$timeout', function($scope, $upload,user,$timeout){
 
-	setTimeout(setImg(), 1000);
-
-	function setImg()
+	
+	document.getElementById('loading').style.display = 'none';
+	var setImg = function()
 	{
 		$scope.img = user.image;
 	}
+
+	$timeout(setImg, 500);
+	var redirect = function()
+	{
+		window.location = '#/user';
+	}
+
 	$scope.uploadPic = function(files) {
 		if (files != null) 
 		{
@@ -44,8 +51,13 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 		    }).success(function() 
 		    {
 		        // Erfolgreicher upload sorgt für Weiterleitung zum Profil
-		        window.location = '#/user';
+		        var temp = document.getElementsByClassName('new_rec_img_upload');
+		        temp[0].style.display = 'none';
+		        document.getElementById('loading').style.display = 'block';
+		        $timeout(redirect,5000);
 		    });
 		};
 	}
+
+
 }]);
