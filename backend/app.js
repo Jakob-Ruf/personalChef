@@ -77,11 +77,9 @@ app.use(function(err, req, res, next) {
 
 // Skripte für Serverstart
 console.log(Date().toString() + ": Server successfully started");
-// tools.updateRatingsAndLikes(db);
-// tools.checkForDiscrepancies(db);
 tools.updateStartScreen(db);
-// badges.checkSpecialDate(db, "Paul Pimmel");
-// badges.checkSpecialTime(db, "Paul Pimmel");
+
+
 
 // Skripte, die regelmäßig ausgeführt werden sollen
 var rule = new schedule.RecurrenceRule();

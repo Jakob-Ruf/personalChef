@@ -31,7 +31,7 @@ var exports = {
 	getByName: function(req, res, id){
 	    var db = req.db;
 	    console.log(Date().toString() + ": Request of user " + id);
-	    db.collection('users').find({"_id": id},{_id:1, "profile.birthday": 1, favorites:1, image:1, badges:1, cooked: 1, cookedAmount: 1, dateJoined: 1, recipes:1, likes: 1}).toArray(function (err, items) {
+	    db.collection('users').find({"_id": id},{_id:1, "profile.date_joined": 1, favorites:1, image:1, badges:1, cooked: 1, cookedEasy: 1, cookedNormal:1, cookedHard:1, cookedLunch:1, cookedBreakfast:1, cookedDinner:1, cookedDrunk:1, cookedAmount: 1, dateJoined: 1, recipes:1, likes: 1}).toArray(function (err, items) {
 	        if (err === null){
 	            if (items.length == 0){
 	                res.send(404);

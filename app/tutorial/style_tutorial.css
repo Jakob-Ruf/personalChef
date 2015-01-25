@@ -36,6 +36,10 @@
 .tut_arrows{
 	height: 50px;
 }
+.tut_arrows_tab{
+	height: 50px;
+	margin-left: 25px;
+}
 .tut_arrows_middle{
 	margin-left: 25%;
 }

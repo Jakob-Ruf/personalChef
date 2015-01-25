@@ -14,14 +14,10 @@ var exports = {
 		} else {
 			// erstellen eines temporären Nutzerobjekts mit Dummyfeldern
 			var user = {};
-			user._id = req.body.username;
+			user._id = req.body.username.trim();
 			user.profile = {};
 			user.profile.password = sha(req.body.password);
 			user.profile.email = shorten(req.body.email);
-			// user.profile.birthday = {
-			// 	'day': req.body.day,
-			// 	'month': req.body.month
-			// };
 			user.cooked = [];
 			user.cookedAmount = 0;
 			user.fridge = [];
@@ -45,26 +41,15 @@ var exports = {
 					if (!badges.length){
 						res.send(404);
 					} else {
-						// setze den Geburtstagsbadge entsprechend dem  Geburtsdatum
-						// for (var i = badges.length - 1; i >= 0; i--) {
-						// 	if (badges[i].category == "date"){
-						// 		for (var j = badges[i].badges.length - 1; j >= 0; j--) {
-						// 			if (badges[i].badges[j]._id == "dateBirthday"){
-						// 				badges[i].badges[j].day = req.body.day;
-						// 				badges[i].badges[j].month = req.body.month;
-						// 			};
-						// 		};
-						// 	};
-						// };
 						// hinzufügen der badges zum User-Objekt
 						user.badges = badges;
 						// überprüfe, ob der Nutzer bereits existiert
-						db.collection('users').find('_id').toArray(function (err, users){
+						db.collection('users').find({'_id': username}).toArray(function (err, users){
 							if (err){
 								res.send(500);
 							} else {
 								if (users.length){
-									res.send("Nutzer bereits vorhanden", 409);
+									res.send({}, 401);
 								} else {
 									// schreibe den Nutzer in die Datenbank
 									db.collection('users').insert(user, function (err, result){
@@ -94,8 +79,12 @@ var exports = {
 	login: function(req, res){
 		var db = req.db
 		var json = {};
-		db.collection('users').find({'_id': req.body.username}, {'_id': 1, 'profile.password': 1}).toArray(function (err, users){
+		var username = req.body.username.trim();
+		var password = sha(req.body.password);
+		db.collection('users').find({'_id': username}, {'_id': 1, 'profile.password': 1}).toArray(function (err, users){
 			if (err){
+				console.log(err);
+				console.log('Fehler bei der Abfrage');
 				res.send(json, 500);
 			} else {
 				if (!users.length){
@@ -103,8 +92,8 @@ var exports = {
 					res.send(json)
 				} else {
 					var user = users[0];
-					if (user.profile.password == sha(req.body.password)) {
-						json.username = req.body.username;
+					if (user.profile.password == password) {
+						json.username = username;
 						json.password = req.body.password;
 						console.log('Nutzer ' + json.username + " wurde eingeloggt");
 						res.send(json)
@@ -119,17 +108,19 @@ var exports = {
 	auth: function(req, res, next){
 		var db = req.db
 		var json = {};
-		db.collection('users').find({'_id': req.body.username}, {'_id': 1, 'profile.password': 1}).toArray(function (err, users){
+		var username = req.body.username.trim();
+		var password = sha(req.body.password);
+		db.collection('users').find({'_id': username}, {'_id': 1, 'profile.password': 1}).toArray(function (err, users){
 			if (err){
 				res.send(json, 500);
 			} else {
 				if (!users.length){
-					console.log('Nutzer nicht gefunden');
+					console.log(Date().toString() + ': Nutzer nicht gefunden');
 					res.send(json, 404)
 				} else {
 					var user = users[0];
-					if (user.profile.password == sha(req.body.password)) {
-						console.log('Nutzer ' + req.body.username + " wurde eingeloggt");
+					if (user.profile.password == password) {
+						console.log(Date().toString() + ': Nutzer ' + username + " wurde eingeloggt");
 						next();
 					} else {
 						res.send(json, 401);

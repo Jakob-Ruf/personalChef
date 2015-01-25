@@ -25,5 +25,6 @@ angular.module('rezeptApp.tutorial', ['ngRoute'])
 
 		document.getElementById(lshow).className = "";
 	}
-
-}])
+var height = document.getElementById("page1").clientHeight;
+document.getElementById("tut_dark").clientHeight = height;
+}]);

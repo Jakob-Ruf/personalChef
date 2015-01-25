@@ -214,6 +214,15 @@ module.exports = function(app, passport){
 		opt(req, res);
 	});
 
+
+	app.get('/test/:id', function (req, res){
+		var userfind = new RegExp('^' + req.params.id, 'i');
+ 		req.db.collection('users').find({'_id': userfind}).toArray(function(err, items){
+ 			if (err) console.log(err);
+ 			res.json(items);
+ 		});
+	});
+
 };
 
 function auth(req, res, next){
