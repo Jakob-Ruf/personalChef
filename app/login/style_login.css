@@ -110,9 +110,18 @@
 	background-color: rgba(192, 57, 43,1.0);
 	border: white solid 2px;
 	border-top: none;
+	color: white;
 }
 
 .active#popup
 {
 	display:block;
+}
+
+#popup .fa-spinner
+{
+	color: white;
+	text-align: center;
+	width: 100%;
+	display: block;
 }
