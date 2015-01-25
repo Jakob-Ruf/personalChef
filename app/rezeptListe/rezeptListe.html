@@ -9,7 +9,7 @@
 		<div id="loading">
 			<i class="fa fa-spinner fa-spin fa-3x"></i>
 		</div>
-		<div class="recL_rec" ng-repeat="rezept in rezeptListe | filter:rec_searchText" ng-click="rezeptLCtrl.redirect($index)">
+		<div class="recL_rec" ng-repeat="rezept in rezeptListe | filter:rec_searchText" ng-click="rezeptLCtrl.redirect(rezept)">
 			<div class="recL_rec_name">{{rezept._id}}</div>
 			<div class="recL_rec_ingredient_List">
 				<div class="recL_rec_ingredients" ng-repeat="ingr in rezept.ingredients | limitTo:4">{{ingr._id}}</div>

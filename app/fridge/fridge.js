@@ -24,9 +24,19 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		ingredient: '',
 		amount: ''
 	};
+	
 
-	this.ingredientList = ingredient_list.query();
 
+	var loadIngr = function()
+	{
+		var ingReq = ingredient_list.query();
+		ingReq.$promise.then(function(data)
+		{
+			$scope.ingredientList = data;
+		})
+	}
+
+	loadIngr();
 
 	this.refreshData = function(times)
 	{
@@ -72,15 +82,17 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		clearInput();
 		/* Neuladen der Daten, damit die Anzeige aktuell ist */
 		this.refreshData(5);
+		loadIngr();
 	}
 
 	this.select = function(i)
 	{
-		document.getElementById('fridge_input').value = this.ingredientList[i]._id;
-		document.getElementById('fridge_input_unit').value = this.ingredientList[i].unit;
+		console.log(i);
+		document.getElementById('fridge_input').value = i._id;
+		document.getElementById('fridge_input_unit').value = i.unit;
 		document.getElementById('fridge_input_amount').focus();
 		document.getElementById('fridge_autocomplete_list').style.display = 'none';
-		if (this.ingredientList[i].unit == "St")
+		if (i.unit == "St")
 		{
 			document.getElementById('fridge_input_amount').step = 1;
 		}

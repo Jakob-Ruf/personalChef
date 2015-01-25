@@ -73,8 +73,8 @@ angular.module('rezeptApp.rezeptList', ['ngRoute'])
 		}
 	}
 
-	this.redirect = function(i)
+	this.redirect = function(rec)
 	{
-		window.location = '#/rezept/' + $scope.rezeptListe[i]._id;
+		window.location = '#/rezept/' + rec._id;
 	}
 });
