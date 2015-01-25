@@ -89,8 +89,10 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 			}
 		}
 
+		// Weiterleitung auf den Rezeptersteller
 		this.redirect_user = function()
 		{
+			// Unterscheidung zwischen Ersteller des Rezepts und anderen Nutzern
 			if($scope.recipe.creator == user.name)
 			{
 				window.location = '#/user';
@@ -101,26 +103,40 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 			}
 		}
 
+		// Hinzufügen von Kommentaren
 		this.addComment = function(comment)
 		{
-			var temp = {
+			// Daten fürs Back-End
+			var temp = 
+			{
 				content: comment,
 				author:  user.name,
 				activity: "add",
 				recipe: $routeParams._id
 			};
+
+			// Leeren des Forms
 			document.getElementById("rec_new_comment").value = "";
+
+			// Post ans Back-End
 			rec_comment.save(temp);
+
+			// Manipulation des Front-Ends
 			$scope.recipe.comments.push(temp);
 		}
 
+		// Entfernen eines Kommentares
 		this.removeComment = function(comment, i)
 		{
-			var temp = {
+			// Daten für das Back-End
+			var temp = 
+			{
 				id: comment.id,
 				activity: "delete",
 				recipe: $routeParams._id
 			};
+
+			// Post ans Back-End
 			$scope.recipe.comments.splice(i-1, 1);
 			rec_comment.save(temp);
 		}
@@ -174,6 +190,7 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 			var p = rec_rate.save(temp);
 			p.$promise.then(function(data)
 			{
+				// Ändern des PopUps und setzen von Timeout
 				popup.innerHTML = "Danke für deine Bewertung.";
 				$timeout(hidePopup, 2000);
 			});
@@ -230,6 +247,7 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 			var a = rec_alert.save(temp);
 			a.$promise.then(function(data)
 			{
+				// Ändern des PopUps und setzen von Timeout
 				popup.innerHTML = "Danke für deine Meldung.";
 				$timeout(hidePopup, 2000);
 			});
@@ -260,7 +278,15 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 		// Funktion zum Markieren von gekochten Rezepten
 		this.recCooked = function()
 		{
-			var temp = {
+
+			// Anzeige des PopUps während der Kommunikation mit dem Back-End
+			var popUp = document.getElementById("popup");
+			popUp.innerHTML = '<i class="fa fa-spinner fa-spin fa-3x" style="color=white; text-align=center;"></i>';
+			popUp.className = "active";
+
+			// Daten für das Back-End
+			var temp = 
+			{
 				recipe: $routeParams._id,
 				user: user.name,
 				difficulty: $scope.recipe.difficulty
@@ -268,7 +294,9 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 			var c = rec_cooked.save(temp);
 			c.$promise.then(function(data)
 			{
-				console.log("Erfolgreich übertragen.. Antwort: " + data);
+				// Ändern des PopUps und setzen von Timeout
+				popup.innerHTML = "Daten erfolgreich übermittelt.";
+				$timeout(hidePopup, 2000);
 			})
 		}
 
