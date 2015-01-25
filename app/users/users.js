@@ -8,7 +8,7 @@ angular.module('rezeptApp.users', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('usersController', ['$scope','user_get','$routeParams', function($scope,user_get,$routeParams)
+.controller('usersController', ['$scope','user_get','$routeParams','user', function($scope,user_get,$routeParams,user)
 {
 	if (!user.loggedIn)
 	{
