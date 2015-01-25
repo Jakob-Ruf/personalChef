@@ -44,67 +44,110 @@ var exports = {
 	    // reacts to finish event
 	    req.busboy.on('finish', function(){
 	        console.log(Date().toString() + ": Finished writing file for " + that.filename);
-    		exports.imageManip(that.filename, type, req.db, that.fileExtension);
+    		exports.imageManip(1, that.filename, type);
+        	exports.addToDB(that.filename, type, req.db, that.fileExtension);
         	res.send(200);
 	    }); // on finish
 	}, // imageUpload
 
+	imageManip: function(mode, file, type){
+		if (mode == 0){
+			var options = {
+				"cwd": "/var/www/root/git/backend/imgs/recipes"
+			};
+			glob('*.*', options, function (err, files){
+				for (var i = files.length - 1; i >= 0; i--) {
+					console.log("Resizing image: " + files[i]);
+					exports.resizeImage(files[i], "thumbnail");
+					exports.resizeImage(files[i], "normal");
+				};
+			}); // glob	
 
-	
-	
+			// set the workdir for glob		
+			options = {
+				"cwd": "/var/www/root/git/backend/imgs/users"
+			};
 
-
-
-	imageManip: function(file, type, db, fileExt){
-		exports.resizeImage(file, "imageThumb", type, db, fileExt);
-		exports.resizeImage(file, "image", type, db, fileExt);
+			// 
+			glob('*.*', options, function (err, files){
+				for (var i = files.length - 1; i >= 0; i--) {
+					console.log("Resizing image: " + files[i]);
+					exports.resizeImage(files[i], "thumbnail");
+					exports.resizeImage(files[i], "normal");
+				};
+			}); // glob
+		} else if (mode == 1) {
+			exports.resizeImage(file, "thumbnail", type);
+			exports.resizeImage(file, "normal", type);
+		} // if
 	}, // imageManip
 
+	addToDB: function (file, type, db, fileExt){
+		var name = file.substring(0, file.indexOf('.' + fileExt));
+		
+		// Anhängen eines Zeitstempels an die Bilder-URL, damit der Browser das Bild als neues behandelt und nicht das im Cache vorhandene lädt
+		var date = new Date().getTime();
+		var pathNormal = "http://personalchef.ddns.net/git/backend/imgs/" + type + "/original/" + file + "?v=" + date;
+		var pathThumb = "http://personalchef.ddns.net/git/backend/imgs/" + type + "/thumbnails/" + file + "?v=" + date;
+		db.collection(type).update({'_id': name}, {$set: {"image": pathNormal, "imageThumb": pathThumb}}, function (err, result){
+			if (err){
+				console.log(Date().toString() + ": Error while writing new image to db");
+				console.log(err);
+			} else {
+				if (result == 0){
+					console.log(Date().toString() + ": No entries were affected by db operation. No such entry in " + type + " with the name " + name);
+				} else {
+					console.log(Date().toString() + ": Added image paths to db entries");
+				};
+			}; // if
+		}); // update
+		if (type == 'users'){
+			db.collection('recipes').update({'creator': name},{$set: {'creatorThumb': pathThumb}}, {upsert:true, multi: true}, function (err, result){
+				if (err) console.log(err);
+				if (result){
+					console.log(Date().toString() + ": The creatorThumb was modified for " + result + " recipes by user " + name);
+				};
+			});
+		};
+	}, //addToDB
 
 
-	resizeImage: function(fileName, typeField, typeCollection, db, fileExt){
+	resizeImage: function(file, mode, type){
 		var width = 80;
 		var height = 80;
-		var path = './imgs/' + typeCollection + '/thumbnails/';
-		if (typeField == "image"){
+		var path = './imgs/' + type + '/thumbnails/';
+		if (mode == "normal"){
 			width = 700;
 			height = 400;
-			path = 'imgs/' + typeCollection + '/original/';
+			path = 'imgs/' + type + '/original/';
 		};
 
-		// errechnen der Größe des Originalbilds
-		imageMagick('./imgs/' + typeCollection + '/' + fileName).size(function (err, value){
+		imageMagick('./imgs/' + type + '/' + file).size(function (err, value){
 			if (err) console.log(err);
 			if (value){
 				if (value.width < width || value.height < height){
-					// unverändertes Speichern, wenn das Bild die gewünschten Dimensionen unterschreitet
-					imageMagick('./imgs/' + typeCollection + '/' + fileName)
+					console.log(Date().toString() + ": Image " + file + " is already smaller than destined dimensions. Aborting.");
+					imageMagick('./imgs/' + type + '/' + file)
 					.autoOrient()
-					.write(path + fileName, function (err){
+					.write(path + file, function (err){
 						if (!err) {
-							console.log(Date().toString() + ": " + fileName + " wurde nicht umgerechnet, da es schon kleiner als die gewünwschten Maße war. Wird jetzt zur Datenbank hinzugefügt");
-							exports.addToDB(fileName, typeCollection, db, fileExt, typeField);
+							console.log(Date().toString() + ": " + file + " wasn't resized due to being smaller than specs.");
 						} else {
 							console.log(err);
 						};
 					});			
 				} else {
-					cwidth = width;
-					cheight = height;
-					// Umberechnung des Bilds auf gewünschte Dimensionen
 					if (value.width > value.height){
 						width == null;
 					} else {
 						height = null;
 					}; // if
-					imageMagick('./imgs/' + typeCollection + '/' + fileName)
-					.resize(width, height, '^')
-					.gravity('Center')
-					.crop(cwidth, cheight)
-					.write(path + fileName, function (err){
+					imageMagick('./imgs/' + type + '/' + file)
+					.resize(width, height)
+					.autoOrient()
+					.write(path + file, function (err){
 						if (!err) {
-							console.log(Date().toString() + ": " + fileName + " wurde umgerechnet zu " + typeField + " und wird jetzt zur Datenbank hinzugefügt");
-							exports.addToDB(fileName, typeCollection, db, fileExt, typeField);
+							console.log(Date().toString() + ": " + file + " was resized to " + mode);
 						} else {
 							console.log(err);
 						};
@@ -114,58 +157,7 @@ var exports = {
 				console.log(Date().toString() + ": Image was not found");
 			};	// if (value)	
 		}); //imageMagick
-	},  //resizeImage
-
-
-
-	addToDB: function (file, typeCollection, db, fileExt, field){
-		var name = file.substring(0, file.indexOf('.' + fileExt));
-		// Anhängen eines Zeitstempels an die Bilder-URL, damit der Browser das Bild als neues behandelt und nicht das im Cache vorhandene lädt
-		var date = new Date().getTime();
-		var pathNormal = "http://personalchef.ddns.net/git/backend/imgs/" + typeCollection + "/original/" + file + "?v=" + date;
-		var pathThumb = "http://personalchef.ddns.net/git/backend/imgs/" + typeCollection + "/thumbnails/" + file + "?v=" + date;
-		
-		if (field == 'image'){
-			db.collection(typeCollection).update({'_id': name}, {$set: {image: pathNormal}}, function(err, result){
-				if (err){
-					console.log(err);
-				};
-			});
-		} else if (field == 'imageThumb') {
-			db.collection(typeCollection).update({'_id': name}, {$set: {imageThumb: pathThumb}}, function(err, result){
-				if (err) {
-					console.log(err);
-				};
-			});
-		};
-
-
-
-
-
-		// db.collection(typeCollection).update({'_id': name}, {$set: {"image": pathNormal, "imageThumb": pathThumb}}, function (err, result){
-		// 	if (err){
-		// 		console.log(Date().toString() + ": Error while writing new image to db");
-		// 		console.log(err);
-		// 	} else {
-		// 		if (result == 0){
-		// 			console.log(Date().toString() + ": No entries were affected by db operation. No such entry in " + typeCollection + " with the name " + name);
-		// 		} else {
-		// 			console.log(Date().toString() + ": Added image paths to db entries");
-		// 		};
-		// 	}; // if
-		// }); // update
-
-
-		if (typeCollection == 'users' && field == 'imageThumb'){
-			db.collection('recipes').update({'creator': name},{$set: {'creatorThumb': pathThumb}}, {multi: true}, function (err, result){
-				if (err) console.log(err);
-				if (result){
-					console.log(Date().toString() + ": The creatorThumb was modified for " + result + " recipes by user " + name);
-				};
-			});
-		};
-	} //addToDB
+	} //resizeImage
 };
 
 

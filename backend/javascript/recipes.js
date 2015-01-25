@@ -120,7 +120,7 @@ var exports = {
 	getByName: function(req, res, id){
 		 var db = req.db;
 	    console.log(Date().toString() + ": Requested recipe " + id);
-	    db.collection('recipes').find({"_id": id},{_id:1,comments:1,creator:1,creatorThumb:1,description:1,cookedAmount:1,difficulty:1,time:1, image:1,ingredients:1,likes:1, ratings_average:1}).toArray(function (err, items) {
+	    db.collection('recipes').find({"_id": id},{"_id":1,"comments":1,"creator":1,"creatorThumb":1,"description":1,"difficulty":1,"time":1, "image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items) {
 	        if (err === null){
 	            if( items.length == 0){
 	                res.send(404);

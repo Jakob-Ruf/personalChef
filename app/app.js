@@ -8,7 +8,6 @@ angular.module('rezeptApp', [
 	'rezeptServices',
 	'loginServices',
 	'rezeptApp.home',
-	'rezeptApp.agb',
 	'rezeptApp.fridge',
 	'rezeptApp.rezeptList',
 	'rezeptApp.addRecipe',
