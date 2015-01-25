@@ -1,16 +1,26 @@
 /**/
 /**/
 /**/
-body
+
+#login
 {
-	background: url('app/resource/login.jpg') no-repeat fixed center top / cover #EFEEE7;
+	padding: 0;
 }
-form
+
+#backgrnd
+{
+	padding-top: 20px;
+	width: 100%;
+	height:100%;
+	display: block;
+	background: url('../resource/login.jpg') no-repeat fixed center top / cover #EFEEE7;
+}
+#backgrnd form
 {
 	width: 100%;
 }
 
-input
+#backgrnd input
 {
 	width: 90%;
 	display:block;
@@ -22,7 +32,7 @@ input
 	height: 40px;
 }
 
-button
+#backgrnd button
 {
 	margin:auto;
 	margin-top: 30px;
@@ -36,18 +46,17 @@ button
 	border: solid 2px rgba(255,255,255,1);
 }
 
-button:focus, button:active, button:hover
+#backgrnd button:focus, button:active, button:hover
 {
 	background-color: rgba(123, 3, 2, 1);
 }
 
-#container
+#backgrnd #container
 {
 	background: rgba(255,255,255,0.5);
 	width: 90%;
 	padding-top: 20px;
 	margin: auto;
-	margin-top: 5%;
 	display: block;
 	padding-bottom: 10px;
 	border:solid 1px rgba(30,30,30,0.3);
@@ -63,7 +72,7 @@ button:focus, button:active, button:hover
 	padding-bottom: 10px;
 }
 
-.fa-refresh
+#backgrnd .fa-refresh
 {
 	width: 30%;
 	float: right;
@@ -90,15 +99,15 @@ button:focus, button:active, button:hover
 
 #popup
 {
-	top:0;
-	left: 20%;
+	top:50px;
+	right: 2%;
 	width: 60%;
 	text-align: justify;
 	position: fixed;
 	z-index: 100;
-	padding: 10 20 10 20;
+	padding: 10px 20px 10px 20px;
 	display: none;
-	background-color: rgba(231, 76, 60,1.0);
+	background-color: rgba(192, 57, 43,1.0);
 	border: white solid 2px;
 	border-top: none;
 }

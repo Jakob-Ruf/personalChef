@@ -10,35 +10,40 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 
 .controller('RezeptController', ['$routeParams','rec_get','$scope','user','rec_rate','rec_alert','rec_comment','rec_like','rec_cooked',function($routeParams, rec_get,$scope,user,rec_rate,rec_alert,rec_comment,rec_like,rec_cooked) 
 {
+	if (!user.loggedIn)
+	{
+		window.location = '#/login';
+	}
+	
 	$scope.recLikes = { size: '', userLike: false};
-var d = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
-{
-	/*Umleitung, falls Fehlermeldung*/
-	window.location = '#/nfError';
-});
+	var d = rec_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
+	{
+		/*Umleitung, falls Fehlermeldung*/
+		window.location = '#/nfError';
+	});
 
-var portionSize = 1;
+	var portionSize = 1;
 
-/* Auszuführende Funktion wenn alle Daten vorliegen */
-d.$promise.then(function(data)
-{
-	/* Ausblenden der Ladeanimation */
-	document.getElementById('loading').style.display = 'none';
-	/* Setzen der anzuzeigenden Daten */
-	$scope.recipe = data;
-	$scope.ingredients = data.ingredients;
-	/* Schwierigkeit farbig darstellen */
-	difficulty(data.difficulty);
-	/* Anzahl der Likes festlegen */
-	$scope.recLikes.size = $scope.recipe.likes.length;
-	/* Feststellen, ob der Nutzer schon geliket hat oder nicht */
-	var likeHelper = 0;
-	for (var i = 0; i < $scope.recLikes.size; i++) {
-		if ($scope.recipe.likes[i]._id == user.name) 
-		{
-			likeHelper = 1;
-		}
-	};
+	/* Auszuführende Funktion wenn alle Daten vorliegen */
+	d.$promise.then(function(data)
+	{
+		/* Ausblenden der Ladeanimation */
+		document.getElementById('loading').style.display = 'none';
+		/* Setzen der anzuzeigenden Daten */
+		$scope.recipe = data;
+		$scope.ingredients = data.ingredients;
+		/* Schwierigkeit farbig darstellen */
+		difficulty(data.difficulty);
+		/* Anzahl der Likes festlegen */
+		$scope.recLikes.size = $scope.recipe.likes.length;
+		/* Feststellen, ob der Nutzer schon geliket hat oder nicht */
+		var likeHelper = 0;
+		for (var i = 0; i < $scope.recLikes.size; i++) {
+			if ($scope.recipe.likes[i]._id == user.name) 
+			{
+				likeHelper = 1;
+			}
+		};
 	if (likeHelper == 1) {
 		$scope.recLikes.userLike = true;
 	}

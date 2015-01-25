@@ -8,33 +8,39 @@ angular.module('rezeptApp.users', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('usersController', ['$scope','user_get','$routeParams', function($scope,user_get,$routeParams){
-var p = user_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
+.controller('usersController', ['$scope','user_get','$routeParams', function($scope,user_get,$routeParams)
 {
-	/*Umleitung, falls Fehlermeldung*/
-	window.location = '#/nfError';
-});
+	if (!user.loggedIn)
+	{
+		window.location = '#/login';
+	}
+	
+	var p = user_get.get({ id: $routeParams._id }, function() {/*Success*/},function()
+	{
+		/*Umleitung, falls Fehlermeldung*/
+		window.location = '#/nfError';
+	});
 
-/* Auszuführende Funktion wenn alle Daten vorliegen */
-p.$promise.then(function(data)
-{
-	console.log(data);
-	/* Ausblenden der Ladeanimation */
-	document.getElementById('loading').style.display = 'none';
-	/* Setzen der anzuzeigenden Daten */
-	$scope.user = data;
+	/* Auszuführende Funktion wenn alle Daten vorliegen */
+	p.$promise.then(function(data)
+	{
+		console.log(data);
+		/* Ausblenden der Ladeanimation */
+		document.getElementById('loading').style.display = 'none';
+		/* Setzen der anzuzeigenden Daten */
+		$scope.user = data;
 
-});
+	});
 
-this.own_redirect = function(i)
-{
-	window.location = '#/rezept/' + $scope.user.recipes[i]._id;
-}
+	this.own_redirect = function(i)
+	{
+		window.location = '#/rezept/' + $scope.user.recipes[i]._id;
+	}
 
-this.fav_redirect = function(i)
-{
-	window.location = '#/rezept/' + $scope.user.likes[i]._id;
-}
+	this.fav_redirect = function(i)
+	{
+		window.location = '#/rezept/' + $scope.user.likes[i]._id;
+	}
 
 }])
 

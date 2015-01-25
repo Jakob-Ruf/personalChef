@@ -157,15 +157,15 @@
 	font-size: 1.1em;
 }
 
-#user_bday_title
+.stat_title
 {
 	display: inline-block;
-	width: calc(50% - 20px);
+	width: calc(70% - 20px);
 }
 
-#user_bday_date
+.stat_cotent
 {
-	width: 50%;
+	width: 30%;
 	display: inline-block;
 	text-align: right;
 }

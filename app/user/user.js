@@ -10,25 +10,51 @@ angular.module('rezeptApp.user', ['ngRoute'])
 
 .controller('UserController', ['$scope','user','user_get', function($scope,user,user_get){
 	/* Prüfung ob der Nutzername bereits gesetzt wurde. Falls nicht redirect auf die Startseite */
-	if (user.name == "") {
-		window.location = '#/home';
-	};
-var userInfo = user_get.get({ id: user.name }, function() {/*Success*/},function()
+	if (!user.loggedIn)
+	{
+		window.location = '#/login';
+	}
+	else
+	{
+		var userInfo = user_get.get({ id: user.name }, function() {/*Success*/},function()
+		{
+			console.log("Fehler beim Abrufen des Nutzers");
+		});
+
+		userInfo.$promise.then(function(data)
+		{
+			/* Ausblenden der Ladeanimation */
+			document.getElementById('loading').style.display = 'none';
+			console.log(data);
+			$scope.user = data;
+			$scope.user.recipe_count = data.recipes.length;
+			$scope.userImage = data.image;
+			user.image = data.image;
+			$scope.profile.image = user.image;
+			fillStats();
+		});
+	}
+
+
+var fillStats = function()
 {
-	console.log("Fehler beim Abrufen des Nutzers");
-});
+	// Anzahl erstellte Rezepte
+	$scope.user.recipe_count = $scope.user.recipes.length;
 
-userInfo.$promise.then(function(data)
-{
-	/* Ausblenden der Ladeanimation */
-	document.getElementById('loading').style.display = 'none';
-	console.log(data);
-	$scope.user = data;
-	$scope.profile.image = data.image;
-	user.image = data.image;
-});
+	// Anzahl der Tage Mitglied
+	var tempDate = $scope.user.profile.date_joined.month + "/" + $scope.user.profile.date_joined.day + "/" + $scope.user.profile.date_joined.year;
+	var date1 = new Date(tempDate);
+	var date2 = new Date();
+	var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+	var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+	$scope.user.days_Member = diffDays;
 
+	// Durchschnittliche Rezepte pro Tag
+	$scope.user.avg_created = $scope.user.recipe_count / diffDays;
 
+	// Durchschnittlich gekocht
+	$scope.user.avg_cooked = $scope.user.cookedAmount / diffDays;
+}
 
 this.own_redirect = function(i)
 {

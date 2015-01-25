@@ -6,6 +6,7 @@ angular.module('rezeptApp', [
 	'ngResource',
 	'mobile-angular-ui',
 	'rezeptServices',
+	'loginServices',
 	'rezeptApp.home',
 	'rezeptApp.fridge',
 	'rezeptApp.rezeptList',
@@ -17,55 +18,48 @@ angular.module('rezeptApp', [
 	'rezeptApp.recImgUpload',
 	'rezeptApp.notFound',
 	'rezeptApp.ingredient',
-	'rezeptApp.tutorial'
+	'rezeptApp.tutorial',
+	'rezeptApp.login'
 	])
+
 
 /* Erstellen einer globalen Variablen für den User */
 .value('user', {
 	name: "",
-	image: ""
+	image: "",
+	loggedIn: false
 })
 
-.controller('GeneralController',['$scope','user','user_get', function($scope, user, user_get)
+.controller('GeneralController',['$scope','user','user_get','$timeout', function($scope,user,user_get,$timeout)
 {
-
-	load(1);
-	function load (count)
+	$scope.profile = 
 	{
-	var userInfo = user_get.get({ id: user.name}, function() {/*Success*/},function()
-	{
-		console.log("Fehler beim Abrufen des Nutzers");
+		image: user.image,
+		name: user.name
+	}
 
-		// Falls die Funktion ohne gesetzten Nutzernamen aufgerufen wird, redirect zum login
-		if (count == 10) {
-			window.location = '../index.html'
-		};
-		setTimeout(load(count+1),100);
-	});
+	if (!user.loggedIn) {
+		window.location = '#/login';
+	};
 
-	userInfo.$promise.then(function(data)
+	var loadPicture = function()
 	{
-		if (data == "") {
-			window.location = '../index.html'
-		};
-		$scope.profile = {
-			name : data._id,
-			image : data.image
-		};
-		user.image = data.image;
-	});
-}
+		if (user.image == "") 
+		{
+			$timeout(loadPicture,500);
+		}
+		else
+		{
+			$scope.profile.image = user.image;
+			$scope.profile.name = user.name;
+		}
+	}
+	loadPicture();
 
 
 $scope.getTimes=function(n)
 {
 	return new Array(n);
-};
-
-/* @todo: Löschen... */
-$scope.log=function(n)
-{
-
 };
 
 /* Einfärben der nötigen Sterne */

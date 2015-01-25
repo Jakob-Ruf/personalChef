@@ -10,6 +10,13 @@ angular.module('rezeptApp.addRecipe', ['ngRoute'])
 
 .controller('NewRecipeController', function($scope, rec_add,user)
 {
+
+	if (!user.loggedIn)
+	{
+		window.location = '#/login';
+	}
+
+	
 	this.newRec = {
 		_id: '',
 		time: '',

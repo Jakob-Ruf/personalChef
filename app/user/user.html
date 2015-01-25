@@ -59,7 +59,7 @@
 						Insgesamt gekocht
 					</div>
 					<div class="user_badg_count">
-						{{user.badges[1].badges[0].amount}}
+						{{user.cookedAmount}}
 					</div>
 				</div>
 				<div class="single_badge">
@@ -124,8 +124,28 @@
 		<div class="user_tab_content" ui-if="activeTab == 3">
 			<h3 class="page-header">Statistiken</h3>
 			<div class="user_stat" id="user_member_since">
-				<div id="user_bday_title">Mitglied seit: </div>
-				<div id="user_bday_date">{{user.profile.date_joined.day}}.{{user.profile.date_joined.month}}.{{user.profile.date_joined.year}}</div>
+				<div class="stat_title">Mitglied seit: </div>
+				<div class="stat_cotent">{{user.profile.date_joined.day}}.{{user.profile.date_joined.month}}.{{user.profile.date_joined.year}}</div>
+			</div>
+			<div class="user_stat" id="user_memberdays">
+				<div class="stat_title">Tage als Mitglied: </div>
+				<div class="stat_cotent">{{user.days_Member}}</div>
+			</div>
+			<div class="user_stat" id="user_recipes_added">
+				<div class="stat_title">Erstellte Rezepte: </div>
+				<div class="stat_cotent">{{user.recipe_count}}</div>
+			</div>
+			<div class="user_stat" id="user_recipes_avg">
+				<div class="stat_title">Pro Tag erstellte Rezepte: </div>
+				<div class="stat_cotent">{{user.avg_created}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked">
+				<div class="stat_title">Gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedAmount}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_avg">
+				<div class="stat_title">Pro Tag gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.avg_cooked}}</div>
 			</div>
 		</div>
 

@@ -16,8 +16,13 @@ angular.module('rezeptApp.rezeptList', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('RezeptListController', function($scope, rec_list,$routeParams){
+.controller('RezeptListController', function($scope, rec_list,$routeParams,user){
 
+	if (!user.loggedIn)
+	{
+		window.location = '#/login';
+	}
+	
 	this.switchState = 0;
 
 	var d = rec_list.query();

@@ -16,57 +16,90 @@ angular.module('rezeptApp.home', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('HomeController', function($scope, rec_start,$routeParams,user_get,user)
+.controller('HomeController', function($scope,rec_start,$routeParams,user_get,user,$timeout)
 {
-	/* Variable mit der Anfrage */
-	var rezepteHome = rec_start.query();
-	if ($routeParams.id) {
+	if ($routeParams.id) 
+	{
+		// Einblenden des Menubuttons
+		var disableMenu = document.getElementsByClassName("sidebar-toggle");
+		disableMenu[0].style.display = "block";
+
 		user.name = $routeParams.id;
-		console.log(user.name);
-	};
-	/* Auszuführende Funktion wenn alle Daten vorliegen */
-	rezepteHome.$promise.then(function(data)
+
+		var userInfo = user_get.get({ id: user.name}, function() {/*Success*/},function()
+		{
+			console.log("Fehler beim Abrufen des Nutzers");
+			// Falls die Funktion ohne gesetzten Nutzernamen aufgerufen wird, redirect zum login
+			window.location = '#/login';
+			user.name = "";
+		});
+
+		userInfo.$promise.then(function(data)
+		{
+			if (data == "") {
+				user.name = "";
+				window.location = '#/login';
+			};
+			user.loggedIn = true;
+			user.image = data.image;
+			getHomeRecipes();
+		});
+	}
+	else if (!user.loggedIn)
 	{
-		/* Ausblenden der Ladeanimation */
-		document.getElementById("loading").style.display = "none";
-		/* Setzen der anzuzeigenden Daten */
-		$scope.rezepteHome = data;
-	});
-
-	if (!user.name) {
-		window.location = '../index.html';
-	};
-
-
-	this.redirect = function(i, $event)
-	{
-		if ($event) {
-			$event.stopImmediatePropagation();
-		};
-		window.location = '#/rezept/' + $scope.rezepteHome[i]._id;
+		window.location = '#/login';
 	}
 
-	$scope.overlayHomeId = function(value)
+	var getHomeRecipes = function ()
 	{
-		return 'home_overlay_' + value;
-	};
+		/* Variable mit der Anfrage */
+		var rezepteHome = rec_start.query();
 
-	$scope.openHomeOverlay = function(value)
-	{
-		var cl = 'home_overlay_' + value;
-		var elements = document.getElementsByClassName('overlay');
-		elements[value].style.display = 'block';
-	};
-
-	$scope.closeHomeOverlay = function(value)
-	{
-		var cl = 'home_overlay_' + value;
-		var elements = document.getElementsByClassName('overlay');
-		elements[value].style.display = 'none';
-	};
-
-	this.do_search = function(input)
-	{
-		window.location = '#/rezepte/r:' + input;
+		/* Auszuführende Funktion wenn alle Daten vorliegen */
+		rezepteHome.$promise.then(function(data)
+		{
+			/* Ausblenden der Ladeanimation */
+			document.getElementById("loading").style.display = "none";
+			/* Setzen der anzuzeigenden Daten */
+			$scope.rezepteHome = data;
+		});
 	}
+
+	if (user.loggedIn) 
+	{
+		getHomeRecipes();
+	};
+
+
+this.redirect = function(i, $event)
+{
+	if ($event) {
+		$event.stopImmediatePropagation();
+	};
+	window.location = '#/rezept/' + $scope.rezepteHome[i]._id;
+}
+
+$scope.overlayHomeId = function(value)
+{
+	return 'home_overlay_' + value;
+};
+
+$scope.openHomeOverlay = function(value)
+{
+	var cl = 'home_overlay_' + value;
+	var elements = document.getElementsByClassName('overlay');
+	elements[value].style.display = 'block';
+};
+
+$scope.closeHomeOverlay = function(value)
+{
+	var cl = 'home_overlay_' + value;
+	var elements = document.getElementsByClassName('overlay');
+	elements[value].style.display = 'none';
+};
+
+this.do_search = function(input)
+{
+	window.location = '#/rezepte/r:' + input;
+}
 });

@@ -11,7 +11,11 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 
 .controller('RecImgController',['$routeParams','rec_get', '$scope','$upload', 'user', function($routeParams, rec_get, $scope, $upload, user){
 
-
+	if (!user.loggedIn)
+	{
+		window.location = '#/login';
+	}
+	
 	document.getElementById('loading').style.display = 'none';
 	var d = rec_get.get({id: $routeParams._id});
 	d.$promise.then(function(data)

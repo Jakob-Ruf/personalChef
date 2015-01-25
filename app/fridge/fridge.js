@@ -9,7 +9,13 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('FridgeController', ['fridge_get','fridge_put','ingredient_list','$scope','user', function(fridge_get, fridge_put,ingredient_list, $scope,user){
+.controller('FridgeController', ['fridge_get','fridge_put','ingredient_list','$scope','user', function(fridge_get, fridge_put,ingredient_list, $scope,user)
+{
+	if (!user.loggedIn)
+	{
+		window.location = '#/login';
+	}
+	
 	/* Switch zur Anzeige von Autocomplete */
 	var autoSwitch = false;
 
