@@ -36,6 +36,8 @@ angular.module('rezeptApp.userImgUpload', ['ngRoute','angularFileUpload'])
 			var popUp = document.getElementById("popup");
 			popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
 			popUp.className = "active";
+
+			document.getElementById('picture_submit').style.display = 'none';
 			var name = "";
 			var file = files[0];
 			/* Auslesen des Dateityps. Notwendig für Namensanpassung des Bildes */

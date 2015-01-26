@@ -47,6 +47,9 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 			var popUp = document.getElementById("popup");
 			popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
 			popUp.className = "active";
+
+			document.getElementById('picture_submit').style.display = 'none';
+			
 			var name = $routeParams._id;
 			var type = "";
 			var file = files[0];
