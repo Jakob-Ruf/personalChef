@@ -4,7 +4,7 @@
 
 		<!-- Ladeanimation während mit dem Server kommuniziert wird -->
 		<div id="loading">
-			<i class="fa fa-spinner fa-spin fa-3x"></i>
+			<i class="fa fa-spinner fa-pulse fa-3x"></i>
 		</div>
 
 		<!-- Container für Benutzerbild und Namen -->
@@ -67,7 +67,7 @@
 						Einfach gekocht
 					</div>
 					<div class="user_badg_count">
-						{{user.badges[1].badges[1].amount}}
+						{{user.cookedEasy}}
 					</div>
 				</div>
 				<div class="single_badge">
@@ -75,7 +75,7 @@
 						Mittelschwer gekocht
 					</div>
 					<div class="user_badg_count">
-						{{user.badges[1].badges[2].amount}}
+						{{user.cookedNormal}}
 					</div>
 				</div>
 				<div class="single_badge">
@@ -83,7 +83,7 @@
 						Schwer gekocht
 					</div>
 					<div class="user_badg_count">
-						{{user.badges[1].badges[3].amount}}
+						{{user.cookedHard}}
 					</div>
 				</div>
 
@@ -98,8 +98,11 @@
 			<h3 class="page-header">Zeitauszeichnungen</h3>
 			<div ng-repeat="timedBadges in user.badges[0].badges" class="user_badges">
 
-				<div class="user_badg_desc">
+				<div class="user_badg_desc" ng-class="userCtrl.badgeEarned(timedBadges)">
 					{{timedBadges.description}}
+				</div>
+				<div class="user_badg_date_earn" ng-show="timedBadges.earnedDate">
+					Verdient am: {{timedBadges.earnedDate}}
 				</div>
 			</div>
 			<div id="badge_place">
@@ -146,6 +149,22 @@
 			<div class="user_stat" id="user_cooked_avg">
 				<div class="stat_title">Pro Tag gekochte Rezepte: </div>
 				<div class="stat_cotent">{{user.avg_cooked}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_morning">
+				<div class="stat_title">Morgens gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedBreakfast}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_lunch">
+				<div class="stat_title">Mittags gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedLunch}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_dinner">
+				<div class="stat_title">Abends gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedDinner}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_night">
+				<div class="stat_title">Nachts gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedDrunk}}</div>
 			</div>
 		</div>
 

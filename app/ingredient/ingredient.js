@@ -8,43 +8,35 @@ angular.module('rezeptApp.ingredient', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('IngredientController', ['$scope', function($scope)
+.controller('IngredientController', ['$scope','$routeParams','ean', function($scope,$routeParams,ean)
 {
-	$scope.ingredientDetail = {
-		ean: 12345678,
-		name: "Nestle Aquarel",
-		type: "Mineralwasser",
-		producer: "Nestle",
-		contents:[
+
+		// Abruf der EAN
+		var d = ean.get({ id: $routeParams._id }, function() {/*Success*/},function()
 		{
-			name: "Natrium",
-			amount: "13.8",
-			unit: "mg/l"
-		},
+			/*Umleitung, falls Fehlermeldung*/
+			window.location = '#/nfError';
+		});
+
+		/* Auszuführende Funktion wenn alle Daten vorliegen */
+		d.$promise.then(function(data)
 		{
-			name: "Magnesium",
-			amount: "2.9",
-			unit: "mg/l"
-		},
+			console.log(data);
+			/* Ausblenden der Ladeanimation */
+			document.getElementById('loading').style.display = 'none';
+			document.getElementById('ingredients_content').style.display = 'block';
+			/* Setzen der anzuzeigenden Daten */
+			$scope.ingredientDetail = data;
+		});
+
+		this.rec = function()
 		{
-			name: "Calcium",
-			amount: "28.0",
-			unit: "mg/l"
-		},
+			window.location = '#/rezepte/r:' + $scope.ingredientDetail.Type ;
+		}
+
+		this.fridge = function()
 		{
-			name: "Chlorid",
-			amount: "33.0",
-			unit: "mg/l"
-		},
-		{
-			name: "Sulfat",
-			amount: "40.0",
-			unit: "mg/l"
-		},
-		{
-			name: "Nitrat",
-			amount: "unter 0.5",
-			unit: "mg/l"
-		}]
-	};	
+			window.location = '#/fridge/' + $scope.ingredientDetail.Type ;
+		}
+
 }])

@@ -128,5 +128,26 @@ rezeptServices.factory('rec_cooked', ['$resource', function($resource){
   return resource;
 }])
 
+/* Factory zum Abrufen der Liste mit den Zutaten um Vorschläge zu liefern */
+rezeptServices.factory('ean', ['$resource', function($resource){
+    var resource = $resource("http://personalchef.ddns.net:546/ean/:id",{},{
+    query:{
+      method:'GET',
+      isArray:true,
+      headers:{'Content-Type':'application/json; charset=UTF-8'} 
+    },
+  });
+  return resource;
+}])
 
-
+/* Factory zum Mitteilen, dass ein Rezept gekocht wurde */
+rezeptServices.factory('fridge_recs', ['$resource', function($resource){
+  var resource = $resource("http://personalchef.ddns.net:546/users/fridgeRecipes/:id",{},{
+    query:{
+      method:'GET',
+      isArray:true,
+      headers:{'Content-Type':'application/json; charset=UTF-8'} 
+    },
+  });
+  return resource;
+}])

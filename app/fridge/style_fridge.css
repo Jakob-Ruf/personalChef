@@ -92,6 +92,7 @@
 	margin-top: 15px;
 	display: block;
 	border-top: solid 2px rgba(50,50,50,0.5);
+	margin-bottom: 60px;
 }
 
 .fridge_item
@@ -209,3 +210,17 @@
 	padding-right: 5px;
 }
 
+#search_recipes
+{
+	position: fixed;
+	margin-top: 5px;
+	bottom:15px;
+	font-size: 1.3em;
+	color: white;
+	display: block;
+	padding-top: 4px;
+	width: calc(100% - 30px);
+	background-color: rgba(231, 76, 60,1.0);
+	border-radius: 5px;
+	border: 1px solid rgba(50,50,50,0.7);
+}

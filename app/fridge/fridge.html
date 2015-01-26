@@ -8,8 +8,8 @@
 				<div class="fridge_form">
 
 					<!-- Eingabefeld für Zutaten -->
-					<input type="text" ng-model="fridge_input_text._id" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete(true)"  ng-blur="fridgeCtrl.switch_autocomplete(false)" autocomplete="off" required>
-					<input type="number"  ng-model="fridge_input_text.amount" id="fridge_input_amount" min="0" placeholder="Menge" autocomplete="off" required>
+					<input type="text" ng-model="fridge_input_text._id" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete(true)"  ng-blur="fridgeCtrl.switch_autocomplete(false)" autocomplete="off" required >
+					<input type="number" ng-model="fridge_input_text.amount" id="fridge_input_amount" min="0" placeholder="Menge" autocomplete="off" required>
 					<input type="text" id="fridge_input_unit" disabled="true" required>
 					<!-- Button zum Hinzufügen -->
 					<button id="input_add_btn" type="submit"><i class="fa fa-plus fa-2x"></i></button>
@@ -23,7 +23,7 @@
 			</fieldset>
 		</form>
 		<div id="loading">
-			<i class="fa fa-spinner fa-spin fa-3x"></i>
+			<i class="fa fa-spinner fa-pulse fa-3x"></i>
 		</div>
 		<div class="fridge">
 			<div class="fridge_item" ng-repeat="item in fridge">
@@ -38,9 +38,9 @@
 					<a class="fridge_item_remove" ng-click="fridgeCtrl.remove($index)"><i class="fa fa-times"></i></a>
 				</div>
 			</div>
-			
 		</div>
 
+		<button id="search_recipes" ng-click="fridgeCtrl.getRecipes()">Rezepte mit meinen Zutaten suchen</button>
 
 	</div>
 </div>

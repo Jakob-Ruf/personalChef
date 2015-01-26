@@ -3,7 +3,7 @@
 	<div class="scrollable-content section">
 
 		<!-- Beginn des Eingabeforms mit definierter Funktion -->
-		<form role="form" ng-submit='check_input()'>
+		<form role="form" ng-submit='homeCtrl.do_search(home_input)'>
 			<fieldset>
 				<div class="home_search">
 
@@ -12,14 +12,14 @@
 					<!-- Eingabefeld für Zutaten oder Rezepte -->
 					<input type="text" ng-model="home_input" id="home_input" placeholder="Rezept suchen...">
 					<!-- Button zum Starten der Suche -->
-					<a id="home_search_btn" ng-click="homeCtrl.do_search(home_input)"><i class="fa fa-search fa-2x"></i></a>
+					<button id="home_search_btn" ng-submit="homeCtrl.do_search(home_input)" type="submit"><i class="fa fa-search fa-2x"></i></button>
 
 
 				</div>
 			</fieldset>
 		</form>
 		<div id="loading">
-			<i class="fa fa-spinner fa-spin fa-3x"></i>
+			<i class="fa fa-spinner fa-pulse fa-3x"></i>
 		</div>
 		<!-- Einfügen der Rezepthighlights -->
 		<div class="home_r" ng-repeat="rezept in rezepteHome">

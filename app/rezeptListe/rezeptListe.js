@@ -16,7 +16,7 @@ angular.module('rezeptApp.rezeptList', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('RezeptListController', function($scope, rec_list,$routeParams,user){
+.controller('RezeptListController', function($scope, rec_list,$routeParams,user,fridge_recs){
 
 	if (!user.loggedIn)
 	{
@@ -25,23 +25,54 @@ angular.module('rezeptApp.rezeptList', ['ngRoute'])
 	
 	this.switchState = 0;
 
-	var d = rec_list.query();
-	d.$promise.then(function(data)
+	var loadRecipe = function(val)
 	{
-		console.log(data);
-		document.getElementById("loading").style.display = "none";
-		$scope.rezeptListe = data;
-		if ($routeParams.id) 
+		if (val == 1) 
 		{
-			var temp = $routeParams.id.split(":");
-			var inp = document.getElementsByClassName("recL_filter_input");
-			if (temp[0] == "r") 
+			var d = rec_list.query();
+			d.$promise.then(function(data)
 			{
-				$scope.rec_searchText = temp[1];
-				inp[0].value = temp[1];
-			} 
-		};
-	});
+				console.log(data);
+				document.getElementById("loading").style.display = "none";
+				$scope.rezeptListe = data;
+			});
+		}
+		else
+		{
+
+			var d = fridge_recs.query({id: user.name});
+			d.$promise.then(function(data)
+			{
+				console.log(data);
+				document.getElementById("loading").style.display = "none";
+				$scope.rezeptListe = data;
+			});
+		}
+	}
+
+	if ($routeParams.id) 
+	{
+		var temp = $routeParams.id.split(":");
+		var inp = document.getElementsByClassName("recL_filter_input");
+		if (temp[0] == "r") 
+		{
+			$scope.rec_searchText = temp[1];
+			inp[0].value = temp[1];
+			loadRecipe(1);
+		}
+		else if (temp[0] == "f") 
+		{
+			loadRecipe(2);
+		}
+	}
+	else
+	{
+		loadRecipe(1);
+	}
+
+
+
+
 
 	this.switch = function()
 	{

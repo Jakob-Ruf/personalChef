@@ -14,7 +14,7 @@
 				</form>
 
 				<form id="signup" ng-submit="userReg(usrReg)">
-					<input id="signup_name" type="text" ng-model="usrReg.username" placeholder="Benutzername..." required>
+					<input id="signup_name" type="text" ng-model="usrReg.username" minlength="5" placeholder="Benutzername..." required>
 					<input id="signup_email" type="email" ng-model="usrReg.email" placeholder="Email..." required>
 					<input id="signup_pwd" type="password" ng-model="usrReg.password" placeholder="Passwort..." ng-change="loginCtrl.checkPass(usrReg)" required>
 					<input id="signup_pwd_rep" type="password" placeholder="Passwort wiederholen..." ng-change="loginCtrl.checkPass(usrReg)" ng-model="usrReg.password1"required>

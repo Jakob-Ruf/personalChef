@@ -31,7 +31,8 @@ angular.module('rezeptApp', [
 	loggedIn: false
 })
 
-.controller('GeneralController',['$scope','user','user_get','$timeout', function($scope,user,user_get,$timeout)
+
+.controller('GeneralController',['$scope','user','user_get','$timeout','ingredient_list', function($scope,user,user_get,$timeout,ingredient_list)
 {
 	$scope.profile = 
 	{
@@ -56,7 +57,7 @@ angular.module('rezeptApp', [
 		}
 	}
 	loadPicture();
-
+	
 
 $scope.getTimes=function(n)
 {

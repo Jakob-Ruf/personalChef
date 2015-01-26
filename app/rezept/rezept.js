@@ -19,6 +19,8 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 			window.location = '#/login';
 		}
 		
+		document.getElementById('recipe_content').style.display = 'none';
+
 		// Variable zum Abgleich der Likes und ob der Nutzer bereits geliket hat
 		$scope.recLikes = { size: '', userLike: false};
 
@@ -37,6 +39,7 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 		{
 			/* Ausblenden der Ladeanimation */
 			document.getElementById('loading').style.display = 'none';
+			document.getElementById('recipe_content').style.display = 'block';
 
 			/* Setzen der anzuzeigenden Daten */
 			$scope.recipe = data;
@@ -175,7 +178,7 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 		{
 			// Anzeige des PopUps während der Kommunikation mit dem Back-End
 			var popUp = document.getElementById("popup");
-			popUp.innerHTML = '<i class="fa fa-spinner fa-spin fa-3x" style="color=white; text-align=center;"></i>';
+			popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
 			popUp.className = "active";
 
 			// Daten für das Back-End
@@ -232,7 +235,7 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 
 			// Anzeige des PopUps während der Kommunikation mit dem Back-End
 			var popUp = document.getElementById("popup");
-			popUp.innerHTML = '<i class="fa fa-spinner fa-spin fa-3x" style="color=white; text-align=center;"></i>';
+			popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
 			popUp.className = "active";
 
 			// Daten für das Back-End
@@ -281,7 +284,7 @@ angular.module('rezeptApp.rezept', ['ngRoute'])
 
 			// Anzeige des PopUps während der Kommunikation mit dem Back-End
 			var popUp = document.getElementById("popup");
-			popUp.innerHTML = '<i class="fa fa-spinner fa-spin fa-3x" style="color=white; text-align=center;"></i>';
+			popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
 			popUp.className = "active";
 
 			// Daten für das Back-End

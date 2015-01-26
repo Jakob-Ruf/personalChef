@@ -4,7 +4,7 @@
 
 		<!-- Ladeanimation während mit dem Server kommuniziert wird -->
 		<div id="loading">
-			<i class="fa fa-spinner fa-spin fa-3x"></i>
+			<i class="fa fa-spinner fa-pulse fa-3x"></i>
 		</div>
 
 		<!-- Container für Benutzerbild und Namen -->
@@ -95,8 +95,11 @@
 			<h3 class="page-header">Zeitauszeichnungen</h3>
 			<div ng-repeat="timedBadges in user.badges[0].badges" class="user_badges">
 
-				<div class="user_badg_desc">
+				<div class="user_badg_desc" ng-class="usersCtrl.badgeEarned(timedBadges)">
 					{{timedBadges.description}}
+				</div>
+				<div class="user_badg_date_earn" ng-show="timedBadges.earnedDate">
+					Verdient am: {{timedBadges.earnedDate}}
 				</div>
 			</div>
 			<div id="badge_place">
@@ -106,7 +109,7 @@
 
 			<h3 class="page-header">Datumsauszeichnungen</h3>
 			<div ng-repeat="dateBadges in user.badges[2].badges | orderBy:['month','day']" class="user_badges">
-				<div class="user_badg_desc" ng-class="userCtrl.badgeEarned(dateBadges)">
+				<div class="user_badg_desc" ng-class="usersCtrl.badgeEarned(dateBadges)">
 					{{dateBadges.description}}
 				</div>
 				<div class="user_badg_date">
@@ -121,8 +124,44 @@
 		<div class="user_tab_content" ui-if="activeTab == 3">
 			<h3 class="page-header">Statistiken</h3>
 			<div class="user_stat" id="user_member_since">
-				<div id="user_bday_title">Mitglied seit: </div>
-				<div id="user_bday_date">{{user.profile.date_joined.day}}.{{user.profile.date_joined.month}}.{{user.profile.date_joined.year}}</div>
+				<div class="stat_title">Mitglied seit: </div>
+				<div class="stat_cotent">{{user.profile.date_joined.day}}.{{user.profile.date_joined.month}}.{{user.profile.date_joined.year}}</div>
+			</div>
+			<div class="user_stat" id="user_memberdays">
+				<div class="stat_title">Tage als Mitglied: </div>
+				<div class="stat_cotent">{{user.days_Member}}</div>
+			</div>
+			<div class="user_stat" id="user_recipes_added">
+				<div class="stat_title">Erstellte Rezepte: </div>
+				<div class="stat_cotent">{{user.recipe_count}}</div>
+			</div>
+			<div class="user_stat" id="user_recipes_avg">
+				<div class="stat_title">Pro Tag erstellte Rezepte: </div>
+				<div class="stat_cotent">{{user.avg_created}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked">
+				<div class="stat_title">Gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedAmount}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_avg">
+				<div class="stat_title">Pro Tag gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.avg_cooked}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_morning">
+				<div class="stat_title">Morgens gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedBreakfast}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_lunch">
+				<div class="stat_title">Mittags gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedLunch}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_dinner">
+				<div class="stat_title">Abends gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedDinner}}</div>
+			</div>
+			<div class="user_stat" id="user_cooked_night">
+				<div class="stat_title">Nachts gekochte Rezepte: </div>
+				<div class="stat_cotent">{{user.cookedDrunk}}</div>
 			</div>
 		</div>
 

@@ -6,10 +6,17 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 	$routeProvider.when('/fridge', {
 		templateUrl: 'fridge/fridge.html',
 		controller: 'FridgeController as fridgeCtrl',
+		reloadOnSearch: false});
+}])
+
+.config(['$routeProvider', function($routeProvider) {
+	$routeProvider.when('/fridge/:_id', {
+		templateUrl: 'fridge/fridge.html',
+		controller: 'FridgeController as fridgeCtrl',
 		reloadOnSearch: true});
 }])
 
-.controller('FridgeController', ['fridge_get','fridge_put','ingredient_list','$scope','user', function(fridge_get, fridge_put,ingredient_list, $scope,user)
+.controller('FridgeController', ['fridge_get','fridge_put','ingredient_list','$scope','user','$routeParams','$timeout', function(fridge_get, fridge_put,ingredient_list, $scope,user,$routeParams,$timeout)
 {
 	if (!user.loggedIn)
 	{
@@ -24,21 +31,8 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		ingredient: '',
 		amount: ''
 	};
-	
 
-
-	var loadIngr = function()
-	{
-		var ingReq = ingredient_list.query();
-		ingReq.$promise.then(function(data)
-		{
-			$scope.ingredientList = data;
-		})
-	}
-
-	loadIngr();
-
-	this.refreshData = function(times)
+	var refreshData = function(times)
 	{
 		document.getElementById("loading").style.display = "block";
 		var items = document.getElementsByClassName("fridge_item");
@@ -59,40 +53,70 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 				{
 					items[i].style.display = "block";
 				}
+				if ($routeParams._id) 
+				{
+					var temp = $routeParams._id
+					document.getElementById('fridge_input').value = temp;
+				};
 			});
 		}
-
 	}
 
+	var loadIngr = function()
+	{
+		var ingReq = ingredient_list.query();
+		ingReq.$promise.then(function(data)
+		{
+			$scope.ingredientList = data;
+		})
+	}
+	loadIngr();
+
 	/* Daten initial abrufen */
-	this.refreshData(1);
+	refreshData(1);
+
+	// Funktion zum Ausblenden des PopUps
+	var hidePopup = function()
+	{
+		document.getElementById("popup").className = "";
+	}
 
 	var clearInput = function()
 	{
 		document.getElementById('fridge_input').value = "";
 		document.getElementById('fridge_input_amount').value = "";
 		document.getElementById('fridge_input_unit').value = "";
+		if (typeof $scope.fridge_input_text != 'undefined') 
+		{
+			$scope.fridge_input_text = {};
+		}
 	}
 
 	this.add = function()
 	{
+		var popUp = document.getElementById("popup");
+		popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
+		popUp.className = "active";
 		this.editItem.ingredient = document.getElementById('fridge_input').value
 		this.editItem.amount = document.getElementById('fridge_input_amount').value;
-		fridge_put.save({},this.editItem);
-		clearInput();
-		/* Neuladen der Daten, damit die Anzeige aktuell ist */
-		this.refreshData(5);
-		loadIngr();
+
+		var loadToFridge = fridge_put.save({},this.editItem);
+		loadToFridge.$promise.then(function(data)
+			{
+				clearInput();
+				/* Neuladen der Daten, damit die Anzeige aktuell ist */
+				refreshData(1);
+				hidePopup();
+			});
 	}
 
 	this.select = function(i)
 	{
-		console.log(i);
 		document.getElementById('fridge_input').value = i._id;
 		document.getElementById('fridge_input_unit').value = i.unit;
 		document.getElementById('fridge_input_amount').focus();
 		document.getElementById('fridge_autocomplete_list').style.display = 'none';
-		if (i.unit == "St")
+		if (i.unit == "St.")
 		{
 			document.getElementById('fridge_input_amount').step = 1;
 		}
@@ -107,7 +131,7 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		document.getElementById('fridge_input').value = $scope.fridge[i]._id;
 		document.getElementById('fridge_input_unit').value = $scope.fridge[i].unit;
 		document.getElementById('fridge_input_amount').value = parseInt($scope.fridge[i].amount);
-		if ($scope.fridge[i].unit == "St")
+		if ($scope.fridge[i].unit == "St.")
 		{
 			document.getElementById('fridge_input_amount').step = 1;
 		}
@@ -133,9 +157,12 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 	/* Vorräte reduzieren */
 	this.minus = function(i)
 	{
+		var popUp = document.getElementById("popup");
+		popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
+		popUp.className = "active";
 		this.editItem.ingredient = $scope.fridge[i]._id;
 		/* Unterscheidung zwsichen Stück und gr/ml */
-		if ($scope.fridge[i].unit == 'St') 
+		if ($scope.fridge[i].unit == 'St.') 
 		{
 			this.editItem.amount = parseInt($scope.fridge[i].amount) - 1;
 		} 
@@ -143,17 +170,25 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		{
 			this.editItem.amount = parseInt($scope.fridge[i].amount) - 100;
 		}
-		fridge_put.save({},this.editItem);
+
+		var loadToFridge = fridge_put.save({},this.editItem);
+		loadToFridge.$promise.then(function(data)
+			{
+				clearInput();
+				hidePopup();
+			});
 		$scope.fridge[i].amount = this.editItem.amount;
-		clearInput();
 	}
 
 	/* Vorräte erhöhen */
 	this.plus = function(i)
 	{
+		var popUp = document.getElementById("popup");
+		popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
+		popUp.className = "active";
 		this.editItem.ingredient = $scope.fridge[i]._id;
 		/* Unterscheidung zwsichen Stück und gr/ml */
-		if ($scope.fridge[i].unit == 'St') 
+		if ($scope.fridge[i].unit == 'St.') 
 		{
 			this.editItem.amount = parseInt($scope.fridge[i].amount) + 1;
 		} 
@@ -161,9 +196,13 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 		{
 			this.editItem.amount = parseInt($scope.fridge[i].amount) + 100;
 		}
-		fridge_put.save({},this.editItem);
+		var loadToFridge = fridge_put.save({},this.editItem);
+		loadToFridge.$promise.then(function(data)
+			{
+				clearInput();
+				hidePopup();
+			});
 		$scope.fridge[i].amount = this.editItem.amount;
-		clearInput();
 	}
 
 	/* Vorrat entfernen */
@@ -171,8 +210,17 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 	{
 		this.editItem.ingredient = $scope.fridge[i]._id;
 		this.editItem.amount = 0;
-		fridge_put.save({},this.editItem);
-		this.refreshData(5);
-		clearInput();
+		var loadToFridge = fridge_put.save({},this.editItem);
+		loadToFridge.$promise.then(function(data)
+		{
+			clearInput();
+			/* Neuladen der Daten, damit die Anzeige aktuell ist */
+			refreshData(1);
+		});
+	}
+
+	this.getRecipes = function()
+	{
+		window.location = '#/rezepte/f:';
 	}
 }])
