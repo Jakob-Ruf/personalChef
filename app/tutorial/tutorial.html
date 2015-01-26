@@ -1,37 +1,38 @@
-<div class="scrollable" >
-	<div class="tut_darkpane"></div>
+<div>
+	<div class="tut_darkpane" id="tut_dark"></div>
 			<div id="page1">
 				<div class="tut_overlay">
 					<div id="message1">
-						<img class="tut_arrows" src="http://localhost:8888/tutorial/icons/arr1.png"/>
+						<img class="tut_arrows" src="http://personalchef.ddns.net/git/backend/imgs/icons/arr1.png"/>
 						<div class="tut_descr">Suche nach einer Zutat oder nach einem Rezept. Du kannst auch EAN Nummern eintragen oder direkt einen Barcode abscannen.</div>
 						<button class="tut_button" ng-click="nextMessage(1)">Weiter</button>
 					</div>
 					<div id="message2" class="hidden">
 						<br/><br/><br/><br/><br/><br/><br/>
-						<img class="tut_arrows" src="http://localhost:8888/tutorial/icons/arr1.png"/>
+						<img class="tut_arrows" src="http://personalchef.ddns.net/git/backend/imgs/icons/arr1.png"/>
 						<div class="tut_descr">Dir wird an jedem Tag ein anderes Rezept empfohlen.</div>
 						<button class="tut_button" ng-click="nextMessage(2)">Weiter</button>
 					</div>
 					<div id="message3" class="hidden">
 						<br/><br/><br/><br/><br/><br/><br/>
-						<img class="tut_arrows" src="http://localhost:8888/tutorial/icons/arr1.png"/>
+						<img class="tut_arrows" src="http://personalchef.ddns.net/git/backend/imgs/icons/arr1.png"/>
 						<div class="tut_descr">Du siehst auch direkt, wie lange ein Rezept dauert...</div>
 						<button class="tut_button" ng-click="nextMessage(3)">Weiter</button>
 					</div>
 					<div id="message4" class="hidden">
-						<br/><br/><br/><br/><br/><br/><br/>
+						<br/><br/><br/><br/><br/><br/>
 						<div class="tut_descr">...oder wie es von der Community bewertet wurde</div>
-						<button class="tut_button" ng-click="nextMessage(4)">Weiter</button>
 						<br/>
-						<img class="tut_arrows_middle" src="http://localhost:8888/tutorial/icons/arr5.png"/>
+						<button class="tut_button" ng-click="nextMessage(4)">Weiter</button>
+						<br/><br/><br/>
+						<img class="tut_arrows_middle" src="http://personalchef.ddns.net/git/backend/imgs/icons/arr5.png"/>
 					</div>
 					<div id="message5" class="hidden">
 						<br/><br/><br/><br/><br/><br/><br/>
 						<div class="tut_descr">Tippe auf das Informationssysmbol um mehr Informationen zu erhalten</div>
 						<button class="tut_button" ng-click="loadPage(2)">Weiter</button>
 						<br/><br/><br/>
-						<img class="tut_arrows" src="http://localhost:8888/tutorial/icons/arr7.png"/>
+						<img class="tut_arrows_tab" src="http://personalchef.ddns.net/git/backend/imgs/icons/arr7.png"/>
 					</div>
 				</div>
 				<div class="tut_backgroundlayer">
@@ -48,7 +49,7 @@
 						<h1>Rezept des Tages</h1>
 						<div class="rec_content">
 							<div class="rec_pic">
-								<img src="http://personalchef.ddns.net/git/backend/imgs/recipes/original/Spritzgeb%C3%A4ck.jpg">
+								<img src="http://personalchef.ddns.net/git/backend/imgs/recipes/burgers.jpg">
 							</div>
 
 							<div class="rec_name">
@@ -101,14 +102,14 @@
 						<button class="tut_button" ng-click="loadPage(3)">Weiter</button>
 					</div>
 				</div>
-				<div class="scrollable-content section">
+				<div>
 					<div class="tut_backgroundlayer">
 						<form role="form">
 									<fieldset>
 										<div class="fridge_form">
 											<!-- Eingabefeld für Zutaten -->
-											<input type="text" ng-model="fridge_input_text._id" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete(true)"  ng-blur="fridgeCtrl.switch_autocomplete(false)" autocomplete="off" required>
-											<input type="number"  ng-model="fridge_input_text.amount" id="fridge_input_amount" min="0" placeholder="Menge" autocomplete="off" required>
+											<input type="text" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete(true)"  ng-blur="fridgeCtrl.switch_autocomplete(false)" autocomplete="off" required>
+											<input type="number" id="fridge_input_amount" min="0" placeholder="Menge" autocomplete="off" required>
 											<input type="text" id="fridge_input_unit" disabled="true" required>
 											<!-- Button zum Hinzufügen -->
 											<button id="input_add_btn" type="submit"><i class="fa fa-plus fa-2x"></i></button>
@@ -160,17 +161,18 @@
 			</div>
 			<div id="page3" class="hide">
 				<div class="tut_overlay">
-					<div id="message11">
+					<div id="message21">
 						<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 						<div class="tut_descr">Die Community liefert dir jede Menge leckere Rezepte die du ausprobiern kannst. Der Ersteller des Rezeptes freut sich sicherlich auch über dein "Like" oder eine postive Bewertung.</div>
-						<button class="tut_button"><a href="/">Los geht's!</a></button>
+						
+						<button class="tut_button" ng-click="loadPage(4)">Weiter</button>
 					</div>
 				</div>
-				<div class="scrollable">
-					<div class="scrollable-content section">
+				<div>
+					<div>
 						<div id="recL_filter">
 							<input class="tut_dummyInput" placeholder="Rezeptnamen durchsuchen">
-							<a ng-click="rezeptLCtrl.switch(); rec_searchText._id = ''; rec_searchText.ingredients = '';" id="recL_filter_switch" href><i class="fa fa-refresh fa-2x"></i></a>
+							<a id="recL_filter_switch" href><i class="fa fa-refresh fa-2x"></i></a>
 						</div>
 						<div class="recL_rec">
 							<div class="recL_rec_name">Spaghetti Bolognese</div>
@@ -219,6 +221,300 @@
 							<div class="recL_rec_img_container">
 								<img class="recL_rec_img" ng-src="http://personalchef.ddns.net/git/backend/imgs/recipes/thumbnails/dummy.jpg">
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="page4" class="hide">
+				<div class="tut_overlay">
+					<div id="message31">
+						<br/><br/><br/><br/><br/><br/><br/>
+						<div class="tut_descr">Du kannst neue Rezepte hinzufügen. Gib dafür zunächst den Rezeptnamen und die Dauer an. Der Schwierigkeitsgrad zeigt anderen Köchen wie schwer es ist, dein Rezept zu kochen.</div>
+						<button class="tut_button" ng-click="loadPage(5)">Weiter</button>
+					</div>
+				</div>
+				<div >
+					<form>
+						<input id="rec_input_full" type="text" name="rec_name" placeholder="Rezeptnamen angeben" required tabindex="1">
+						<input id="rec_input_half" type="number" name="rec_time" placeholder="Dauer in min." required tabindex="2">
+						<select id="rec_input_half2" tabindex="3">
+							<option value="1">Leicht</option>
+							<option value="2">Mittel</option>
+							<option value="3">Schwer</option>
+						</select>
+						<button type="submit" id="rec_submit" tabindex="4">
+							<i class="fa fa-angle-right fa-2x"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+			<div id="page5" class="hide">
+				<div class="tut_overlay">
+					<div id="message41">
+						<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+						<div class="tut_descr">Füge alle nötigen Zutaten zu deinem Rezept hinzu. Klicke auf das + um deine Zutat hinzuzufügen.</div>
+						<button class="tut_button" ng-click="loadPage(6)">Weiter</button>
+					</div>
+				</div>
+				<div>
+					<div>
+						<!-- Vorschau für den Namen und die Zubereitungsdauer -->
+						<div class="new_rec_name">
+							<div id="new_rec_pic">
+								<img src="resource/nudeln.jpg">
+								<div id="new_rec_title">Spaghetti Bolognese</div>
+								<div id="new_rec_time"><i class="fa fa-clock-o"></i>12 min</div>
+							</div>
+						</div>
+						<div class="rec_input_div" >
+							<form>
+								<input id="rec_input_full" type="text" name="rec_ing" placeholder="Zutat hinzufügen" required>
+								<input id="rec_input_half" type="number" name="rec_ing"  placeholder="Menge" required>
+								<select id="rec_input_half2">
+									<option value="g">Gramm</option>
+								</select>
+								<button type="submit" id="rec_submit">
+									<i class="fa fa-plus fa-2x"></i>
+								</button>
+							</form>
+							<a class="rec_input_full_btn" id="rec_input_to_desc" href="">weiter zur Rezeptbeschreibung</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="page6" class="hide">
+				<div class="tut_overlay">
+					<div id="message61">
+						<br/><br/><br/><br/><br/>
+						<div class="tut_descr">Du siehst schließlich alle Zutaten und kannst deine Eingaben bearbeiten oder Zutaten wieder aus dem Rezept rauslöschen.</div>
+						<button class="tut_button" ng-click="loadPage(7)">Weiter</button>
+					</div>
+				</div>
+				<div>
+					<div>
+						<!-- Vorschau für den Namen und die Zubereitungsdauer -->
+						<div class="new_rec_name">
+							<div id="new_rec_pic">
+								<img src="resource/nudeln.jpg">
+								<div id="new_rec_title">Spaghetti Bolognese</div>
+								<div id="new_rec_time"><i class="fa fa-clock-o"></i>12 min</div>
+							</div>
+						</div>
+						<div class="new_rec_ingredients">
+							<div id="new_ingredients_head">
+								Zutaten:
+							</div>
+							<ul>
+								<li class="new_rec_ing_li">
+									<div id="new_rec_ing_name">
+										Hackfleisch
+									</div>
+									<div id="new_rec_ing_edit">
+										<i class="fa fa-pencil"></i>
+									</div>
+									<div id="new_rec_ing_amount">
+										500
+									</div>
+									<div id="new_rec_ing_unit">
+										Gramm
+									</div>
+									<div id="new_rec_ing_remove">
+										<i class="fa fa-times"></i>
+									</div>
+								</li>
+								<li class="new_rec_ing_li">
+									<div id="new_rec_ing_name">
+										Nudeln
+									</div>
+									<div id="new_rec_ing_edit">
+										<i class="fa fa-pencil"></i>
+									</div>
+									<div id="new_rec_ing_amount">
+										200
+									</div>
+									<div id="new_rec_ing_unit">
+										Gramm
+									</div>
+									<div id="new_rec_ing_remove">
+										<i class="fa fa-times"></i>
+									</div>
+								</li>
+								<li class="new_rec_ing_li">
+									<div id="new_rec_ing_name">
+										Tomaten
+									</div>
+									<div id="new_rec_ing_edit">
+										<i class="fa fa-pencil"></i>
+									</div>
+									<div id="new_rec_ing_amount">
+										2
+									</div>
+									<div id="new_rec_ing_unit">
+										Stück
+									</div>
+									<div id="new_rec_ing_remove">
+										<i class="fa fa-times"></i>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="rec_input_div" >
+							<form>
+								<input id="rec_input_full" type="text" name="rec_ing" placeholder="Zutat hinzufügen" required>
+								<input id="rec_input_half" type="number" name="rec_ing"  placeholder="Menge" required>
+								<select id="rec_input_half2">
+									<option value="g">Gramm</option>
+								</select>
+								<button type="submit" id="rec_submit">
+									<i class="fa fa-plus fa-2x"></i>
+								</button>
+							</form>
+							<a class="rec_input_full_btn" id="rec_input_to_desc" href="">weiter zur Rezeptbeschreibung</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="page7" class="hide">
+				<div class="tut_overlay">
+					<div id="message71">
+						<br/><br/><br/><br/><br/>
+						<div class="tut_descr">Beschreibe wie dein Gericht zubereiten ist und schließe deine Eingaben mithilfe des Buttons ab.</div>
+						<button class="tut_button" ng-click="loadPage(8)">Weiter</button>
+					</div>
+				</div>
+				<div>
+					<div>
+						<!-- Vorschau für den Namen und die Zubereitungsdauer -->
+						<div class="new_rec_name">
+							<div id="new_rec_pic">
+								<img src="resource/nudeln.jpg">
+								<div id="new_rec_title">Spaghetti Bolognese</div>
+								<div id="new_rec_time"><i class="fa fa-clock-o"></i>12 min</div>
+							</div>
+						</div>
+						<div class="new_rec_ingredients">
+							<div id="new_ingredients_head">
+								Zutaten:
+							</div>
+							<ul>
+								<li class="new_rec_ing_li">
+									<div id="new_rec_ing_name">
+										Hackfleisch
+									</div>
+									<div id="new_rec_ing_edit">
+										<i class="fa fa-pencil"></i>
+									</div>
+									<div id="new_rec_ing_amount">
+										500
+									</div>
+									<div id="new_rec_ing_unit">
+										Gramm
+									</div>
+									<div id="new_rec_ing_remove">
+										<i class="fa fa-times"></i>
+									</div>
+								</li>
+								<li class="new_rec_ing_li">
+									<div id="new_rec_ing_name">
+										Nudeln
+									</div>
+									<div id="new_rec_ing_edit">
+										<i class="fa fa-pencil"></i>
+									</div>
+									<div id="new_rec_ing_amount">
+										200
+									</div>
+									<div id="new_rec_ing_unit">
+										Gramm
+									</div>
+									<div id="new_rec_ing_remove">
+										<i class="fa fa-times"></i>
+									</div>
+								</li>
+								<li class="new_rec_ing_li">
+									<div id="new_rec_ing_name">
+										Tomaten
+									</div>
+									<div id="new_rec_ing_edit">
+										<i class="fa fa-pencil"></i>
+									</div>
+									<div id="new_rec_ing_amount">
+										2
+									</div>
+									<div id="new_rec_ing_unit">
+										Stück
+									</div>
+									<div id="new_rec_ing_remove">
+										<i class="fa fa-times"></i>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="rec_input_div">
+							<div id="new_description_head">
+								Zubereitung:
+							</div>
+							<form>
+								<div id="textarea_wrapper"><textarea id="add_r_description_input_area" placeholder="Zubereitung" required></textarea></div>
+								<button type="submit" id="final_submit">
+									Rezept abschließen
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="page8" class="hide">
+				<div class="tut_overlay">
+					<div id="message81">
+						<br/><br/><br/><br/><br/>
+						<div class="tut_descr">Fertig. Dein Rezept ist nun für die Community zugänglich und kann bewertet und kommentiert werden.</div>
+						<button class="tut_button"><a href="http://personalchef.ddns.net/git/app/#/home/">Los geht's!</a></button> 
+					</div>
+				</div>
+				<div>
+					<div>
+						<div id="recipe_content">
+							<div id="re_pic">
+								<img ng-src="http://personalchef.ddns.net/git/backend/imgs/recipes/Gekochte Nudeln.jpg">
+								<div id="title">Spaghetti Bolognese</div>
+								<div id="time"><i class="fa fa-clock-o"></i>12 min</div>
+								<div id="rec_edit_img" >
+									<i class="fa fa-pencil fa-2x"></i>
+								</div>
+							</div>
+							<div id="creator_img_container" >
+								<div id="creater_img_helper">
+									<img ng-src="http://personalchef.ddns.net/git/backend/imgs/users/dummy.png">
+								</div>
+							</div>
+							<div  ui-if="activeRecTab == 1" id="rec_padding_content">
+								<div id="rec_ingredients">
+									<h1>Zutaten</h1>
+									<ul>
+										<li >500g Hackfleisch</li>
+										<li >200g Nudeln</li>
+										<li >2 Tomaten</li>
+									</ul>
+								</div>
+								<div id="rec_size">
+									Portionsgröße 1
+								</div>
+								<div id="rec_instructions">
+									<h1>Zubereitung</h1>
+									<p>Spaghetti in kochendes Wasser geben. Nach 5 Minuten Hackfleisch braten und passierte Tomaten hinzugeben.</p>
+								</div>
+								<button id="rec_cooked"><i class="fa fa-check fa-fw"></i>Rezept gekocht </button>
+							</div>
+							<ui-state id='activeRecTab' default='1'></ui-state>
+							<ul class="nav nav-tabs">
+								<li ui-class="{'active': activeRecTab == 1}">
+									<a ui-set="{'activeRecTab': 1}" ><i class="fa fa-file-text-o fa-2x"></i></a>
+								</li>
+								<li ui-class="{'active': activeRecTab == 2}">
+									<a ui-set="{'activeRecTab': 2}"><i class="fa fa-comments-o fa-2x"></i></a>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
