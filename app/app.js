@@ -75,4 +75,13 @@ $scope.ratingIsActive = function(starId, rezept)
 	};
 };
 
+this.logOut = function()
+{
+	console.log("logout");
+	user.name = "";
+	user.image = "";
+	user.loggedIn = false;
+	window.location = '#/login';
+}
+
 }]);

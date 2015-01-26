@@ -33,7 +33,7 @@ angular.module('rezeptApp.login', ['ngRoute'])
 	$scope.userLogin = function(user)
 	{
 		var popUp = document.getElementById("popup");
-		popUp.innerHTML = '<i class="fa fa-spinner fa-spin fa-3x" style="color=white; text-align=center;"></i>';
+		popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
 		popUp.className = "active";
 		var userLogin = login.save(user, function() {/*Success*/},function()
 		{
