@@ -1,27 +1,10 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-- - - -
 ## Front End ##
 
 ### Struktur der Applikation ###
-Die Applikation wurde im Front-End möglichst modular gestaltet. So kommen sich parrallelarbeitende Entwickler möglichst wenig in die Quere und können gleichzeitig unterschiedliche Ansichten des Front-Ends entwickeln.
+Die Applikation wurde im Front-End möglichst modular gestaltet. So kommen sich parallelarbeitende Entwickler möglichst wenig in die Quere und können gleichzeitig unterschiedliche Ansichten des Front-Ends entwickeln.
 
 Die App besitzt einen umschließenden Ordner (app), welcher die notwendigen Ressourcen enthält. Bilder welche sich nicht dynamisch in der Laufzeit verändern werden im Ordner "resource" abgelegt. Die nötigen AngularJS-Bibliotheken befinden sich im Ordner "components" und verwendete Schriften sind im Ordner "fonts" zu finden.
 Jede individuelle Ansicht der App besitzt einen eigenen Ordner. Darin befinden sich die HTML-Seite, die dazugehörige CSS-Datei und die für diese Seite verantwortliche Javascript-Datei, welche das entsprechende Modul mit dem Controller der Seite enthält. Zusätzlich lässt sich so eine bessere Übersicht ermöglichen, da jegliche Inhalte zu einer Ansicht nur in einem Ordner zu suchen sind.
@@ -166,19 +149,33 @@ Das Backend wurde über NodeJS mit einem ExpressJS-Framework realisiert. Die Dat
 ### Kommunikation mit dem Front-End ###
 
 Das Front-End sendet REST-Calls an das Backend. Diese werden von der entsprechenden Middleware an die richtige Stelle geroutet.
+Vor der WEiterleitung an die richtige Middleware wird allerdings noch die Datenbankverbindung in das Anfrage-Objekt gespeichert, sodass auch die Middleware darauf Zugriff hat. 
 
-Ausschnitt aus der app.js
+#### Ausschnitt aus der app.js ####
 ```
 #!javascript
+
+var mongo = require('mongoskin'); // Datenbank-Middleware (schlanker als Mongoose-Zugriffe)
+var db = mongo.db("mongodb://localhost:27017/personalChef", {native_parser:true});   // Verbindung mit der Datenbank
+
+[...]
+
+app.use(function(req,res,next){
+    [...]
+    req.db = db; // DB an Request übergeben
+    next(); // Weiterleitung an den zuständigen Router
+});
 
 require('./routes/routes.js')(app);
 
 ```
 
 Die routes-Datei enthält die einzelnen Routen, die die Anfragen wiederum an die entsprechenden Funktionen weitergeben. Die Funktionen sind nach dem Datenbankobjekt, das sie hauptsächlich betreffen geordnet und in einzelnen Dateien im javascript-Ordner abgelegt.
+
+
 Die opt-Funktion besteht zum Erlauben von CORS-Requests, da vom initiierenden Browser zuerst eine OPTIONS-Anfrage geschickt wird, die mit den richtigen Headern beantwortet werden muss, bevor die eigentliche POST-Anfrage geschickt wird.
 
-Ausschnitt aus routes.js
+#### Ausschnitt aus routes.js ####
 ```
 #!javascript
 var users = require('../javascript/users.js');
@@ -186,28 +183,28 @@ var users = require('../javascript/users.js');
 
 module.exports = function(app){
 
-	// users
-	// gets
-	app.get('/users/shortlist', function (req,res){
-		users.getShortlist(req,res);
-	});
+    // users
+    // gets
+    app.get('/users/shortlist', function (req,res){
+    users.getShortlist(req,res);
+    });
 
-	// posts
-	app.post('/users/fridge', function (req, res){
-		users.postFridge(req, res, req.params.iid);
-	});
-	app.options('/users/fridge', function (req, res){
-		opt(req, res);
-	});
+    // posts
+    app.post('/users/fridge', function (req, res){
+        users.postFridge(req, res, req.params.iid);
+    });
+    app.options('/users/fridge', function (req, res){
+        opt(req, res);
+    });
 
 [...]
 };
 
 function opt(req, res){
-	res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Origin", '*');
     res.header("Access-Control-Allow-Headers", 'content-type');
     res.header("Access-Control-Allow-Methods", 'POST');
-	res.send(200);
+    res.send(200);
 };
 
 ```
@@ -221,7 +218,19 @@ function opt(req, res){
 * **sha1** für das Hashing der Nutzerpasswörter 
 * **morgan** zum Loggen der eingehenden Anfragen
 
+### Berechnung der Rezeptbeliebtheit ###
+
+Um herauszufinden, welches Rezept auf der Startseite der App angezeigt werden soll, wird ein gewisser Popularitätswert aus der Anzahl der Bewertungen und der Likes sowie der durchschnittlichen Bewertung berechnet. Diese Berechnung wird jedes Mal angestoßen, wenn einer dieser Werte verändert wird, also wenn ein Nutzer ein Rezept favorisiert oder bewertet.
+
+Popularität = (1.5 * Bewertungsdurchschnitt * log(Bewertungsanzahl+2) + (10 * log(Likezahl+1)) + 1
+
+Jede Nacht um 00:01 Uhr wird das Rezept mit der höchsten Popularität ausgewählt und auf der Startseite zusammen mit einem anderen, zufällig ausgewählten Rezept angezeigt.
+
+###  ###
+
+
 - - - -
+
 ## Kontakt zu den Programmierern ##
 
 * Repository Owner: @jakobruf
