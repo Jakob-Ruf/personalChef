@@ -183,7 +183,7 @@ angular.module('rezeptApp.fridge', ['ngRoute'])
 	/* Vorräte erhöhen */
 	this.plus = function(i)
 	{
-		var popUp = document.getElementById("popup");
+ 		var popUp = document.getElementById("popup");
 		popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
 		popUp.className = "active";
 		this.editItem.ingredient = $scope.fridge[i]._id;

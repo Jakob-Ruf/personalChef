@@ -33,11 +33,20 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 		window.location = '#/rezept/' + name;
 	}
 
+	// Funktion zum Ausblenden des PopUps
+	var hidePopup = function()
+	{
+		document.getElementById("popup").className = "";
+	}
+
 	var name = $routeParams._id;
 	$scope.uploadPic = function(files) {
 
 		if (files != null) 
 		{
+			var popUp = document.getElementById("popup");
+			popUp.innerHTML = '<i class="fa fa-spinner fa-pulse fa-3x" style="color=white; text-align=center;"></i>';
+			popUp.className = "active";
 			var name = $routeParams._id;
 			var type = "";
 			var file = files[0];
@@ -67,6 +76,9 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 		        temp[0].style.display = 'none';
 		        document.getElementById('loading').style.display = 'block';
 		        $timeout(redirect,5000);
+				// Ändern des PopUps und setzen von Timeout
+				popup.innerHTML = "Bitte beachte, dass das Bild zuerst noch verarbeitet werden muss und es deshalb ein bisschen dauern kann, bis das neue Bild angezeigt wird!";
+				$timeout(hidePopup, 5000);
 		    });
 		};
 	}
