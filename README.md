@@ -158,8 +158,71 @@ angular.controller('GeneralController',['user', function(user)
 
 - - - -
 ## Back End ##
+
+### Generelles ###
+
+Das Backend wurde über NodeJS mit einem ExpressJS-Framework realisiert. Die Datenhaltung erfolgt in einer MongoDB. Gehostet wird das Ganze auf einem privat verfügbaren RaspberryPi. Der Zugang zu diesem wurde über einen DynDNS-Service realisiert, sodass die Erreichbarkeit auch bei einem Wechsel der IP-Adresse gewährleistet ist.
+
+### Kommunikation mit dem Front-End ###
+
+Das Front-End sendet REST-Calls an das Backend. Diese werden von der entsprechenden Middleware an die richtige Stelle geroutet.
+
+Ausschnitt aus der app.js
+```
+#!javascript
+
+require('./routes/routes.js')(app);
+
+```
+
+Die routes-Datei enthält die einzelnen Routen, die die Anfragen wiederum an die entsprechenden Funktionen weitergeben. Die Funktionen sind nach dem Datenbankobjekt, das sie hauptsächlich betreffen geordnet und in einzelnen Dateien im javascript-Ordner abgelegt.
+Die opt-Funktion besteht zum Erlauben von CORS-Requests, da vom initiierenden Browser zuerst eine OPTIONS-Anfrage geschickt wird, die mit den richtigen Headern beantwortet werden muss, bevor die eigentliche POST-Anfrage geschickt wird.
+
+Ausschnitt aus routes.js
+```
+#!javascript
+var users = require('../javascript/users.js');
+[...]
+
+module.exports = function(app){
+
+	// users
+	// gets
+	app.get('/users/shortlist', function (req,res){
+		users.getShortlist(req,res);
+	});
+
+	// posts
+	app.post('/users/fridge', function (req, res){
+		users.postFridge(req, res, req.params.iid);
+	});
+	app.options('/users/fridge', function (req, res){
+		opt(req, res);
+	});
+
+[...]
+};
+
+function opt(req, res){
+	res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Headers", 'content-type');
+    res.header("Access-Control-Allow-Methods", 'POST');
+	res.send(200);
+};
+
+```
+
+### Verwendete Node-Module ###
+
+* **Connect-Busboy** für das Handling von Datei-Uploads (Nutzer- und Rezeptbilder)
+* **gm** + **imagemagick** für das Umrechnen und Zuschneiden der hochgeladenen Bilder
+* **mongodb** + **mongoskin** für die Verbindung zur Datenbank. Mongoskin ist eine schlanke Middleware für MongoDB mit asynchronen Operationen
+* **node-schedule** für Tasks im Backend, die regelmäßig ausgeführt werden sollen
+* **sha1** für das Hashing der Nutzerpasswörter 
+* **morgan** zum Loggen der eingehenden Anfragen
+
 - - - -
-### Kontakt zu den Programmierern ###
+## Kontakt zu den Programmierern ##
 
 * Repository Owner: @jakobruf
 

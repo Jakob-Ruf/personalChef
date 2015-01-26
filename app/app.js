@@ -10,6 +10,7 @@ angular.module('rezeptApp', [
 	'rezeptApp.home',
 	'rezeptApp.fridge',
 	'rezeptApp.rezeptList',
+    'rezeptApp.agb',
 	'rezeptApp.addRecipe',
 	'rezeptApp.rezept',
 	'rezeptApp.user',

@@ -125,3 +125,16 @@
 	width: 100%;
 	display: block;
 }
+.agb_accept{
+	width: 90%;
+	padding-top: 20px;
+	margin: auto;
+	display: block;
+	padding-bottom: 10px;
+	border-radius: 5px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #000000;
+}
+.agb_accept a{
+	color: rgba(231, 76, 60,1.0);
+}
