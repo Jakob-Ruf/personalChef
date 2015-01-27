@@ -77,7 +77,7 @@ var exports = {
 						 		ltext = ltext.substring(ltext.indexOf("\n")+1, ltext.length);
 						 	}
 					 	
-						 	jsonData["incredients"].push(lincredient);
+						 	jsonData["contents"].push(lincredient);
 						}else{
 							ltext = ltext.substring(ltext.indexOf("\n")+1, ltext.length);
 						}
@@ -85,8 +85,8 @@ var exports = {
 
 
 		        	// Return JSON 
-		            res.send(jsonData.toString("utf8"));
-		            //res.send(jsonData);
+		            //res.send(jsonData.toString("utf8"));
+		            res.send(jsonData);
 		        });
 		    });
 
