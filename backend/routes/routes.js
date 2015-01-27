@@ -57,13 +57,6 @@ module.exports = function(app){
 		users.postFridgeRecipes(req, res, req.params.id);
 	});
 
-	// app.post('/users/fridgeRecipes', function (req, res){
-	// 	users.postFridgeRecipes(req, res);
-	// });
-	// app.options('/users/fridgeRecipes', function (req, res){
-	// 	opt(req, res);
-	// });
-
 	app.post('/users/report', function (req, res){
 		users.postReport(req, res);
 	});

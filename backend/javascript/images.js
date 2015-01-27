@@ -72,7 +72,7 @@ var exports = {
 			path = 'imgs/' + typeCollection + '/original/';
 		};
 
-		// errechnen der Größe des Originalbilds
+		// Errechnen der Größe des Originalbilds
 		imageMagick('./imgs/' + typeCollection + '/' + fileName).size(function (err, value){
 			if (err) console.log(err);
 			if (value){

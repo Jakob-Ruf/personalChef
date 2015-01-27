@@ -225,6 +225,35 @@ function opt(req, res){
 
 Für die Umsetzung von Datenbankoperationen wurde das mongoskin-Modul verwendet, da es ein sehr schlankes Modul ist und dabei aber jede notwendige Funktionalität liefert, die für diese App benötigt wurde.
 
+### Datenbankaufrufe ###
+
+Generell sind die einzelnen API-Aufrufe in eigene Funktionen gepackt, die dann vom Router routes.js aufgerufen werden, wenn eine entsprechende Anfrage an das Backend geschickt wird. Diese Funktionen erhalten jeweils das Request- und das Response-Objekt des Routers. Bei einer GET-Anfrage werden die Route-Parameter in die Funktion übergeben. Bei einer POST-Anfrage sind alle benötigten Daten in dem Request-Objekt enthalten.
+Die entsprechenden Operationen werden in der Funktion mit Hilfe des mongoskin-Moduls ausgeführt. Die Ergebnisse werden dann an das Response-Objekt übergeben und abgeschickt. Dabei werden je nach Situation auch Fehlercodes zurückgegeben.
+
+#### Ausschnitt aus recipes.js ####
+```
+#!javascript
+
+    getByName: function(req, res, id){
+        var db = req.db;
+        console.log(Date().toString() + ": Requested recipe " + id);
+        db.collection('recipes').find({"_id": id},{"_id":1,"comments":1,"creator":1,"creatorThumb":1,"description":1,"difficulty":1,"time":1, "image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items) {
+            if (err === null){
+                if( items.length == 0){
+                    res.send(404);
+                } else {
+                    res.header("Content-Type: application/json; charset=utf-8");
+                    res.json(items[0]);
+                };
+            } else {
+                console.log(err);
+                res.send(500);
+            };
+        });
+    },
+
+```
+
 ### Berechnung der Rezeptbeliebtheit ###
 
 Um herauszufinden, welches Rezept auf der Startseite der App angezeigt werden soll, wird ein gewisser Popularitätswert aus der Anzahl der Bewertungen und der Likes sowie der durchschnittlichen Bewertung berechnet. Diese Berechnung wird jedes Mal angestoßen, wenn einer dieser Werte verändert wird, also wenn ein Nutzer ein Rezept favorisiert oder bewertet.
@@ -269,7 +298,6 @@ Wenn die Umrechnung fertiggestellt ist, wird der Pfad der Bilder in der Datenban
     var pathNormal = "http://personalchef.ddns.net/git/backend/imgs/" + typeCollection + "/original/" + file + "?v=" + date;
 
 ```
-
 
 
 
