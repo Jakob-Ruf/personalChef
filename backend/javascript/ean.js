@@ -22,11 +22,11 @@ var exports = {
 					var lDetailname = eanString.substring(eanString.indexOf("detailname=")+11, eanString.indexOf("vendor")-1);
 					//Vendor
 					var lvendor = eanString.substring(eanString.indexOf("vendor=")+7, eanString.indexOf("maincat")-1);
-					
+
 
 					// Build JSON
 					var jsonData = {};
-					
+
 					//Clear all values
 					jsonData["name"] = "";
 					jsonData["type"] = "";
@@ -41,16 +41,16 @@ var exports = {
 
 					//Handle incredients
 
-					var ltext = eanString.substring(eanString.indexOf("descr="+6), eanString.indexOf("name_en"));
+					var ltext = eanString.substring(eanString.indexOf("descr=")+6, eanString.indexOf("name_en"));
 					if (ltext.length < 3){
-						eanString = eanString.substring("validated="+17, eanString.length);
-						ltext = eanString.substring(eanString.indexOf("descr="+6), eanString.indexOf("name_en"));
+						eanString = eanString.substring(eanString.indexOf("validated=")+17, eanString.length);
+						ltext = eanString.substring(eanString.indexOf("descr=")+6, eanString.indexOf("name_en"));
 					}
-					
+
 					// Unternehmen entfernen
 					lstart = ltext.indexOf("\n")+2;
 					ltext = ltext.substring(lstart, ltext.length);
-					
+
 					jsonData["contents"] = [];
 
 					while (ltext.length > 0){
