@@ -31,7 +31,7 @@ var exports = {
 	getByName: function(req, res, id){
 	    var db = req.db;
 	    console.log(Date().toString() + ": Request of user " + id);
-	    db.collection('users').find({"_id": id},{_id:1, "profile.birthday": 1, favorites:1, image:1, badges:1, cooked: 1, cookedAmount: 1, dateJoined: 1, recipes:1, likes: 1}).toArray(function (err, items) {
+	    db.collection('users').find({"_id": id},{_id:1, "profile.date_joined": 1, favorites:1, image:1, badges:1, cooked: 1, cookedAmount: 1, cookedBreakfast:1, cookedDinner:1, cookedLunch:1, cookedDrunk:1, cookedEasy:1, cookedNormal:1, cookedHard:1, dateJoined: 1, recipes:1, likes: 1}).toArray(function (err, items) {
 	        if (err === null){
 	            if (items.length == 0){
 	                res.send(404);
@@ -45,6 +45,7 @@ var exports = {
 	        };
 	    });
 	},
+
 
 	getList: function(req, res){
 	    var db = req.db;
@@ -251,23 +252,24 @@ var exports = {
 	    });
 	},
 
-	postFridgeRecipes: function(req, res){
+	postFridgeRecipes: function(req, res, id){
 		var db = req.db;
-	    var threshold = 0;
-	    if (req.body.threshold === null){
-	        threshold = 0.5;
-	    } else {
-	        threshold = req.body.threshold;
-	    };
+	    var threshold = 0.5;;
 	    // get the fridge of the requesting user
-	    db.collection('users').find({"_id": req.body._id},{"fridge":1}).toArray(function (err, users){
+	    db.collection('users').find({"_id": id},{"fridge":1}).toArray(function (err, users){
 	        if (err === null){
 	            if (users.length == 0){
 	                res.send(404);
 	            } else {
 	                var user = users[0];
+	                if (user.fridge.length == 0){
+	                	console.log(Date().toString() + ": Das ist ja schlimmer als beim größten Klischee-Studenten. Abbruch");
+	                	var result = [];
+	                	res.send(result);
+	                	return;
+	                };
 	                // get all recipes
-	                db.collection('recipes').find().toArray(function (err, recipes){
+	                db.collection('recipes').find({},{_id:1 ,creator:1 ,imageThumb:1 ,ingredients:1 ,likes_amount:1 , ratings_average:1 }).toArray(function (err, recipes){
 	                    if (err === null){
 	                        if (recipes.length == 0){
 	                            res.send(404);
@@ -290,8 +292,7 @@ var exports = {
 	                                            result[i][j] = 1;
 	                                            break;
 	                                        } else {
-	                                            console.log(user.fridge[k]._id + " != " + recipes[i].ingredients[j]._id + " ( " + recipes[i]._id + ") i=" + i + " j=" + j);
-	                                            // if ingredient in fridge matches recipe ingredient, write 0 into result-array
+	                                            // if ingredient in fridge doesn't match recipe ingredient, write 0 into result-array
 	                                            result[i][j] = 0;
 	                                        };
 	                                    };
@@ -309,9 +310,10 @@ var exports = {
 	                                // compute the quotient 
 	                                quotient = sum / result[i].length;
 	                                // if quotient >= threshold write recipe to console and push recipe to returnVal
-	                                console.log(recipes[i]._id + " " + text + " Summe: " + sum + " Quotient: " + quotient.toFixed(2) + "%");
 	                                if (quotient*1 >= threshold){
 	                                    returnVal.push(recipes[i]);
+	                                    console.log(recipes[i]._id + " wurde zu Return-Array hinzugefügt");
+	                                } else {
 	                                };
 	                            };
 	                            res.header("Content-Type: application/json; charset=utf-8");

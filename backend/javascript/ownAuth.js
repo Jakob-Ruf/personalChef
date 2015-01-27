@@ -8,7 +8,7 @@ var exports = {
 		var date = new Date();
 		console.log(req.body);
 		// überprüfen ob alle verlangten Felder ausgefüllt sind
-		if (!req.body.username || !req.body.password || !req.body.email){
+		if (!req.body.username || !req.body.password || !req.body.email || req.body.username.length < 5 ){
 			res.send("Bitte alle Felder ausfüllen", 400);
 			return;
 		} else {
@@ -17,11 +17,7 @@ var exports = {
 			user._id = req.body.username;
 			user.profile = {};
 			user.profile.password = sha(req.body.password);
-			user.profile.email = shorten(req.body.email);
-			// user.profile.birthday = {
-			// 	'day': req.body.day,
-			// 	'month': req.body.month
-			// };
+			user.profile.email = req.body.email;
 			user.cooked = [];
 			user.cookedAmount = 0;
 			user.fridge = [];
@@ -45,17 +41,6 @@ var exports = {
 					if (!badges.length){
 						res.send(404);
 					} else {
-						// setze den Geburtstagsbadge entsprechend dem  Geburtsdatum
-						// for (var i = badges.length - 1; i >= 0; i--) {
-						// 	if (badges[i].category == "date"){
-						// 		for (var j = badges[i].badges.length - 1; j >= 0; j--) {
-						// 			if (badges[i].badges[j]._id == "dateBirthday"){
-						// 				badges[i].badges[j].day = req.body.day;
-						// 				badges[i].badges[j].month = req.body.month;
-						// 			};
-						// 		};
-						// 	};
-						// };
 						// hinzufügen der badges zum User-Objekt
 						user.badges = badges;
 						// überprüfe, ob der Nutzer bereits existiert
@@ -140,15 +125,15 @@ var exports = {
 	}
 };
 
-function shorten(email){
-	if (email.indexOf('+') == -1){
-		return email;
-	} else {
-		var splitted = email.split('+');
-		var splitted2 = splitted[1].split('@');
-		var newmail = splitted[0] + '@' + splitted2[1];
-		return newmail;
-	};
-};
+// function shorten(email){
+// 	if (email.indexOf('+') == -1){
+// 		return email;
+// 	} else {
+// 		var splitted = email.split('+');
+// 		var splitted2 = splitted[1].split('@');
+// 		var newmail = splitted[0] + '@' + splitted2[1];
+// 		return newmail;
+// 	};
+// };
 
 module.exports = exports;

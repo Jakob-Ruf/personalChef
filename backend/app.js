@@ -1,7 +1,7 @@
+// Standard-Module von Express
 var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
-// var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var schedule = require('node-schedule');
 var busboy = require('connect-busboy');
@@ -10,8 +10,6 @@ var mongo = require('mongoskin'); // Datenbank-Middleware (schlanker als Mongoos
 var db = mongo.db("mongodb://localhost:27017/personalChef", {native_parser:true});   // Verbindung mit der Datenbank
 
 var tools = require('./javascript/tools'); // JS Funktionen für Berechnung der Rezept-Bewertungen
-var badges = require('./javascript/badges'); // JS Funktionen für Berechnung der Rezept-Bewertungen
-
 
 var app = express();
 app.set('env', 'development'); // Setzen des App-Environments auf Development für detaillierte Stacktraces bei Fehlern
@@ -27,8 +25,6 @@ app.use(morgan('dev')); // morgan für Zugriffs-Logs
 
 app.use(bodyParser.json()); // bodyParser zum Parsen von Requests
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(express.static(path.join(__dirname, 'public')));
-
 
 
 app.use(function(req,res,next){
@@ -40,9 +36,7 @@ app.use(function(req,res,next){
 });
 
 
-
 require('./routes/routes.js')(app); // Laden der allgemeinen Router-Datei, Übergabe von app und passport für Authentifizierung
-// require('./routes/routes.js')(app, passport); // Laden der allgemeinen Router-Datei, Übergabe von app und passport für Authentifizierung
 
 
 // Fehlerbehandlung
@@ -77,16 +71,15 @@ app.use(function(err, req, res, next) {
 
 // Skripte für Serverstart
 console.log(Date().toString() + ": Server successfully started");
-// tools.updateRatingsAndLikes(db);
-// tools.checkForDiscrepancies(db);
+
 tools.updateStartScreen(db);
-// badges.checkSpecialDate(db, "Paul Pimmel");
-// badges.checkSpecialTime(db, "Paul Pimmel");
+
 
 // Skripte, die regelmäßig ausgeführt werden sollen
 var rule = new schedule.RecurrenceRule();
 rule.hour = 0;
 rule.minute = 1;
+
 schedule.scheduleJob(rule, function(){
     tools.updateStartScreen(db);
 });
