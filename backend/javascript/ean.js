@@ -85,8 +85,8 @@ var exports = {
 
 
 		        	// Return JSON 
-		            res.send(jsonData.toString("utf8"));
-		            //res.send(jsonData);
+		            //res.send(jsonData.toString("utf8"));
+		            res.send(jsonData);
 		        });
 		    });
 
