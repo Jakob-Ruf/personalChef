@@ -8,7 +8,7 @@ angular.module('rezeptApp.agb', ['ngRoute'])
 		reloadOnSearch: true});
 }])
 
-.controller('AgbController',['$scope','agb','register','$timeout','user', function($scope,login,register,$timeout,user)
+.controller('AgbController',['$scope','agb', function()
 {
 
 
