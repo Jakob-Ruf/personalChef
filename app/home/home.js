@@ -101,5 +101,20 @@ $scope.closeHomeOverlay = function(value)
 this.do_search = function(input)
 {
 	window.location = '#/rezepte/r:' + input;
+};
+this.do_scanBarcode = function()
+{
+        cordova.exec(success, failure, "ScanditSDK", "scan",
+         ["I0fdfU5DxbyV6lshLMEiQr4WxlVkiniNkDEpHD9f97o",
+          {"beep": true,
+          "1DScanning" : true,
+          "2DScanning" : true}]);
+};
+function success(resultArray) {
+    window.location = '#/ingredient/' + resultArray[0];
+}
+
+function failure(error) {
+    alert("Failed: " + error);
 }
 });
