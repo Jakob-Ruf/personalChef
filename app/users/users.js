@@ -48,10 +48,10 @@ angular.module('rezeptApp.users', ['ngRoute'])
 		$scope.user.days_Member = diffDays;
 
 		// Durchschnittliche Rezepte pro Tag
-		$scope.user.avg_created = $scope.user.recipe_count / diffDays;
+		$scope.user.avg_created = ($scope.user.recipe_count / diffDays).toPrecision(3);
 
 		// Durchschnittlich gekocht
-		$scope.user.avg_cooked = $scope.user.cookedAmount / diffDays;
+		$scope.user.avg_cooked = ($scope.user.cookedAmount / diffDays).toPrecision(3);
 	}
 
 	this.own_redirect = function(i)

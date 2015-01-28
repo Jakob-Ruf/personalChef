@@ -233,8 +233,8 @@
 	margin-left: calc(50% - 5em);
 	height: 10em;
 	border-radius: 5em;
-	background-color: gray;
-	border: 5px solid green;
+	background-color: rgb(181, 181, 181);
+	border: 5px solid rgb(121, 121, 121);
 }
 
 .user_badges
@@ -307,4 +307,19 @@
 #user_cooked_avg
 {
 	border-bottom: 1px solid rgba(20,20,20,0.1);
+}
+
+#badge_place i
+{
+	text-align: center;
+	width: 100%;
+	margin-top: 0.15em;
+	font-size: 7em;
+	color: rgba(231, 76, 60,1.0);
+	text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+}
+
+#badge_place .fa-calendar
+{
+	margin-top: 0.1em;
 }

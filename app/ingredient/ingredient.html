@@ -7,36 +7,21 @@
 
 		<div id="ingredients_content">
 			<div id="ing_header">
-			{{ingredientDetail.Name}}
+			{{ingredientDetail.name}}
 			</div>
 			<div id="ing_general_info">
-				<div id="bez" ng-show="ingredientDetail.Vendor">
+				<div id="bez" ng-show="ingredientDetail.vendor">
 					Hersteller:
 				</div>
 				<div id="bez_info">
-					{{ingredientDetail.Vendor}}
+					{{ingredientDetail.vendor}}
 				</div>
 				<div id="bez">
 					Typ:
 				</div>
 				<div id="bez_info">
-					{{ingredientDetail.Type}}
+					{{ingredientDetail.type}}
 				</div> 
-			</div>
-
-			<div id="ing_contents" ng-show="ingredientDetail.contents">
-				Inhaltsstoffe:
-			</div>
-			<div id="ing_contents_container" ng-repeat="content in ingredientDetail.contents | orderBy : 'name' " ng-show="ingredientDetail.contents">
-				<div id="ing_name">
-					{{content.name}}
-				</div>
-				<div id="ing_amount">
-					{{content.amount}}
-				</div>
-				<div id="ing_unit">
-					{{content.unit}}
-				</div>
 			</div>
 
 			<div id="ing_buttons">
