@@ -139,6 +139,9 @@ angular.controller('GeneralController',['user', function(user)
 }]);
 ```
 
+
+
+
 - - - -
 ## Back End ##
 
@@ -218,6 +221,39 @@ function opt(req, res){
 * **sha1** für das Hashing der Nutzerpasswörter 
 * **morgan** zum Loggen der eingehenden Anfragen
 
+### Datenbankoperationen ###
+
+Für die Umsetzung von Datenbankoperationen wurde das mongoskin-Modul verwendet, da es ein sehr schlankes Modul ist und dabei aber jede notwendige Funktionalität liefert, die für diese App benötigt wurde.
+
+### Datenbankaufrufe ###
+
+Generell sind die einzelnen API-Aufrufe in eigene Funktionen gepackt, die dann vom Router routes.js aufgerufen werden, wenn eine entsprechende Anfrage an das Backend geschickt wird. Diese Funktionen erhalten jeweils das Request- und das Response-Objekt des Routers. Bei einer GET-Anfrage werden die Route-Parameter in die Funktion übergeben. Bei einer POST-Anfrage sind alle benötigten Daten in dem Request-Objekt enthalten.
+Die entsprechenden Operationen werden in der Funktion mit Hilfe des mongoskin-Moduls ausgeführt. Die Ergebnisse werden dann an das Response-Objekt übergeben und abgeschickt. Dabei werden je nach Situation auch Fehlercodes zurückgegeben.
+
+#### Ausschnitt aus recipes.js ####
+```
+#!javascript
+
+    getByName: function(req, res, id){
+        var db = req.db;
+        console.log(Date().toString() + ": Requested recipe " + id);
+        db.collection('recipes').find({"_id": id},{"_id":1,"comments":1,"creator":1,"creatorThumb":1,"description":1,"difficulty":1,"time":1, "image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items) {
+            if (err === null){
+                if( items.length == 0){
+                    res.send(404);
+                } else {
+                    res.header("Content-Type: application/json; charset=utf-8");
+                    res.json(items[0]);
+                };
+            } else {
+                console.log(err);
+                res.send(500);
+            };
+        });
+    },
+
+```
+
 ### Berechnung der Rezeptbeliebtheit ###
 
 Um herauszufinden, welches Rezept auf der Startseite der App angezeigt werden soll, wird ein gewisser Popularitätswert aus der Anzahl der Bewertungen und der Likes sowie der durchschnittlichen Bewertung berechnet. Diese Berechnung wird jedes Mal angestoßen, wenn einer dieser Werte verändert wird, also wenn ein Nutzer ein Rezept favorisiert oder bewertet.
@@ -226,7 +262,46 @@ Popularität = (1.5 * Bewertungsdurchschnitt * log(Bewertungsanzahl+2) + (10 * l
 
 Jede Nacht um 00:01 Uhr wird das Rezept mit der höchsten Popularität ausgewählt und auf der Startseite zusammen mit einem anderen, zufällig ausgewählten Rezept angezeigt.
 
-###  ###
+### Verleihung der Badges ###
+
+Da die Manipulation von mehrfach verschachtelten Daten in der MongoDB leider nicht einfach zu lösen ist, diese aber für die Darstellung im Frontend in diesem Format benötigt ist, wurde bei der Verleihung der Badges darauf ausgewichen, zuerst den Nutzer aus der Datenbank zu laden, dann die Badges mit Hilfe von Schleifen anzupassen und schließlich die aktualisierten Daten wieder in die Datenbank zu schreiben. Die Verletzung der Isolation ist hierbei als nicht kritisch einzuschätzen, da jeweils nur der betroffene Nutzer selbst die Verleihung der Badges durch seine eigenen Aktionen anstoßen kann und dadurch mehrere gleichzeitig erfolgende Anfragen auf den gleichen Nutzer sehr unwahrscheinlich werden.
+
+
+### Bilderupload, Umrechnung und Löschen ###
+
+Der Dateiupload wird über eine POST-Anfrage an eine von zwei URLs durchgeführt (je nachdem, ob es ein Nutzer- oder Rezeptbild ist). Bei beiden Uploads wird die selbe Methode mit einem anderen Parameter aufgerufen, der bestimmt, wo das Bild gespeichert und eingetragen wird.
+Der einkommende Bilderupload wird darauf überprüft, ob es sich um ein annehmbared Dateiformat handelt und dann entsprechend in einem Ordner auf dem Backend gespeichert. Hierzu wird die Anfrage in Busboy verarbeitet. Busboy reagiert dann auf das file-Event und erstellt einen Schreib-Stream für das Bild. Mit dem finish-Event wird die Bearbeitung der Bilder angestoßen.
+Bei der Bearbeitung wird das Bild in zwei verschiedene Größen umgerechnet, um Speicherplatz und Bandbreite zu sparen (Normale Größe und Thumbnail). Für die Umrechnung der Bilder wurden die Nodemodule gm (graphicsmagick) und imagemagick verwendet.
+Wenn die Umrechnung fertiggestellt ist, wird der Pfad der Bilder in der Datenbank angepasst. Hierbei wird ein Zeitstempel als URL-Parameter angehängt, der dazu führt, dass das Frontend erkennt, dass es sich nicht mehr um das selbe Bild handelt und somit der Caching-Mechanismus ausgehebelt wird.
+
+
+#### Ausschnitt aus images.js ####
+
+```
+#!javascript
+
+    req.pipe(req.busboy);
+
+    req.busboy.on('file', function (fieldname, file, filename){
+        [...]
+        file.pipe(fs.createWriteStream(path + that.filename)); 
+    }); // on file
+
+    req.busboy.on('finish', function(){
+        console.log(Date().toString() + ": Datei " + that.filename + " wurde fertig geschrieben.");
+        exports.imageManip(that.filename, type, req.db, that.fileExtension);
+        res.send(200);
+    }); // on finish
+
+
+    var date = new Date().getTime();
+    var pathNormal = "http://personalchef.ddns.net/git/backend/imgs/" + typeCollection + "/original/" + file + "?v=" + date;
+
+```
+
+
+
+
 
 
 - - - -

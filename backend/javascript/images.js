@@ -1,16 +1,14 @@
 var fs = require('fs');
-var glob = require('glob');
 var gm = require('gm');
 var imageMagick = gm.subClass({ imageMagick: true});
 
 var exports = {
 
 	postImageUpload: function (req, res, type){
-		console.log(Date().toString() + ": Incoming " + type + " image upload");
+		console.log(Date().toString() + ": Dateiupload mit Namen  " + type);
 		var fileType = ['png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'];
 		var fileExtension = "";
 	    var filename = "";
-	    // var destinedFilename = "NoName";
 	    var that = this;
 	    var path = "";
 	    if (type == "recipes"){
@@ -18,147 +16,176 @@ var exports = {
 	    } else if (type == "users"){
 	    	path = './imgs/users/';
 		} else {
-	    	console.log(Date().toString() + ": Unsupported method: " + type);
+	    	console.log(Date().toString() + ": Fehler bei der Angabe des Collection-Typs: " + type);
 			return; 
 		};
 
-		// pipe the request into busboy
+		// übergeben der Anfrage an Busboy
 		req.pipe(req.busboy);
 
-		// reacts to file event
+		// Reaktion auf file-Event
 	    req.busboy.on('file', function (fieldname, file, filename){
-	        // check if file matches fileType
+	        // Übergeben des Dateinamens an äußeren Scope
 	        that.filename = filename;
+	        // Überprüfung, ob einkommende Datei dem verlangten Format entspricht
 	        var splits = filename.split('.');
 	        that.fileExtension = splits[splits.length-1];
 	        if (fileType.indexOf(that.fileExtension) == -1){
-	            console.log("Unsupported file type");
-	            res.send(400);
+	            console.log("Dateityp nicht unterstützt");
+	            res.send("Dateityp nicht unterstützt", 400);
 	        } else {
-	            // write to filesystem
-	            console.log(Date().toString() + ": Writing file " + that.filename);
+	            // Schreiben der Datei ins Dateisystem
+	            console.log(Date().toString() + ": Schreiben der Datei " + that.filename + " begonnen.");
 	            file.pipe(fs.createWriteStream(path + that.filename)); 
 	        }; // if
 	    }); // on file
 
-	    // reacts to finish event
+	    // Reaktion auf finish-Event, Aufruf der bildverarbeitenden Funktion
 	    req.busboy.on('finish', function(){
-	        console.log(Date().toString() + ": Finished writing file for " + that.filename);
-    		exports.imageManip(1, that.filename, type);
-        	exports.addToDB(that.filename, type, req.db, that.fileExtension);
+	        console.log(Date().toString() + ": Datei " + that.filename + " wurde fertig geschrieben.");
+    		exports.imageManip(that.filename, type, req.db, that.fileExtension);
         	res.send(200);
 	    }); // on finish
 	}, // imageUpload
 
-	imageManip: function(mode, file, type){
-		if (mode == 0){
-			var options = {
-				"cwd": "/var/www/root/git/backend/imgs/recipes"
-			};
-			glob('*.*', options, function (err, files){
-				for (var i = files.length - 1; i >= 0; i--) {
-					console.log("Resizing image: " + files[i]);
-					exports.resizeImage(files[i], "thumbnail");
-					exports.resizeImage(files[i], "normal");
-				};
-			}); // glob	
 
-			// set the workdir for glob		
-			options = {
-				"cwd": "/var/www/root/git/backend/imgs/users"
-			};
+	
+	
 
-			// 
-			glob('*.*', options, function (err, files){
-				for (var i = files.length - 1; i >= 0; i--) {
-					console.log("Resizing image: " + files[i]);
-					exports.resizeImage(files[i], "thumbnail");
-					exports.resizeImage(files[i], "normal");
-				};
-			}); // glob
-		} else if (mode == 1) {
-			exports.resizeImage(file, "thumbnail", type);
-			exports.resizeImage(file, "normal", type);
-		} // if
+
+
+	imageManip: function(file, type, db, fileExt){
+		exports.resizeImage(file, "imageThumb", type, db, fileExt);
+		exports.resizeImage(file, "image", type, db, fileExt);
 	}, // imageManip
 
-	addToDB: function (file, type, db, fileExt){
-		var name = file.substring(0, file.indexOf('.' + fileExt));
-		
-		// Anhängen eines Zeitstempels an die Bilder-URL, damit der Browser das Bild als neues behandelt und nicht das im Cache vorhandene lädt
-		var date = new Date().getTime();
-		var pathNormal = "http://personalchef.ddns.net/git/backend/imgs/" + type + "/original/" + file + "?v=" + date;
-		var pathThumb = "http://personalchef.ddns.net/git/backend/imgs/" + type + "/thumbnails/" + file + "?v=" + date;
-		db.collection(type).update({'_id': name}, {$set: {"image": pathNormal, "imageThumb": pathThumb}}, function (err, result){
-			if (err){
-				console.log(Date().toString() + ": Error while writing new image to db");
-				console.log(err);
-			} else {
-				if (result == 0){
-					console.log(Date().toString() + ": No entries were affected by db operation. No such entry in " + type + " with the name " + name);
-				} else {
-					console.log(Date().toString() + ": Added image paths to db entries");
-				};
-			}; // if
-		}); // update
-		if (type == 'users'){
-			db.collection('recipes').update({'creator': name},{$set: {'creatorThumb': pathThumb}}, {upsert:true, multi: true}, function (err, result){
-				if (err) console.log(err);
-				if (result){
-					console.log(Date().toString() + ": The creatorThumb was modified for " + result + " recipes by user " + name);
-				};
-			});
-		};
-	}, //addToDB
 
 
-	resizeImage: function(file, mode, type){
+	resizeImage: function(fileName, typeField, typeCollection, db, fileExt){
+		var oldDate = new Date();
 		var width = 80;
 		var height = 80;
-		var path = './imgs/' + type + '/thumbnails/';
-		if (mode == "normal"){
+		var path = './imgs/' + typeCollection + '/thumbnails/';
+		if (typeField == "image"){
 			width = 700;
 			height = 400;
-			path = 'imgs/' + type + '/original/';
+			path = 'imgs/' + typeCollection + '/original/';
 		};
 
-		imageMagick('./imgs/' + type + '/' + file).size(function (err, value){
+		// Errechnen der Größe des Originalbilds
+		imageMagick('./imgs/' + typeCollection + '/' + fileName).size(function (err, value){
 			if (err) console.log(err);
 			if (value){
 				if (value.width < width || value.height < height){
-					console.log(Date().toString() + ": Image " + file + " is already smaller than destined dimensions. Aborting.");
-					imageMagick('./imgs/' + type + '/' + file)
+					// unverändertes Speichern, wenn das Bild die gewünschten Dimensionen unterschreitet
+					imageMagick('./imgs/' + typeCollection + '/' + fileName)
 					.autoOrient()
-					.write(path + file, function (err){
+					.write(path + fileName, function (err){
 						if (!err) {
-							console.log(Date().toString() + ": " + file + " wasn't resized due to being smaller than specs.");
+							console.log(Date().toString() + ": " + fileName + " wurde nicht umgerechnet, da es schon kleiner als die gewünwschten Maße war. Wird jetzt zur Datenbank hinzugefügt");
+							exports.addToDB(fileName, typeCollection, db, fileExt, typeField);
 						} else {
 							console.log(err);
 						};
 					});			
 				} else {
+					cwidth = width;
+					cheight = height;
+					// Umberechnung des Bilds auf gewünschte Dimensionen
 					if (value.width > value.height){
 						width == null;
 					} else {
 						height = null;
 					}; // if
-					imageMagick('./imgs/' + type + '/' + file)
-					.resize(width, height)
-					.autoOrient()
-					.write(path + file, function (err){
+					imageMagick('./imgs/' + typeCollection + '/' + fileName)
+					.resize(width, height, '^')
+					.gravity('Center')
+					.crop(cwidth, cheight)
+					.write(path + fileName, function (err){
 						if (!err) {
-							console.log(Date().toString() + ": " + file + " was resized to " + mode);
+							console.log(Date().toString() + ": " + fileName + " wurde umgerechnet zu " + typeField + " und wird jetzt zur Datenbank hinzugefügt " + oldDate);
+							exports.addToDB(fileName, typeCollection, db, fileExt, typeField, oldDate);
 						} else {
 							console.log(err);
 						};
 					});
 				}; // if (value.width...)
 			} else {
-				console.log(Date().toString() + ": Image was not found");
+				console.log(Date().toString() + ": Bild konnte incht gefunden werden");
 			};	// if (value)	
 		}); //imageMagick
-	} //resizeImage
+	},  //resizeImage
+
+
+
+	addToDB: function (file, typeCollection, db, fileExt, field, oldDate){
+		var name = file.substring(0, file.indexOf('.' + fileExt));
+		// Anhängen eines Zeitstempels an die Bilder-URL, damit der Browser das Bild als neues behandelt und nicht das im Cache vorhandene lädt
+		var date = new Date().getTime();
+		var pathNormal = "http://personalchef.ddns.net/git/backend/imgs/" + typeCollection + "/original/" + file + "?v=" + date;
+		var pathThumb = "http://personalchef.ddns.net/git/backend/imgs/" + typeCollection + "/thumbnails/" + file + "?v=" + date;
+		
+		if (field == 'image'){
+			db.collection(typeCollection).update({'_id': name}, {$set: {image: pathNormal}}, function(err, result){
+				if (err){
+					console.log(err);
+				} else if (result) {
+					console.log("123 " + oldDate);
+					exports.deleteFile(db, typeCollection, file, oldDate);
+				};
+			});
+		} else if (field == 'imageThumb') {
+			db.collection(typeCollection).update({'_id': name}, {$set: {imageThumb: pathThumb}}, function(err, result){
+				if (err){
+					console.log(err);
+				} else if (result) {
+					console.log("1234 " + oldDate);
+					exports.deleteFile(db, typeCollection, file, oldDate);
+				};
+			});
+		};
+
+		if (typeCollection == 'users' && field == 'imageThumb'){
+			db.collection('recipes').update({'creator': name},{$set: {'creatorThumb': pathThumb}}, {multi: true}, function (err, result){
+				if (err) console.log(err);
+				if (result){
+					console.log(Date().toString() + ": Thumbnails für die Eigenkreationen von Nutzer " + name + " wurde bei " + result + " Rezepten angepasst");
+				};
+			});
+		};
+	}, //addToDB
+
+	deleteFile: function(db, typeCollection, fileName, oldDate){
+		var filepath = "./imgs/" + typeCollection + "/" + fileName;
+		var id = fileName.substring(0, fileName.indexOf('.'));
+		db.collection(typeCollection).find({'_id': id}, {'image': 1, 'imageThumb': 1}).toArray(function (err, items) {
+			if (err) {
+				console.log(err);
+			} else if (!items.length) {
+				console.log(Date().toString() + ": Dokument " + fileName + " wurde nicht in Collection " + typeCollection + " gefunden. (images.deleteFile)");
+			} else {
+				var imagePath = items[0].image;
+				var imageThumbPath = items[0].imageThumb;
+				console.log("243123 " + oldDate);
+				if (isOlder(imagePath, oldDate) && isOlder(imageThumbPath, oldDate)){
+					fs.unlink(filepath, function(err){
+						if (err) {
+							console.log(Date().toString() + ": Fehler beim Löschen der Datei " + fileName);
+						} else {
+							console.log(Date().toString() + ": Datei " + fileName + " wurde gelöscht");
+						};
+					});
+				} else {
+					console.log(Date().toString() + ": Datei wird noch nicht gelöscht, da noch darauf gewartet wird, dass das Umrechnen beendet wird.");
+				};
+			};
+		});
+	}
 };
 
+function isOlder(db_path, date){
+	var splitted = db_path.split('?v=');
+	return date.getTime() < splitted[1];
+};
 
 module.exports = exports;

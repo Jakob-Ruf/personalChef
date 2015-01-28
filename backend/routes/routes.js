@@ -7,7 +7,7 @@ var ownAuth = require('../javascript/ownAuth.js');
 var badges = require('../javascript/badges.js');
 
 
-module.exports = function(app, passport){
+module.exports = function(app){
 
 	// users
 	// gets
@@ -53,11 +53,8 @@ module.exports = function(app, passport){
 		opt(req, res);
 	});
 
-	app.post('/users/fridgeRecipes', function (req, res){
-		users.postFridgeRecipes(req, res);
-	});
-	app.options('/users/fridgeRecipes', function (req, res){
-		opt(req, res);
+	app.get('/users/fridgeRecipes/:id', function (req, res){
+		users.postFridgeRecipes(req, res, req.params.id);
 	});
 
 	app.post('/users/report', function (req, res){
@@ -188,19 +185,18 @@ module.exports = function(app, passport){
 
 
 	// remove for productive systems
-	app.post('/badges/add', function (req, res){
-		badges.addBadge(req.db, req.body.user, req.body.badge, req.body.category);
-	});
-	app.options('/badges/add', function (req, res){
-		opt(req, res);
-	});
+	// app.post('/badges/add', function (req, res){
+	// 	badges.addBadge(req.db, req.body.user, req.body.badge, req.body.category);
+	// });
+	// app.options('/badges/add', function (req, res){
+	// 	opt(req, res);
+	// });
 
 
 
 	// auth
 
 	app.post('/signup', function (req, res){
-		console.log(req.body);
 		ownAuth.signup(req, res);
 	});
 	app.options('/signup', function (req, res){
