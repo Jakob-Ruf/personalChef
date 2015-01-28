@@ -1,4 +1,6 @@
 var http = require('http');
+var fs = require('fs');
+var iconv = require('iconv-lite');
 
 
 var exports = {
@@ -10,14 +12,15 @@ var exports = {
 		return http.get(url, 
 			function(response) {
 		        // Continuously update stream with data
-		        var body = '';
+		        var stringbody = "";
 		        response.on('data', function(d) {
-		            body += d
+		        	var string = iconv.decode(d, 'ISO-8859-1');
+		            stringbody += string;
 		        });
 		        response.on('end', function() {
 
 		        	// Format body when stream is catched completely
-					var eanString = body;
+					var eanString = stringbody;
 					
 					// Überprüfung, ob Zutat in EAN-Datenbank vorhanden ist
 					if (eanString.indexOf("error=0") != -1){ 
