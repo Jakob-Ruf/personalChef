@@ -6,10 +6,10 @@
 		</div>
 
 		<div id="ingredients_content">
-			<div id="ing_header">
+			<div id="ing_header" ng-hide="ingredientDetail.error">
 			{{ingredientDetail.name}}
 			</div>
-			<div id="ing_general_info">
+			<div id="ing_general_info" ng-hide="ingredientDetail.error">
 				<div id="bez" ng-show="ingredientDetail.vendor">
 					Hersteller:
 				</div>
@@ -23,10 +23,18 @@
 					{{ingredientDetail.type}}
 				</div> 
 			</div>
+			<div ng-show="ingredientDetail.error">
+				Die von dir gesuchte Zutat wurde leider nicht gefunden! Bitte suche manuell danach.
+			</div>
 
-			<div id="ing_buttons">
+			<div id="ing_buttons" ng-hide="ingredientDetail.error">
 				<button ng-mousedown="ingCtrl.rec()">Rezepte damit suchen</button>
 				<button ng-mousedown="ingCtrl.fridge()">Zutat in den Kühlschrank</button>
+			</div>
+
+			<div id="ing_buttons" ng-show="ingredientDetail.error">
+				<button ng-mousedown="ingCtrl.recNf()">Rezepte suchen</button>
+				<button ng-mousedown="ingCtrl.fridgeNf()">Zum Kühlschrank</button>
 			</div>
 		</div>
 

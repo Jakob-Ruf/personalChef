@@ -21,12 +21,12 @@ angular.module('rezeptApp.ingredient', ['ngRoute'])
 		/* Auszuführende Funktion wenn alle Daten vorliegen */
 		d.$promise.then(function(data)
 		{
-			console.log(data);
 			/* Ausblenden der Ladeanimation */
 			document.getElementById('loading').style.display = 'none';
 			document.getElementById('ingredients_content').style.display = 'block';
 			/* Setzen der anzuzeigenden Daten */
 			$scope.ingredientDetail = data;
+			console.log(data);
 		});
 
 		this.rec = function()
@@ -34,9 +34,19 @@ angular.module('rezeptApp.ingredient', ['ngRoute'])
 			window.location = '#/rezepte/r:' + $scope.ingredientDetail.Type ;
 		}
 
+		this.recNf = function()
+		{
+			window.location = '#/rezepte/';
+		}
+
 		this.fridge = function()
 		{
 			window.location = '#/fridge/' + $scope.ingredientDetail.Type ;
+		}
+
+		this.fridgeNf = function()
+		{
+			window.location = '#/fridge/';
 		}
 
 }])
