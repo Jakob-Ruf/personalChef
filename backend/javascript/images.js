@@ -83,7 +83,7 @@ var exports = {
 					.write(path + fileName, function (err){
 						if (!err) {
 							console.log(Date().toString() + ": " + fileName + " wurde nicht umgerechnet, da es schon kleiner als die gewünwschten Maße war. Wird jetzt zur Datenbank hinzugefügt");
-							exports.addToDB(fileName, typeCollection, db, fileExt, typeField);
+							exports.addToDB(fileName, typeCollection, db, fileExt, typeField, oldDate);
 						} else {
 							console.log(err);
 						};
@@ -155,6 +155,9 @@ var exports = {
 		};
 	}, //addToDB
 
+
+
+
 	deleteFile: function(db, typeCollection, fileName, oldDate){
 		var filepath = "./imgs/" + typeCollection + "/" + fileName;
 		var id = fileName.substring(0, fileName.indexOf('.'));
@@ -182,6 +185,8 @@ var exports = {
 		});
 	}
 };
+
+
 
 function isOlder(db_path, date){
 	var splitted = db_path.split('?v=');

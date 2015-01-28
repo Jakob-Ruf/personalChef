@@ -92,6 +92,7 @@ var exports = {
 
 	postFridge: function(req, res, id){
 		var db = req.db;
+		console.log(req.body);
 	    db.collection('users').find({"_id": req.body._id}).toArray(function (err, users){
 	        if ( err === null){
 	            if (users.length == 0){
@@ -149,7 +150,7 @@ var exports = {
 	                            throw err;
 	                        };
 	                    });
-	                };
+	                }; // manipulateFridge
 	            };
 	        } else {
 	            res.send(500);
@@ -288,7 +289,6 @@ var exports = {
 	                                    for (var k = user.fridge.length - 1; k >= 0; k--) {
 	                                        if (user.fridge[k]._id == recipes[i].ingredients[j]._id){
 	                                            // if ingredient in fridge matches recipe ingredient, write 1 into result-array
-	                                            console.log(user.fridge[k]._id + " == " + recipes[i].ingredients[j]._id + " ( " + recipes[i]._id + ") i=" + i + " j=" + j);
 	                                            result[i][j] = 1;
 	                                            break;
 	                                        } else {
