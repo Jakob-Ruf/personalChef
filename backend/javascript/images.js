@@ -130,7 +130,6 @@ var exports = {
 				if (err){
 					console.log(err);
 				} else if (result) {
-					console.log("123 " + oldDate);
 					exports.deleteFile(db, typeCollection, file, oldDate);
 				};
 			});
@@ -139,7 +138,6 @@ var exports = {
 				if (err){
 					console.log(err);
 				} else if (result) {
-					console.log("1234 " + oldDate);
 					exports.deleteFile(db, typeCollection, file, oldDate);
 				};
 			});
@@ -169,7 +167,6 @@ var exports = {
 			} else {
 				var imagePath = items[0].image;
 				var imageThumbPath = items[0].imageThumb;
-				console.log("243123 " + oldDate);
 				if (isOlder(imagePath, oldDate) && isOlder(imageThumbPath, oldDate)){
 					fs.unlink(filepath, function(err){
 						if (err) {

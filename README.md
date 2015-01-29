@@ -220,6 +220,7 @@ function opt(req, res){
 * **node-schedule** für Tasks im Backend, die regelmäßig ausgeführt werden sollen
 * **sha1** für das Hashing der Nutzerpasswörter 
 * **morgan** zum Loggen der eingehenden Anfragen
+* **iconv-lite** zum Umkodieren der Antwort des EAN-Servers von ISO-8859-4 zu UTF-8
 
 ### Datenbankoperationen ###
 

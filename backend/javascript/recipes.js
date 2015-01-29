@@ -29,12 +29,12 @@ var exports = {
 	    });
 	},
 
-	getFlist: function(req, res){
-		var db = req.db;
-		db.collection('recipes').find({},{},{$sort: {'_id': 1}}).toArray( function (err, items){
-			res.json(items);
-		});	
-	},
+	// getFlist: function(req, res){
+	// 	var db = req.db;
+	// 	db.collection('recipes').find({},{},{$sort: {'_id': 1}}).toArray( function (err, items){
+	// 		res.json(items);
+	// 	});	
+	// },
 
 	getList: function(req, res){
 	    var db = req.db;
@@ -90,7 +90,7 @@ var exports = {
 
 	getWithIngredient: function(req, res, id){
 	    var db = req.db;
-	    console.log(Date().toString() + ": Requested recipes with ingredient " + req.params.iid);
+	    console.log(Date().toString() + ": Anfrage des Rezepts mit Zutat " + req.params.iid);
 	    db.collection('ingredients').find({"_id": id},{"_id":1,"comments":1,"creator":1,"description":1,"difficulty":1,"image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items){
 	        if (err === null){
 	            if (items.length == 0){
@@ -119,7 +119,7 @@ var exports = {
 
 	getByName: function(req, res, id){
 		 var db = req.db;
-	    console.log(Date().toString() + ": Requested recipe " + id);
+	    console.log(Date().toString() + ": Anfrage an Rezept " + id);
 	    db.collection('recipes').find({"_id": id},{"_id":1,"comments":1,"creator":1,"creatorThumb":1,"description":1,"difficulty":1,"time":1, "image":1,"ingredients":1,"likes":1, "ratings_average":1}).toArray(function (err, items) {
 	        if (err === null){
 	            if( items.length == 0){
@@ -139,7 +139,7 @@ var exports = {
 		var db = req.db;
 	    var recipe = {};
 
-	    console.log(Date().toString() + ": Requested adding of recipe " + recipe._id);
+	    console.log(Date().toString() + ": Rezept " + req.body._id + " wird hinzugefügt.");
 
 	    // Überprüfen, ob alle notwendigen Felder übergeben wurden
 	    if ( !req.body._id || !req.body.creator || !req.body.description || !req.body.difficulty || !req.body.time){

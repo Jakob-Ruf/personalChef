@@ -65,14 +65,14 @@ var exports = {
 	    });
 	},
 
-	getFlist: function(req, res){
-	    var db = req.db;
-	    db.collection('users').find().toArray(function (err, items){
-	        if (err === null){
-	            res.json(items);
-	        }
-	    });
-	},
+	// getFlist: function(req, res){
+	//     var db = req.db;
+	//     db.collection('users').find().toArray(function (err, items){
+	//         if (err === null){
+	//             res.json(items);
+	//         }
+	//     });
+	// },
 
 	getFridge: function(req, res, id){
 		var db = req.db;
