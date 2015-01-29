@@ -71,6 +71,7 @@ angular.module('rezeptApp.login', ['ngRoute'])
 		{
 			if (data != "") 
 			{
+				popUp.className = "";
 				window.location = '#/home/' + user.username;
 			};
 				//TODO Verarbeitung der Antwort mit Weiterleitung auf die richtige Seite

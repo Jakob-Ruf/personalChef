@@ -9,7 +9,7 @@ angular.module('rezeptApp.recImgUpload', ['ngRoute','angularFileUpload'])
 		reloadOnSearch: true});
 }])
 
-.controller('RecImgController',['$routeParams','rec_get', '$scope','$upload', 'user', function($routeParams, rec_get, $scope, $upload, user){
+.controller('RecImgController',['$routeParams','rec_get', '$scope','$upload', 'user','$timeout', function($routeParams, rec_get, $scope, $upload, user,$timeout){
 
 	if (!user.loggedIn)
 	{
