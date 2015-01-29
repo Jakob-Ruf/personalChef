@@ -36,11 +36,11 @@
 					</div>
 				</div>
 				<div class="tut_backgroundlayer">
-					<form role="form" ng-submit='check_input()'>
+					<form role="form">
 						<fieldset>
 							<div class="home_search">
 								<a id="home_input_pic"><i class="fa fa-camera fa-2x"></i></a>
-								<input type="text" id="home_input" placeholder="Zutat/Rezept eingeben...">
+								<input type="text" id="home_input" placeholder="Zutat/Rezept eingeben..." readonly>
 								<a id="home_search_btn"><i class="fa fa-search fa-2x"></i></a>
 							</div>
 						</fieldset>
@@ -63,11 +63,11 @@
 								<i class="fa fa-clock-o"></i>12 min
 							</div>
 							<div class="rec_rating">
-								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(1, rezept)" ></i>
-								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(2, rezept)" ></i>
-								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(3, rezept)" ></i>
-								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(4, rezept)" ></i>
-								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(5, rezept)" ></i>
+								<i class="fa fa-star fa-2x"></i>
+								<i class="fa fa-star fa-2x"></i>
+								<i class="fa fa-star fa-2x"></i>
+								<i class="fa fa-star fa-2x"></i>
+								<i class="fa fa-star fa-2x"></i>
 							</div>
 						</div>
 						<h1>Rezept des Community</h1>
@@ -86,9 +86,9 @@
 								<i class="fa fa-clock-o"></i>30 min
 							</div>
 							<div class="rec_rating">
-								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(1, rezept)" ></i>
-								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(2, rezept)" ></i>
-								<i class="fa fa-star fa-2x" ng-class="ratingIsActive(3, rezept)" ></i>
+								<i class="fa fa-star fa-2x"></i>
+								<i class="fa fa-star fa-2x"></i>
+								<i class="fa fa-star fa-2x"></i>
 							</div>
 						</div>
 					</div>
@@ -108,9 +108,9 @@
 									<fieldset>
 										<div class="fridge_form">
 											<!-- Eingabefeld für Zutaten -->
-											<input type="text" id="fridge_input" placeholder="Zutat hinzufügen..." ng-focus="fridgeCtrl.switch_autocomplete(true)"  ng-blur="fridgeCtrl.switch_autocomplete(false)" autocomplete="off" required>
-											<input type="number" id="fridge_input_amount" min="0" placeholder="Menge" autocomplete="off" required>
-											<input type="text" id="fridge_input_unit" disabled="true" required>
+											<input type="text" id="fridge_input" placeholder="Zutat hinzufügen..." autocomplete="off" required readonly>
+											<input type="number" id="fridge_input_amount" min="0" placeholder="Menge" autocomplete="off" required readonly>
+											<input type="text" id="fridge_input_unit" disabled="true" required readonly>
 											<!-- Button zum Hinzufügen -->
 											<button id="input_add_btn" type="submit"><i class="fa fa-plus fa-2x"></i></button>
 											<ul id="fridge_autocomplete_list">
@@ -171,7 +171,7 @@
 				<div>
 					<div>
 						<div id="recL_filter">
-							<input class="tut_dummyInput" placeholder="Rezeptnamen durchsuchen">
+							<input class="tut_dummyInput" readonly placeholder="Rezeptnamen durchsuchen">
 							<a id="recL_filter_switch" href><i class="fa fa-refresh fa-2x"></i></a>
 						</div>
 						<div class="recL_rec">
@@ -235,9 +235,9 @@
 				</div>
 				<div >
 					<form>
-						<input id="rec_input_full" type="text" name="rec_name" placeholder="Rezeptnamen angeben" required tabindex="1">
-						<input id="rec_input_half" type="number" name="rec_time" placeholder="Dauer in min." required tabindex="2">
-						<select id="rec_input_half2" tabindex="3">
+						<input id="rec_input_full" type="text" name="rec_name" placeholder="Rezeptnamen angeben" required tabindex="1" readonly>
+						<input id="rec_input_half" type="number" name="rec_time" placeholder="Dauer in min." required tabindex="2" readonly>
+						<select id="rec_input_half2" tabindex="3" disabled="true">
 							<option value="1">Leicht</option>
 							<option value="2">Mittel</option>
 							<option value="3">Schwer</option>
@@ -268,8 +268,8 @@
 						</div>
 						<div class="rec_input_div" >
 							<form>
-								<input id="rec_input_full" type="text" name="rec_ing" placeholder="Zutat hinzufügen" required>
-								<input id="rec_input_half" type="number" name="rec_ing"  placeholder="Menge" required>
+								<input id="rec_input_full" readonly type="text" name="rec_ing" placeholder="Zutat hinzufügen" required>
+								<input id="rec_input_half" readonly type="number" name="rec_ing"  placeholder="Menge" required>
 								<select id="rec_input_half2">
 									<option value="g">Gramm</option>
 								</select>
@@ -360,9 +360,9 @@
 						</div>
 						<div class="rec_input_div" >
 							<form>
-								<input id="rec_input_full" type="text" name="rec_ing" placeholder="Zutat hinzufügen" required>
-								<input id="rec_input_half" type="number" name="rec_ing"  placeholder="Menge" required>
-								<select id="rec_input_half2">
+								<input id="rec_input_full" readonly type="text" name="rec_ing" placeholder="Zutat hinzufügen" required>
+								<input id="rec_input_half" readonly type="number" name="rec_ing"  placeholder="Menge" required>
+								<select id="rec_input_half2" disabled="true">
 									<option value="g">Gramm</option>
 								</select>
 								<button type="submit" id="rec_submit">
