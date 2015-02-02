@@ -7,7 +7,7 @@ var exports = {
 	getRecipe: function( req, res, ean){
 		var db = req.db;
 		// build URL
-		url = "http://opengtindb.org/?ean=" + ean + "&cmd=query&queryid=472256359"
+		url = "http://opengtindb.org/?ean=" + ean + "&cmd=query&queryid=47275256359"
 
 		return http.get(url, 
 			function(response) {
