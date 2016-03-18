@@ -1,5 +1,5 @@
 # README #
-
+Dies ist die Readme für das Projekt personalChef der Vorlesung "Mobile Applications - Frameworks"
 
 ## Front End ##
 
